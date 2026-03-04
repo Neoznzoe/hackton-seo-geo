@@ -53,3 +53,23 @@ export interface Category {
   metaTitle: string;
   metaDescription: string;
 }
+
+export interface ToolComparison {
+  tool1: AnalyticsTool;
+  tool2: AnalyticsTool;
+  slug: string;
+  faq: FaqItem[];
+  verdict: {
+    startup: string;
+    enterprise: string;
+    privacy: string;
+    budget: string;
+  };
+}
+
+export interface GlossaryTerm {
+  term: string;
+  slug: string;
+  definition: string;
+  relatedTools?: string[];
+}

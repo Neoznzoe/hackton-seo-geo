@@ -34,6 +34,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  verification: {
+    other: {
+      "ahrefs-site-verification": "2fee7d9bd4184eea7bdb303eb34b3beed69bb36ce0e72b14181aaece5f637196",
+    },
+  },
 };
 
 const websiteJsonLd: WebSite = {

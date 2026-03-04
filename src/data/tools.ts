@@ -736,3 +736,26 @@ export function getToolBySlug(slug: string): AnalyticsTool | undefined {
 export function getToolsByCategory(categorySlug: string): AnalyticsTool[] {
   return tools.filter((t) => t.categories.includes(categorySlug as AnalyticsTool["categories"][number]));
 }
+
+export function generateToolPairs(): { tool1: AnalyticsTool; tool2: AnalyticsTool; slug: string }[] {
+  const pairs: { tool1: AnalyticsTool; tool2: AnalyticsTool; slug: string }[] = [];
+  for (let i = 0; i < tools.length; i++) {
+    for (let j = i + 1; j < tools.length; j++) {
+      pairs.push({
+        tool1: tools[i],
+        tool2: tools[j],
+        slug: `${tools[i].slug}-vs-${tools[j].slug}`,
+      });
+    }
+  }
+  return pairs;
+}
+
+export function parseVsSlug(slug: string): { tool1: AnalyticsTool; tool2: AnalyticsTool } | null {
+  const parts = slug.split("-vs-");
+  if (parts.length !== 2) return null;
+  const tool1 = getToolBySlug(parts[0]);
+  const tool2 = getToolBySlug(parts[1]);
+  if (!tool1 || !tool2) return null;
+  return { tool1, tool2 };
+}
