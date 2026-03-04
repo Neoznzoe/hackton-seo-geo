@@ -4,7 +4,6 @@ import { categories } from "@/data/categories";
 import { getToolsByCategory } from "@/data/tools";
 import ToolCard from "@/components/tools/ToolCard";
 import CategoryCard from "@/components/categories/CategoryCard";
-import SummaryBox from "@/components/content/SummaryBox";
 import FaqSection from "@/components/content/FaqSection";
 import JsonLd from "@/components/seo/JsonLd";
 import { BASE_URL } from "@/lib/constants";
@@ -67,19 +66,6 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={{ "@context": "https://schema.org", ...itemListJsonLd }} />
-
-      {/* Summary Box */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8">
-        <SummaryBox
-          points={[
-            "8 outils analytics compares : GA4, Matomo, Plausible, Piwik PRO, Simple Analytics, Fathom, Adobe Analytics, Umami.",
-            "6 outils sur 8 sont conformes RGPD et exemptes de consentement CNIL.",
-            "4 outils proposent une offre gratuite : GA4, Matomo On-Premise, Umami, Piwik PRO Core.",
-            "3 outils sont open source : Matomo, Plausible, Umami.",
-          ]}
-          conclusion="Matomo est le meilleur compromis fonctionnalites/conformite RGPD. Plausible est le plus simple. GA4 est le plus complet mais non conforme RGPD."
-        />
-      </div>
 
       {/* Hero */}
       <section className="bg-gradient-to-b from-blue-50 to-white py-16 sm:py-24">
