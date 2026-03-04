@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { SITE_NAME, BASE_URL, SITE_DESCRIPTION } from "@/lib/constants";
 import Header from "@/components/layout/Header";
@@ -50,6 +51,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className={inter.className}>
+      <head>
+        <Script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="vYRjRajg31erbUZSCpLk9w"
+          strategy="afterInteractive"
+          async
+        />
+      </head>
       <body className="bg-white text-gray-900 antialiased min-h-screen flex flex-col">
         <JsonLd data={{ "@context": "https://schema.org", ...websiteJsonLd }} />
         <Header />
