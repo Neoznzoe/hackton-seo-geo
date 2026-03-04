@@ -8,7 +8,8 @@ const navigation = [
   { name: "Accueil", href: "/" },
   { name: "Comparer", href: "/comparer" },
   { name: "Outils", href: "/#outils" },
-  { name: "Categories", href: "/#categories" },
+  { name: "Guide", href: "/guide/choisir-outil-analytics" },
+  { name: "Glossaire", href: "/glossaire" },
 ];
 
 export default function Header() {

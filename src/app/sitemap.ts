@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { tools } from "@/data/tools";
+import { tools, generateToolPairs } from "@/data/tools";
 import { categories } from "@/data/categories";
 import { BASE_URL } from "@/lib/constants";
 
@@ -19,6 +19,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    {
+      url: `${BASE_URL}/guide/choisir-outil-analytics`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/ressources/rgpd-analytics`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/glossaire`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
   ];
 
   const toolPages: MetadataRoute.Sitemap = tools.map((tool) => ({
@@ -35,5 +53,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...toolPages, ...categoryPages];
+  const vsPages: MetadataRoute.Sitemap = generateToolPairs().map((pair) => ({
+    url: `${BASE_URL}/comparer/${pair.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...toolPages, ...categoryPages, ...vsPages];
 }

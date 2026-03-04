@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import { SITE_NAME, BASE_URL, SITE_DESCRIPTION } from "@/lib/constants";
+import { SITE_NAME, BASE_URL, SITE_DESCRIPTION, SITE_LOCALE, SITE_LANGUAGE, SITE_COUNTRY } from "@/lib/constants";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import ScrollToTop from "@/components/layout/ScrollToTop";
 import JsonLd from "@/components/seo/JsonLd";
 import { WebSite } from "schema-dts";
 
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   openGraph: {
     type: "website",
-    locale: "fr_FR",
+    locale: SITE_LOCALE,
     siteName: SITE_NAME,
     title: `${SITE_NAME} - Comparateur d'outils analytics web`,
     description: SITE_DESCRIPTION,
@@ -33,6 +34,15 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/",
+    languages: {
+      "fr": "/",
+      "x-default": "/",
+    },
+  },
+  other: {
+    "geo.region": SITE_COUNTRY,
+    "geo.placename": "France",
+    "content-language": SITE_LANGUAGE,
   },
   verification: {
     other: {
@@ -46,7 +56,20 @@ const websiteJsonLd: WebSite = {
   name: SITE_NAME,
   url: BASE_URL,
   description: SITE_DESCRIPTION,
-  inLanguage: "fr",
+  inLanguage: SITE_LANGUAGE,
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org" as const,
+  "@type": "Organization",
+  name: SITE_NAME,
+  url: BASE_URL,
+  description: SITE_DESCRIPTION,
+  areaServed: {
+    "@type": "Country",
+    name: "France",
+  },
+  knowsLanguage: SITE_LANGUAGE,
 };
 
 export default function RootLayout({
@@ -66,9 +89,14 @@ export default function RootLayout({
       </head>
       <body className="bg-white text-gray-900 antialiased min-h-screen flex flex-col">
         <JsonLd data={{ "@context": "https://schema.org", ...websiteJsonLd }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <ScrollToTop />
       </body>
     </html>
   );

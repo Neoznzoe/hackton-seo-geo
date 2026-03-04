@@ -4,6 +4,7 @@ import { categories } from "@/data/categories";
 import { getToolsByCategory } from "@/data/tools";
 import ToolCard from "@/components/tools/ToolCard";
 import CategoryCard from "@/components/categories/CategoryCard";
+import SummaryBox from "@/components/content/SummaryBox";
 import FaqSection from "@/components/content/FaqSection";
 import JsonLd from "@/components/seo/JsonLd";
 import { BASE_URL } from "@/lib/constants";
@@ -11,29 +12,44 @@ import { ItemList } from "schema-dts";
 
 const homeFaq = [
   {
-    question: "Quel est le meilleur outil analytics en 2025 ?",
+    question: `Quel est le meilleur outil analytics en ${new Date().getFullYear()} ?`,
     answer:
-      "Il n'existe pas de meilleur outil universel. Google Analytics 4 est le plus complet et gratuit, Matomo est ideal pour la conformite RGPD avec auto-hebergement, et Plausible est parfait pour ceux qui veulent la simplicite et le respect de la vie privee. Le choix depend de vos besoins en fonctionnalites, budget et conformite.",
+      `Le meilleur outil analytics depend de vos besoins. Google Analytics 4 est le plus complet et gratuit (25 millions d'evenements/mois). Matomo est la reference pour la conformite RGPD avec auto-hebergement gratuit. Plausible est le choix ideal pour la simplicite et le respect de la vie privee (script < 1 ko). Pour les grandes entreprises, Adobe Analytics offre l'IA predictive et l'attribution avancee.`,
   },
   {
     question: "Quel outil analytics est conforme au RGPD sans bandeau cookies ?",
     answer:
-      "Matomo (en configuration sans cookies), Plausible, Simple Analytics, Fathom, Umami et Piwik PRO (en mode cookieless) sont tous utilisables sans bandeau de consentement cookies. La CNIL recommande notamment Matomo en configuration respectueuse de la vie privee.",
+      "6 outils sur 8 sont exemptes de consentement CNIL : Matomo (en configuration sans cookies), Plausible, Simple Analytics, Fathom, Umami et Piwik PRO (en mode cookieless). La CNIL recommande officiellement Matomo en configuration respectueuse de la vie privee. Ces outils ne collectent aucune donnee personnelle et fonctionnent sans cookies.",
   },
   {
     question: "Existe-t-il des alternatives gratuites a Google Analytics ?",
     answer:
-      "Oui, plusieurs alternatives gratuites existent : Matomo On-Premise (open source, auto-heberge), Umami (open source, auto-heberge), et Piwik PRO Core (jusqu'a 500 000 actions/mois). Ces outils offrent en plus un meilleur respect de la vie privee.",
+      "Oui, 4 alternatives gratuites existent : Matomo On-Premise (open source, auto-heberge, fonctionnalites comparables a GA4), Umami (open source, MIT License, interface moderne), Piwik PRO Core (500 000 actions/mois gratuites, consent manager inclus) et Google Analytics 4 lui-meme. Matomo et Umami offrent en plus un controle total des donnees et la conformite RGPD.",
   },
   {
     question: "Comment choisir entre Matomo et Plausible ?",
     answer:
-      "Matomo est plus complet (e-commerce, heatmaps, A/B testing) et convient aux sites complexes. Plausible est plus simple, plus leger (script < 1 ko) et ideal pour les sites qui veulent des metriques essentielles sans complexite. Les deux sont conformes RGPD.",
+      "Matomo est le choix pour les sites complexes : suivi e-commerce, heatmaps, A/B testing, import GA, auto-hebergement gratuit. Plausible est le choix pour la simplicite : script ultra-leger (< 1 ko vs 45 ko pour GA4), tableau de bord epure, tarifs a partir de 9 €/mois. Les deux sont conformes RGPD et exemptes de consentement CNIL.",
   },
   {
     question: "Qu'est-ce que DevRadar ?",
     answer:
-      "DevRadar est un comparateur independant d'outils analytics web. Nous analysons et comparons 8 solutions (GA4, Matomo, Plausible, Piwik PRO, Simple Analytics, Fathom, Adobe Analytics, Umami) sur des criteres objectifs : fonctionnalites, tarifs, conformite RGPD et facilite d'utilisation.",
+      "DevRadar est un comparateur independant d'outils analytics web cree en France. Il analyse et compare 8 solutions (GA4, Matomo, Plausible, Piwik PRO, Simple Analytics, Fathom, Adobe Analytics, Umami) sur des criteres objectifs : fonctionnalites, tarifs, conformite RGPD/CNIL et facilite d'utilisation. Aucun classement sponsorise.",
+  },
+  {
+    question: "Quelles sont les recommandations de la CNIL pour les analytics ?",
+    answer:
+      "La CNIL recommande d'utiliser des outils analytics qui ne transferent pas de donnees hors UE, fonctionnent sans cookies et ne collectent pas de donnees personnelles. Depuis fevrier 2022, la CNIL considere Google Analytics non conforme au RGPD. Elle recommande Matomo en configuration sans cookies comme alternative et exempte de consentement 6 outils de notre comparatif.",
+  },
+  {
+    question: "Quel est le meilleur outil analytics open source ?",
+    answer:
+      "Matomo est le meilleur outil analytics open source en termes de fonctionnalites : suivi e-commerce, heatmaps, A/B testing, import GA, exempte CNIL. Umami (licence MIT) est le plus leger et le plus simple a deployer (Docker, Vercel, Railway). Plausible (AGPL) offre le meilleur compromis simplicite/conformite avec un script < 1 ko.",
+  },
+  {
+    question: "Combien coute un outil analytics ?",
+    answer:
+      "Les prix varient de 0 € a plus de 100 000 $/an. Gratuits : GA4 (25M evenements/mois), Matomo On-Premise, Umami self-hosted, Piwik PRO Core (500K actions/mois). Abordables : Plausible a partir de 9 €/mois, Umami Cloud 9 $/mois, Fathom 15 $/mois. Entreprise : Adobe Analytics et GA4 360 sur devis (100 000+ $/an).",
   },
 ];
 
@@ -51,6 +67,19 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={{ "@context": "https://schema.org", ...itemListJsonLd }} />
+
+      {/* Summary Box */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8">
+        <SummaryBox
+          points={[
+            "8 outils analytics compares : GA4, Matomo, Plausible, Piwik PRO, Simple Analytics, Fathom, Adobe Analytics, Umami.",
+            "6 outils sur 8 sont conformes RGPD et exemptes de consentement CNIL.",
+            "4 outils proposent une offre gratuite : GA4, Matomo On-Premise, Umami, Piwik PRO Core.",
+            "3 outils sont open source : Matomo, Plausible, Umami.",
+          ]}
+          conclusion="Matomo est le meilleur compromis fonctionnalites/conformite RGPD. Plausible est le plus simple. GA4 est le plus complet mais non conforme RGPD."
+        />
+      </div>
 
       {/* Hero */}
       <section className="bg-gradient-to-b from-blue-50 to-white py-16 sm:py-24">

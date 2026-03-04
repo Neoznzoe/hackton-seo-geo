@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300 mt-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
             <p className="text-lg font-bold text-white">{SITE_NAME}</p>
@@ -59,6 +59,30 @@ export default function Footer() {
                   className="text-sm hover:text-white transition-colors"
                 >
                   Comparer tous les outils
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Ressources */}
+          <div>
+            <p className="text-sm font-semibold text-white uppercase tracking-wide">
+              Ressources
+            </p>
+            <ul className="mt-3 space-y-2">
+              <li>
+                <Link href="/guide/choisir-outil-analytics" className="text-sm hover:text-white transition-colors">
+                  Guide : choisir son outil
+                </Link>
+              </li>
+              <li>
+                <Link href="/ressources/rgpd-analytics" className="text-sm hover:text-white transition-colors">
+                  RGPD et analytics
+                </Link>
+              </li>
+              <li>
+                <Link href="/glossaire" className="text-sm hover:text-white transition-colors">
+                  Glossaire
                 </Link>
               </li>
             </ul>

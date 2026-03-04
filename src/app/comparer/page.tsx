@@ -1,13 +1,14 @@
 import { Metadata } from "next";
-import { tools } from "@/data/tools";
+import Link from "next/link";
+import { tools, generateToolPairs, parseVsSlug } from "@/data/tools";
+import { CURRENT_YEAR } from "@/lib/constants";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import ComparisonTable from "@/components/compare/ComparisonTable";
 import FaqSection from "@/components/content/FaqSection";
 
 export const metadata: Metadata = {
-  title: "Comparatif des outils analytics web 2025",
-  description:
-    "Tableau comparatif complet de 8 outils analytics : GA4, Matomo, Plausible, Piwik PRO, Simple Analytics, Fathom, Adobe Analytics, Umami. Prix, fonctionnalites, RGPD.",
+  title: `Comparatif des outils analytics web ${CURRENT_YEAR}`,
+  description: `Tableau comparatif complet de 8 outils analytics : GA4, Matomo, Plausible, Piwik PRO, Simple Analytics, Fathom, Adobe Analytics, Umami. Prix, fonctionnalites, RGPD.`,
   alternates: {
     canonical: "/comparer",
   },
@@ -56,6 +57,27 @@ export default function ComparerPage() {
 
       <section className="mb-12">
         <FaqSection items={compareFaq} />
+      </section>
+
+      {/* Comparaisons VS */}
+      <section aria-labelledby="comparaisons-vs" className="mb-12">
+        <h2 id="comparaisons-vs" className="text-2xl font-bold text-gray-900 mb-6">
+          Comparaisons detaillees
+        </h2>
+        <p className="text-gray-600 mb-6 text-sm">
+          Comparez deux outils face a face pour un comparatif approfondi.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {generateToolPairs().map((pair) => (
+            <Link
+              key={pair.slug}
+              href={`/comparer/${pair.slug}`}
+              className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow text-sm font-medium text-blue-600 hover:text-blue-800"
+            >
+              {pair.tool1.name} vs {pair.tool2.name}
+            </Link>
+          ))}
+        </div>
       </section>
     </div>
   );
