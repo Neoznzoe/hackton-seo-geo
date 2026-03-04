@@ -18,8 +18,10 @@ export const DETECTION_PATTERNS: Pattern[] = [
     patterns: [
       /gtag\s*\(\s*['"]config['"]\s*,\s*['"]G-/i,
       /googletagmanager\.com\/gtag/i,
-      /google-analytics\.com\/g\/collect/i,
-      /www\.google-analytics\.com\/analytics\.js/i,
+      /google-analytics\.com/i,
+      /['"]G-[A-Z0-9]{6,}['"]/i,
+      /data-gdpr-src=["'][^"']*google-analytics/i,
+      /data-gdpr-src=["'][^"']*gtag/i,
     ],
   },
   {
@@ -74,7 +76,6 @@ export const DETECTION_PATTERNS: Pattern[] = [
     patterns: [
       /scripts\.simpleanalyticscdn\.com/i,
       /simpleanalytics\.com\/hello/i,
-      /sa\.js/i,
     ],
   },
   {
@@ -101,6 +102,19 @@ export const DETECTION_PATTERNS: Pattern[] = [
       /analytics\.umami\.is/i,
     ],
   },
+  {
+    id: "at-internet",
+    name: "AT Internet (Piano Analytics)",
+    category: "analytics",
+    cnilExempt: false,
+    patterns: [
+      /smarttag/i,
+      /xtcore\.js/i,
+      /at-internet/i,
+      /piano\.io\/xts/i,
+      /tag\.aticdn\.net/i,
+    ],
+  },
 
   // Tracking Pixels
   {
@@ -112,6 +126,7 @@ export const DETECTION_PATTERNS: Pattern[] = [
       /connect\.facebook\.net\/.*\/fbevents\.js/i,
       /fbq\s*\(\s*['"]init['"]/i,
       /facebook\.com\/tr\?/i,
+      /data-gdpr-src=["'][^"']*fbevents/i,
     ],
   },
   {
@@ -157,6 +172,17 @@ export const DETECTION_PATTERNS: Pattern[] = [
       /hj\s*\(\s*['"]init['"]/i,
     ],
   },
+  {
+    id: "criteo",
+    name: "Criteo",
+    category: "pixel",
+    cnilExempt: false,
+    patterns: [
+      /static\.criteo\.net/i,
+      /criteo\.com\/js/i,
+      /criteo\.net\/js/i,
+    ],
+  },
 
   // Tag Managers
   {
@@ -167,11 +193,12 @@ export const DETECTION_PATTERNS: Pattern[] = [
     patterns: [
       /googletagmanager\.com\/gtm\.js/i,
       /googletagmanager\.com\/ns\.html/i,
-      /GTM-[A-Z0-9]+/i,
+      /GTM-[A-Z0-9]{4,}/i,
+      /data-gdpr-src=["'][^"']*googletagmanager/i,
     ],
   },
 
-  // Consent Banners
+  // Consent Banners — ordered by specificity (most specific first)
   {
     id: "tarteaucitron",
     name: "Tarteaucitron",
@@ -198,7 +225,6 @@ export const DETECTION_PATTERNS: Pattern[] = [
     cnilExempt: true,
     patterns: [
       /cookiebot\.com/i,
-      /CookieConsent/i,
     ],
   },
   {
@@ -220,6 +246,27 @@ export const DETECTION_PATTERNS: Pattern[] = [
       /onetrust/i,
       /cookielaw\.org/i,
       /optanon/i,
+    ],
+  },
+  {
+    id: "consentmanager",
+    name: "Consent Manager",
+    category: "consent",
+    cnilExempt: true,
+    patterns: [
+      /consentmanager\.net/i,
+      /consentmanager\.mgr\.consensu/i,
+    ],
+  },
+  {
+    id: "tcf-iab",
+    name: "Bandeau CMP (TCF/IAB)",
+    category: "consent",
+    cnilExempt: true,
+    patterns: [
+      /__tcfapi/i,
+      /gdprApplies/i,
+      /__cmpLocator/i,
     ],
   },
 ];

@@ -4,10 +4,12 @@ export function generateRecommendations(
   analytics: DetectedTool[],
   pixels: DetectedTool[],
   consentBanners: DetectedTool[],
+  tagManagers: DetectedTool[],
   riskLevel: string
 ): Recommendation[] {
   const recommendations: Recommendation[] = [];
   const hasConsent = consentBanners.length > 0;
+  const hasGtm = tagManagers.some((t) => t.id === "gtm");
 
   // GA4 detected
   if (analytics.some((t) => t.id === "ga4")) {
@@ -67,8 +69,20 @@ export function generateRecommendations(
     });
   }
 
-  // No analytics at all
-  if (analytics.length === 0) {
+  // GTM + consent but no visible analytics — scripts are loaded behind CMP
+  if (analytics.length === 0 && hasGtm && hasConsent) {
+    recommendations.push({
+      title: "Configuration conforme detectee",
+      description:
+        "Un tag manager et un bandeau de consentement sont en place. Les outils analytics sont probablement charges apres consentement, ce qui est conforme. Pour aller plus loin, envisagez une solution exemptee CNIL.",
+      link: "/comparer",
+      linkLabel: "Comparer les alternatives",
+      priority: "low",
+    });
+  }
+
+  // No analytics and no GTM at all
+  if (analytics.length === 0 && !hasGtm) {
     recommendations.push({
       title: "Installer un outil analytics conforme",
       description:

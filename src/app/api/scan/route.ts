@@ -104,25 +104,45 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Fetch HTML with timeout
+  // Fetch HTML with timeout and retry
+  const fetchHeaders = {
+    "User-Agent":
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",
+    "Accept-Encoding": "identity",
+  };
+
+  async function fetchWithTimeout(targetUrl: string): Promise<Response> {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 10_000);
+    try {
+      const res = await fetch(targetUrl, {
+        signal: controller.signal,
+        headers: fetchHeaders,
+        redirect: "follow",
+      });
+      return res;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
   let html: string;
   try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 10_000);
-
-    const response = await fetch(normalizedUrl, {
-      signal: controller.signal,
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (compatible; DevRadar/1.0; +https://devradar.up.railway.app)",
-        Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",
-        "Accept-Encoding": "identity",
-      },
-      redirect: "follow",
-    });
-
-    clearTimeout(timeout);
+    let response: Response;
+    try {
+      response = await fetchWithTimeout(normalizedUrl);
+    } catch {
+      // If https fails, try with www. prefix
+      const parsed = new URL(normalizedUrl);
+      if (!parsed.hostname.startsWith("www.")) {
+        parsed.hostname = "www." + parsed.hostname;
+        response = await fetchWithTimeout(parsed.toString());
+      } else {
+        throw new Error("Connexion refusee par le serveur.");
+      }
+    }
 
     if (!response.ok) {
       return NextResponse.json(
@@ -150,7 +170,7 @@ export async function POST(request: NextRequest) {
     const detail = error instanceof Error ? error.message : String(error);
     const message = isTimeout
       ? "Le site n'a pas repondu dans les 10 secondes."
-      : `Impossible de charger le site (${detail}).`;
+      : `Impossible de charger le site. Verifiez l'URL et reessayez. (${detail})`;
     return NextResponse.json({ error: message }, { status: 422 });
   }
 
@@ -170,6 +190,7 @@ export async function POST(request: NextRequest) {
     analytics,
     pixels,
     consentBanners,
+    tagManagers,
     level
   );
 
