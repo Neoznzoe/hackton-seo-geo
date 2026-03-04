@@ -86,6 +86,7 @@ export default function RootLayout({
           strategy="afterInteractive"
           async
         />
+        <meta name="google-site-verification" content="OpBP-OpU253pvgSruj3o8hV4VM_c8I6i0EYVFtbt2F4" />
       </head>
       <body className="bg-white text-gray-900 antialiased min-h-screen flex flex-col">
         <JsonLd data={{ "@context": "https://schema.org", ...websiteJsonLd }} />
