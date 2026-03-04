@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FaqItem } from "@/lib/types";
 import JsonLd from "@/components/seo/JsonLd";
+import { trackFaqToggle } from "@/lib/tracking";
 import { FAQPage } from "schema-dts";
 
 interface FaqSectionProps {
@@ -50,7 +51,10 @@ export default function FaqSection({
                 <button
                   type="button"
                   className="faq-question w-full flex items-center justify-between p-5 text-left font-semibold text-gray-900 hover:bg-gray-50 transition-colors"
-                  onClick={() => setOpenIndex(isOpen ? null : index)}
+                  onClick={() => {
+                    if (!isOpen) trackFaqToggle(item.question);
+                    setOpenIndex(isOpen ? null : index);
+                  }}
                   aria-expanded={isOpen}
                 >
                   <span>{item.question}</span>

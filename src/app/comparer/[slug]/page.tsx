@@ -13,6 +13,7 @@ import PricingTable from "@/components/tools/PricingTable";
 import ComplianceDetails from "@/components/tools/ComplianceDetails";
 import FaqSection from "@/components/content/FaqSection";
 import JsonLd from "@/components/seo/JsonLd";
+import ComparisonPageTracker from "@/components/analytics/ComparisonPageTracker";
 import { WebPage, FAQPage } from "schema-dts";
 
 interface PageProps {
@@ -79,6 +80,7 @@ export default async function VsPage({ params }: PageProps) {
 
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
+      <ComparisonPageTracker tool1Slug={tool1.slug} tool2Slug={tool2.slug} />
       <JsonLd data={{ "@context": "https://schema.org", ...webPageJsonLd }} />
       <JsonLd data={{ "@context": "https://schema.org", ...faqJsonLd }} />
 

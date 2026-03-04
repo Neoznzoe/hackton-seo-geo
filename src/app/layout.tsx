@@ -8,6 +8,8 @@ import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 import JsonLd from "@/components/seo/JsonLd";
 import PiwikProProvider from "@/components/analytics/PiwikProProvider";
+import CookieConsent from "@/components/analytics/CookieConsent";
+import ScrollTracker from "@/components/analytics/ScrollTracker";
 import { WebSite } from "schema-dts";
 
 const inter = Inter({
@@ -100,6 +102,8 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <ScrollToTop />
+        <ScrollTracker />
+        <CookieConsent />
       </body>
     </html>
   );

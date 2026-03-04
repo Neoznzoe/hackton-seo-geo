@@ -8,6 +8,7 @@ import FaqSection from "@/components/content/FaqSection";
 import JsonLd from "@/components/seo/JsonLd";
 import { BASE_URL } from "@/lib/constants";
 import { ItemList } from "schema-dts";
+import TrackedCta from "@/components/analytics/HomeCtaTracker";
 
 const homeFaq = [
   {
@@ -79,18 +80,16 @@ export default function HomePage() {
             besoins en fonctionnalites, prix et conformite RGPD.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
+            <TrackedCta
               href="/comparer"
+              label="Comparer les outils"
               className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Comparer les outils
-            </Link>
-            <Link
+            />
+            <TrackedCta
               href="#outils"
+              label="Voir tous les outils"
               className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              Voir tous les outils
-            </Link>
+            />
           </div>
         </div>
       </section>

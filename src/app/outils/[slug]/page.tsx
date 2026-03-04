@@ -13,6 +13,7 @@ import FaqSection from "@/components/content/FaqSection";
 import JsonLd from "@/components/seo/JsonLd";
 import { SoftwareApplication } from "schema-dts";
 import Link from "next/link";
+import ToolPageTracker, { CompareLink } from "@/components/analytics/ToolPageTracker";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -135,14 +136,15 @@ export default async function ToolPage({ params }: PageProps) {
           </h2>
           <p className="text-gray-700 leading-relaxed">{tool.description}</p>
           <p className="mt-4">
-            <a
-              href={tool.websiteUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 font-medium text-sm"
-            >
-              Visiter le site officiel &rarr;
-            </a>
+            <ToolPageTracker
+              toolSlug={tool.slug}
+              toolName={tool.name}
+              websiteUrl={tool.websiteUrl}
+              comparisons={vsPairs.slice(0, 6).map((pair) => ({
+                slug: pair.slug,
+                otherToolName: (pair.tool1.slug === tool.slug ? pair.tool2 : pair.tool1).name,
+              }))}
+            />
           </p>
         </section>
 
@@ -201,13 +203,14 @@ export default async function ToolPage({ params }: PageProps) {
             {vsPairs.slice(0, 6).map((pair) => {
               const otherTool = pair.tool1.slug === tool.slug ? pair.tool2 : pair.tool1;
               return (
-                <Link
+                <CompareLink
                   key={pair.slug}
                   href={`/comparer/${pair.slug}`}
-                  className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow text-sm font-medium text-blue-600 hover:text-blue-800"
+                  toolName={tool.name}
+                  otherToolName={otherTool.name}
                 >
                   {tool.name} vs {otherTool.name}
-                </Link>
+                </CompareLink>
               );
             })}
           </div>
