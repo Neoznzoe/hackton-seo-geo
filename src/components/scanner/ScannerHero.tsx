@@ -19,12 +19,12 @@ export default function ScannerHero({ onScan, isLoading, initialUrl }: ScannerHe
   }
 
   return (
-    <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-16 sm:py-20">
+    <section className="bg-gradient-to-br from-blue-700 to-indigo-900 text-white py-16 sm:py-20">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
         <h1 className="text-3xl sm:text-4xl font-bold mb-4">
           Scanner RGPD Analytics
         </h1>
-        <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
+        <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto leading-relaxed">
           Analysez n&apos;importe quel site web pour detecter ses outils
           analytics, evaluer sa conformite RGPD/CNIL et recevoir des
           recommandations personnalisees.
@@ -36,20 +36,20 @@ export default function ScannerHero({ onScan, isLoading, initialUrl }: ScannerHe
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder="exemple.fr"
-            className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            className="flex-1 px-5 py-3.5 rounded-lg bg-white text-gray-900 placeholder-gray-400 text-base shadow-lg focus:outline-none focus:ring-2 focus:ring-white"
             disabled={isLoading}
             aria-label="URL du site a analyser"
           />
           <button
             type="submit"
             disabled={isLoading || !url.trim()}
-            className="px-6 py-3 bg-white text-blue-700 font-semibold rounded-lg hover:bg-blue-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-8 py-3.5 bg-amber-400 text-gray-900 font-bold rounded-lg hover:bg-amber-300 transition-colors shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-base"
           >
             {isLoading ? "Analyse..." : "Analyser"}
           </button>
         </form>
 
-        <p className="text-sm text-blue-200 mt-4">
+        <p className="text-sm text-blue-200 mt-5">
           Gratuit et sans inscription. Nous ne stockons aucune donnee.
         </p>
       </div>

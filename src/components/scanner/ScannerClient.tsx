@@ -69,12 +69,17 @@ export default function ScannerClient() {
 
       {state === "error" && (
         <div className="mx-auto max-w-3xl px-4 py-8">
-          <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-            <p className="text-red-700 font-medium mb-2">Erreur d&apos;analyse</p>
-            <p className="text-sm text-red-600">{error}</p>
+          <div className="bg-red-50 border border-red-300 rounded-xl p-8 text-center shadow-sm">
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+              </svg>
+            </div>
+            <p className="text-red-800 font-semibold text-lg mb-2">Erreur d&apos;analyse</p>
+            <p className="text-red-700 text-sm mb-4">{error}</p>
             <button
               onClick={() => setState("idle")}
-              className="mt-4 text-sm text-blue-600 hover:text-blue-800 font-medium"
+              className="px-5 py-2.5 bg-white text-blue-700 font-medium rounded-lg border border-blue-200 hover:bg-blue-50 transition-colors text-sm"
             >
               Reessayer
             </button>
@@ -83,9 +88,10 @@ export default function ScannerClient() {
       )}
 
       {state === "success" && result && (
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-          <p className="text-sm text-gray-500">
-            Analyse de <span className="font-medium text-gray-700">{result.url}</span> —{" "}
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-10 space-y-6">
+          <p className="text-sm text-gray-600">
+            Analyse de <span className="font-semibold text-gray-900">{result.url}</span>{" "}
+            <span className="text-gray-400">—</span>{" "}
             {new Date(result.scannedAt).toLocaleString("fr-FR")}
           </p>
 
