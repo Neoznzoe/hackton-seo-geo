@@ -52,3 +52,15 @@ export function trackCategoryClick(slug: string) {
 export function trackScrollDepth(depth: number) {
   trackEvent("engagement", "scroll", `${depth}%`);
 }
+
+export function trackScan(url: string) {
+  trackEvent("scanner", "scan_start", url);
+}
+
+export function trackScanResult(riskLevel: string, score: number) {
+  trackEvent("scanner", "scan_result", riskLevel, score);
+}
+
+export function trackScanRecommendationClick(link: string) {
+  trackEvent("scanner", "recommendation_click", link);
+}

@@ -9,6 +9,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { BASE_URL } from "@/lib/constants";
 import { ItemList } from "schema-dts";
 import TrackedCta from "@/components/analytics/HomeCtaTracker";
+import HomeScannerCta from "@/components/scanner/HomeScannerCta";
 
 const homeFaq = [
   {
@@ -171,6 +172,26 @@ export default function HomePage() {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Scanner CTA */}
+      <section className="py-16 bg-gradient-to-br from-blue-600 to-blue-800 text-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-blue-200 font-medium uppercase tracking-wide text-sm mb-3">
+            Outil gratuit
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+            Votre site est-il conforme RGPD ?
+          </h2>
+          <p className="text-lg text-blue-100 max-w-2xl mx-auto mb-8">
+            Entrez l&apos;URL de votre site pour detecter vos outils analytics,
+            pixels de tracking et obtenir un score de conformite instantane.
+          </p>
+          <HomeScannerCta />
+          <p className="text-sm text-blue-200 mt-4">
+            Analyse en 5 secondes. Aucune inscription requise.
+          </p>
         </div>
       </section>
 
