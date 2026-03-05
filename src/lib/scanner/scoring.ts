@@ -195,7 +195,8 @@ function scoreBestPractices(
     score += 10;
     details.push("Mesure d'audience en place");
   } else {
-    details.push("Aucun outil de mesure d'audience detecte");
+    score += 10;
+    details.push("Aucun outil de mesure d'audience detecte (bon pour la vie privee)");
   }
 
   const hasExempt = analytics.some((t) => t.cnilExempt);
@@ -223,7 +224,10 @@ function scoreBestPractices(
     legalPages.politiqueCookies,
   ].filter(Boolean).length;
 
-  if (legalCount >= 4) {
+  if (legalCount === 5) {
+    score += 15;
+    details.push("Toutes les pages legales sont en place");
+  } else if (legalCount >= 3) {
     score += 10;
     details.push("Pages legales quasi-completes");
   } else if (legalCount <= 1) {

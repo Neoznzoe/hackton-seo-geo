@@ -151,14 +151,20 @@ export default function ScannerClient() {
               <DetectedToolsCard
                 tools={result.analytics}
                 title="Analytics"
-                emptyMessage="Aucun outil analytics détecté"
+                emptyMessage="Aucun outil analytics détecté — bon pour la vie privée"
               />
               <DetectedToolsCard
                 tools={result.pixels}
                 title="Pixels de tracking"
                 emptyMessage="Aucun pixel détecté"
               />
-              <ConsentBannerCard banners={result.consentBanners} />
+              <ConsentBannerCard
+                banners={result.consentBanners}
+                needsConsent={
+                  result.analytics.some((t) => !t.cnilExempt) ||
+                  result.pixels.length > 0
+                }
+              />
               <DetectedToolsCard
                 tools={result.tagManagers}
                 title="Tag managers"

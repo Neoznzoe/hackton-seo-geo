@@ -259,16 +259,27 @@ export function generateRecommendations(
 
   if (analytics.length === 0 && !hasGtm) {
     recommendations.push({
-      title: "Installer un outil analytics conforme",
+      title: "Envisager un outil analytics conforme (optionnel)",
       description:
-        "Aucun outil analytics n'a ete detecte. Plausible ou Matomo sont d'excellentes options conformes RGPD, exemptees CNIL et faciles a installer.",
+        "Aucun outil analytics n'a ete detecte. Si vous souhaitez mesurer votre audience, Plausible ou Matomo sont d'excellentes options conformes RGPD, exemptees CNIL et faciles a installer.",
       link: "/outils/plausible",
       linkLabel: "Decouvrir Plausible",
-      priority: "medium",
+      priority: "low",
     });
   }
 
   // --- Already compliant ---
+  if (riskLevel === "faible" && analytics.length === 0 && pixels.length === 0) {
+    recommendations.push({
+      title: "Votre site respecte la vie privee !",
+      description:
+        "Aucun outil de tracking ou analytics n'a ete detecte. Votre site ne collecte pas de donnees personnelles via des traceurs, ce qui est ideal pour la conformite RGPD.",
+      link: "/comparer",
+      linkLabel: "Voir les outils conformes",
+      priority: "low",
+    });
+  }
+
   if (riskLevel === "faible" && analytics.length > 0) {
     recommendations.push({
       title: "Votre site est bien configure !",
