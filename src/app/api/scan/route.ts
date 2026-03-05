@@ -210,14 +210,14 @@ export async function POST(request: NextRequest) {
         normalizedUrl = parsed.toString();
       } else {
         clearTimeout(timer);
-        throw new Error("Connexion refusee par le serveur.");
+        throw new Error("Connexion refusée par le serveur.");
       }
     }
     clearTimeout(timer);
 
     if (!response.ok) {
       return NextResponse.json(
-        { error: `Le site a repondu avec le statut ${response.status}.` },
+        { error: `Le site a répondu avec le statut ${response.status}.` },
         { status: 422 }
       );
     }
@@ -235,8 +235,8 @@ export async function POST(request: NextRequest) {
     const isTimeout = error instanceof Error && error.name === "AbortError";
     const detail = error instanceof Error ? error.message : String(error);
     const message = isTimeout
-      ? "Le site n'a pas repondu dans les 10 secondes."
-      : `Impossible de charger le site. Verifiez l'URL et reessayez. (${detail})`;
+      ? "Le site n'a pas répondu dans les 10 secondes."
+      : `Impossible de charger le site. Vérifiez l'URL et réessayez. (${detail})`;
     return NextResponse.json({ error: message }, { status: 422 });
   }
 

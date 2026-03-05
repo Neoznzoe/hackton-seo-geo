@@ -144,7 +144,7 @@ export default function ScannerClient() {
           {/* 2. Sous-scores */}
           <SubScoresGrid subScores={result.subScores} />
 
-          {/* 3. Detail des outils detectes */}
+          {/* 3. Détail des outils détectés */}
           <div>
             <h2 className="text-lg font-bold text-gray-900 mb-4">Outils détectés</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -174,7 +174,7 @@ export default function ScannerClient() {
             </div>
           </div>
 
-          {/* 3b. Securite, ressources tierces, efficacite consentement */}
+          {/* 3b. Sécurité, ressources tierces, efficacité consentement */}
           <div>
             <h2 className="text-lg font-bold text-gray-900 mb-4">Analyse approfondie</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

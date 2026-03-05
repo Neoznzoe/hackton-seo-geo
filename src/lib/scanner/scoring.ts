@@ -26,27 +26,27 @@ function scoreRgpd(
 
   for (const tool of nonExempt) {
     penalties += 35;
-    details.push(`${tool.name} : non exempte CNIL, transfert de donnees probable`);
+    details.push(`${tool.name} : non exempté CNIL, transfert de données probable`);
   }
 
   for (const pixel of pixels) {
     penalties += 20;
-    details.push(`${pixel.name} : collecte de donnees personnelles`);
+    details.push(`${pixel.name} : collecte de données personnelles`);
   }
 
   for (const tool of exempt) {
-    details.push(`${tool.name} : exempte de consentement CNIL`);
+    details.push(`${tool.name} : exempté de consentement CNIL`);
   }
 
   if (penalties === 0 && exempt.length > 0) {
     details.push("Tous les outils sont conformes RGPD");
   }
   if (penalties === 0 && exempt.length === 0 && pixels.length === 0) {
-    details.push("Aucun outil non-conforme detecte");
+    details.push("Aucun outil non-conforme détecté");
   }
 
   const score = Math.max(0, Math.min(100, 100 - penalties));
-  return { label: "Conformite RGPD", score, level: toLevel(score), details };
+  return { label: "Conformité RGPD", score, level: toLevel(score), details };
 }
 
 function scoreConsent(
@@ -61,7 +61,7 @@ function scoreConsent(
   const needsConsent = nonExempt.length > 0 || pixels.length > 0;
 
   if (hasConsent) {
-    details.push(`Bandeau detecte : ${consentBanners.map((b) => b.name).join(", ")}`);
+    details.push(`Bandeau détecté : ${consentBanners.map((b) => b.name).join(", ")}`);
   }
 
   if (hasConsent && needsConsent) {
@@ -70,22 +70,22 @@ function scoreConsent(
       details.push("Le bandeau bloque effectivement les scripts avant consentement");
       return { label: "Consentement", score: 100, level: "faible", details };
     } else {
-      details.push("Bandeau present mais aucun mecanisme de blocage de scripts detecte");
+      details.push("Bandeau présent mais aucun mécanisme de blocage de scripts détecté");
       return { label: "Consentement", score: 60, level: "moyen", details };
     }
   }
 
   if (!hasConsent && needsConsent) {
-    details.push("Bandeau de consentement manquant alors que des outils non-exempts sont presents");
+    details.push("Bandeau de consentement manquant alors que des outils non-exempts sont présents");
     return { label: "Consentement", score: 10, level: "eleve", details };
   }
 
   if (hasConsent && !needsConsent) {
-    details.push("Bandeau present (bonne pratique meme si non obligatoire)");
+    details.push("Bandeau présent (bonne pratique même si non obligatoire)");
     return { label: "Consentement", score: 100, level: "faible", details };
   }
 
-  details.push("Aucun bandeau necessaire (pas d'outil non-exempt)");
+  details.push("Aucun bandeau nécessaire (pas d'outil non-exempt)");
   return { label: "Consentement", score: 100, level: "faible", details };
 }
 
@@ -99,16 +99,16 @@ function scoreTrackers(
   const hasConsent = consentBanners.length > 0;
 
   if (pixels.length === 0) {
-    details.push("Aucun pixel de tracking tiers detecte");
+    details.push("Aucun pixel de tracking tiers détecté");
   }
 
   for (const pixel of pixels) {
     if (!hasConsent) {
       penalties += 30;
-      details.push(`${pixel.name} sans consentement prealable`);
+      details.push(`${pixel.name} sans consentement préalable`);
     } else {
       penalties += 5;
-      details.push(`${pixel.name} present (couvert par le bandeau)`);
+      details.push(`${pixel.name} présent (couvert par le bandeau)`);
     }
   }
 
@@ -117,7 +117,7 @@ function scoreTrackers(
     penalties += 15;
     details.push("Google Tag Manager sans gestion du consentement");
   } else if (hasGtm && hasConsent) {
-    details.push("Google Tag Manager controle par le bandeau de consentement");
+    details.push("Google Tag Manager contrôlé par le bandeau de consentement");
   }
 
   if (tagManagers.length === 0 && pixels.length === 0) {
@@ -135,19 +135,19 @@ function scoreLegal(legalPages: LegalPages, isEcommerce: boolean): SubScore {
   if (legalPages.mentionsLegales) {
     score += 30;
   } else {
-    details.push("Mentions legales manquantes (obligatoire, loi LCEN)");
+    details.push("Mentions légales manquantes (obligatoire, loi LCEN)");
   }
 
   if (legalPages.politiqueConfidentialite) {
     score += 30;
   } else {
-    details.push("Politique de confidentialite manquante (obligatoire, RGPD art. 13)");
+    details.push("Politique de confidentialité manquante (obligatoire, RGPD art. 13)");
   }
 
   if (legalPages.cgu) {
     score += 15;
   } else {
-    details.push("CGU manquantes (fortement recommande)");
+    details.push("CGU manquantes (fortement recommandé)");
   }
 
   if (isEcommerce) {
@@ -160,23 +160,23 @@ function scoreLegal(legalPages: LegalPages, isEcommerce: boolean): SubScore {
     // Not e-commerce: CGV not required, give points automatically
     score += 15;
     if (legalPages.cgv) {
-      details.push("CGV presentes (non obligatoire pour un site non-marchand)");
+      details.push("CGV présentes (non obligatoire pour un site non-marchand)");
     } else {
-      details.push("CGV non requises (site non-marchand detecte)");
+      details.push("CGV non requises (site non-marchand détecté)");
     }
   }
 
   if (legalPages.politiqueCookies) {
     score += 10;
   } else {
-    details.push("Politique cookies manquante (recommande)");
+    details.push("Politique cookies manquante (recommandé)");
   }
 
   if (details.length === 0) {
-    details.push("Toutes les pages legales sont en place");
+    details.push("Toutes les pages légales sont en place");
   }
 
-  return { label: "Obligations legales", score, level: toLevel(score), details };
+  return { label: "Obligations légales", score, level: toLevel(score), details };
 }
 
 function scoreBestPractices(
@@ -196,13 +196,13 @@ function scoreBestPractices(
     details.push("Mesure d'audience en place");
   } else {
     score += 10;
-    details.push("Aucun outil de mesure d'audience detecte (bon pour la vie privee)");
+    details.push("Aucun outil de mesure d'audience détecté (bon pour la vie privée)");
   }
 
   const hasExempt = analytics.some((t) => t.cnilExempt);
   if (hasExempt) {
     score += 15;
-    details.push("Utilisation d'un outil exempte CNIL");
+    details.push("Utilisation d'un outil exempté CNIL");
   }
 
   if (consentBanners.length > 0) {
@@ -213,7 +213,7 @@ function scoreBestPractices(
   const nonExempt = analytics.filter((t) => !t.cnilExempt);
   if (nonExempt.length === 0 && hasAnalytics) {
     score += 10;
-    details.push("Aucun outil non-exempte detecte");
+    details.push("Aucun outil non-exempté détecté");
   }
 
   const legalCount = [
@@ -226,19 +226,19 @@ function scoreBestPractices(
 
   if (legalCount === 5) {
     score += 15;
-    details.push("Toutes les pages legales sont en place");
+    details.push("Toutes les pages légales sont en place");
   } else if (legalCount >= 3) {
     score += 10;
-    details.push("Pages legales quasi-completes");
+    details.push("Pages légales quasi-complètes");
   } else if (legalCount <= 1) {
     score -= 10;
-    details.push("Tres peu de pages legales detectees");
+    details.push("Très peu de pages légales détectées");
   }
 
   const totalTools = analytics.length;
   if (totalTools > 2) {
     score -= 10;
-    details.push(`${totalTools} outils analytics simultanes (optimisable)`);
+    details.push(`${totalTools} outils analytics simultanés (optimisable)`);
   }
 
   score = Math.max(0, Math.min(100, score));
@@ -253,45 +253,45 @@ function scoreSecurity(headers: SecurityHeaders): SubScore {
     score += 30;
     details.push("HTTPS actif (chiffrement en transit)");
   } else {
-    details.push("HTTPS manquant : les donnees transitent en clair");
+    details.push("HTTPS manquant : les données transitent en clair");
   }
 
   if (headers.hsts) {
     score += 20;
-    details.push("Strict-Transport-Security present (force HTTPS)");
+    details.push("Strict-Transport-Security présent (force HTTPS)");
   } else {
     details.push("Header HSTS manquant (risque de downgrade HTTP)");
   }
 
   if (headers.contentSecurityPolicy) {
     score += 20;
-    details.push("Content-Security-Policy present (protection XSS)");
+    details.push("Content-Security-Policy présent (protection XSS)");
   } else {
     details.push("Content-Security-Policy manquant (risque d'injection de scripts)");
   }
 
   if (headers.xFrameOptions) {
     score += 10;
-    details.push("X-Frame-Options present (protection clickjacking)");
+    details.push("X-Frame-Options présent (protection clickjacking)");
   } else {
     details.push("X-Frame-Options manquant");
   }
 
   if (headers.xContentTypeOptions) {
     score += 10;
-    details.push("X-Content-Type-Options present");
+    details.push("X-Content-Type-Options présent");
   } else {
     details.push("X-Content-Type-Options manquant");
   }
 
   if (headers.referrerPolicy) {
     score += 10;
-    details.push("Referrer-Policy present (controle des fuites de donnees)");
+    details.push("Referrer-Policy présent (contrôle des fuites de données)");
   } else {
     details.push("Referrer-Policy manquant (le referrer complet peut fuiter)");
   }
 
-  return { label: "Securite", score, level: toLevel(score), details };
+  return { label: "Sécurité", score, level: toLevel(score), details };
 }
 
 function scoreThirdParty(resources: ThirdPartyResource[]): SubScore {
@@ -311,7 +311,7 @@ function scoreThirdParty(resources: ThirdPartyResource[]): SubScore {
   }
 
   if (resources.length === 0) {
-    details.push("Aucune ressource tierce a risque detectee");
+    details.push("Aucune ressource tierce à risque détectée");
   }
 
   score = Math.max(0, Math.min(100, score));

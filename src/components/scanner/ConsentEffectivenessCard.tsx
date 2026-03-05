@@ -20,11 +20,11 @@ export default function ConsentEffectivenessCard({ effectiveness, hasConsentBann
           </svg>
         </div>
         <div>
-          <h3 className="text-sm font-semibold text-gray-900">Efficacite du consentement</h3>
+          <h3 className="text-sm font-semibold text-gray-900">Efficacité du consentement</h3>
           <p className={`text-xs ${effectiveness.scriptsBlocked ? "text-green-600" : "text-amber-600"}`}>
             {effectiveness.scriptsBlocked
-              ? "Scripts bloques avant consentement"
-              : "Aucun blocage detecte"}
+              ? "Scripts bloqués avant consentement"
+              : "Aucun blocage détecté"}
           </p>
         </div>
       </div>
@@ -41,7 +41,7 @@ export default function ConsentEffectivenessCard({ effectiveness, hasConsentBann
       {!effectiveness.scriptsBlocked && (
         <div className="mt-3 bg-amber-50 border border-amber-200 rounded-lg p-3">
           <p className="text-xs text-amber-800">
-            Le bandeau est present mais les scripts semblent charges avant le consentement.
+            Le bandeau est présent mais les scripts semblent chargés avant le consentement.
             Utilisez <code className="bg-amber-100 px-1 rounded">type=&quot;text/plain&quot;</code> ou
             des attributs <code className="bg-amber-100 px-1 rounded">data-consent</code> pour bloquer
             les scripts avant acceptation.

@@ -10,7 +10,7 @@ const HEADERS_INFO: { key: keyof SecurityHeaders; label: string; detail: string 
   { key: "contentSecurityPolicy", label: "Content-Security-Policy", detail: "Protection XSS" },
   { key: "xFrameOptions", label: "X-Frame-Options", detail: "Protection clickjacking" },
   { key: "xContentTypeOptions", label: "X-Content-Type-Options", detail: "Protection MIME sniffing" },
-  { key: "referrerPolicy", label: "Referrer-Policy", detail: "Controle des fuites de donnees" },
+  { key: "referrerPolicy", label: "Referrer-Policy", detail: "Contrôle des fuites de données" },
 ];
 
 export default function SecurityHeadersCard({ headers }: SecurityHeadersCardProps) {
@@ -25,8 +25,8 @@ export default function SecurityHeadersCard({ headers }: SecurityHeadersCardProp
           </svg>
         </div>
         <div>
-          <h3 className="text-sm font-semibold text-gray-900">En-tetes de securite</h3>
-          <p className="text-xs text-gray-500">{presentCount}/6 headers presents</p>
+          <h3 className="text-sm font-semibold text-gray-900">En-têtes de sécurité</h3>
+          <p className="text-xs text-gray-500">{presentCount}/6 headers présents</p>
         </div>
       </div>
 

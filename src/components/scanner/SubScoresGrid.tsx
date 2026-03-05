@@ -29,6 +29,23 @@ const LEVEL_COLORS: Record<RiskLevel, { bar: string; text: string; bg: string }>
   eleve: { bar: "bg-red-500", text: "text-red-700", bg: "bg-red-50" },
 };
 
+const NEGATIVE_KEYWORDS = [
+  "manquant", "manquante", "manquantes",
+  "sans consentement", "sans gestion",
+  "non exempté", "non-exempté", "non-conforme",
+  "Très peu", "en clair",
+  "simultanés", "optimisable",
+  "transfert de données", "collecte de données",
+  "Transfert d'", "transfère",
+  "dépose", "déposent",
+  "risque d", "risque de",
+  "Aucun mécanisme", "Aucun blocage",
+];
+
+function isNegativeDetail(detail: string): boolean {
+  return NEGATIVE_KEYWORDS.some((kw) => detail.includes(kw));
+}
+
 function SubScoreCard({ id, sub }: { id: string; sub: SubScore }) {
   const [open, setOpen] = useState(false);
   const colors = LEVEL_COLORS[sub.level];
@@ -71,12 +88,23 @@ function SubScoreCard({ id, sub }: { id: string; sub: SubScore }) {
 
       {open && (
         <ul className="mt-3 space-y-1.5 border-t border-gray-100 pt-3">
-          {sub.details.map((d) => (
-            <li key={d} className="text-xs text-gray-700 flex items-start gap-1.5">
-              <span className="mt-0.5 shrink-0 text-gray-400">&#8226;</span>
-              <span>{d}</span>
-            </li>
-          ))}
+          {sub.details.map((d) => {
+            const negative = isNegativeDetail(d);
+            return (
+              <li key={d} className={`text-xs flex items-start gap-1.5 ${negative ? "text-red-700" : "text-green-700"}`}>
+                {negative ? (
+                  <svg className="w-3.5 h-3.5 mt-0.5 shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="w-3.5 h-3.5 mt-0.5 shrink-0 text-green-500" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                )}
+                <span>{d}</span>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

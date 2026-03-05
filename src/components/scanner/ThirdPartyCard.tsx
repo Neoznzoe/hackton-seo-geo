@@ -27,14 +27,14 @@ export default function ThirdPartyCard({ resources }: ThirdPartyCardProps) {
           <h3 className="text-sm font-semibold text-gray-900">Ressources tierces</h3>
           <p className="text-xs text-gray-500">
             {resources.length === 0
-              ? "Aucune ressource tierce detectee"
-              : `${resources.length} detectee${resources.length > 1 ? "s" : ""}, ${risky.length} a risque`}
+              ? "Aucune ressource tierce détectée"
+              : `${resources.length} détectée${resources.length > 1 ? "s" : ""}, ${risky.length} à risque`}
           </p>
         </div>
       </div>
 
       {resources.length === 0 ? (
-        <p className="text-xs text-gray-400">Aucune ressource tierce externe identifiee.</p>
+        <p className="text-xs text-gray-400">Aucune ressource tierce externe identifiée.</p>
       ) : (
         <div className="space-y-2.5">
           {risky.map((r) => (

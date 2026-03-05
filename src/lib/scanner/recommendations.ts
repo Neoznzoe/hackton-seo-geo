@@ -26,20 +26,20 @@ export function generateRecommendations(
 
   if (!legalPages.mentionsLegales) {
     recommendations.push({
-      title: "Ajouter des mentions legales",
+      title: "Ajouter des mentions légales",
       description:
-        "Les mentions legales sont obligatoires pour tout site web (loi LCEN). Elles doivent inclure l'identite de l'editeur, l'hebergeur, et le directeur de publication.",
+        "Les mentions légales sont obligatoires pour tout site web (loi LCEN). Elles doivent inclure l'identité de l'éditeur, l'hébergeur, et le directeur de publication.",
       link: "/ressources/rgpd-analytics",
-      linkLabel: "Guide conformite",
+      linkLabel: "Guide conformité",
       priority: "high",
     });
   }
 
   if (!legalPages.politiqueConfidentialite) {
     recommendations.push({
-      title: "Ajouter une politique de confidentialite",
+      title: "Ajouter une politique de confidentialité",
       description:
-        "Le RGPD (article 13) impose d'informer les utilisateurs sur le traitement de leurs donnees personnelles : finalites, base legale, duree de conservation, droits des personnes.",
+        "Le RGPD (article 13) impose d'informer les utilisateurs sur le traitement de leurs données personnelles : finalités, base légale, durée de conservation, droits des personnes.",
       link: "/ressources/rgpd-analytics",
       linkLabel: "Guide RGPD",
       priority: "high",
@@ -48,11 +48,11 @@ export function generateRecommendations(
 
   if (!legalPages.cgu) {
     recommendations.push({
-      title: "Ajouter des conditions generales d'utilisation (CGU)",
+      title: "Ajouter des conditions générales d'utilisation (CGU)",
       description:
-        "Les CGU encadrent l'utilisation de votre site et protegent votre responsabilite. Elles sont fortement recommandees pour tout site web.",
+        "Les CGU encadrent l'utilisation de votre site et protègent votre responsabilité. Elles sont fortement recommandées pour tout site web.",
       link: "/ressources/rgpd-analytics",
-      linkLabel: "Guide conformite",
+      linkLabel: "Guide conformité",
       priority: "medium",
     });
   }
@@ -61,7 +61,7 @@ export function generateRecommendations(
     recommendations.push({
       title: "Ajouter une politique cookies",
       description:
-        "Votre site utilise des outils non-exempts qui deposent des cookies. Une page dediee expliquant les cookies utilises et leur finalite est recommandee par la CNIL.",
+        "Votre site utilise des outils non-exempts qui déposent des cookies. Une page dédiée expliquant les cookies utilisés et leur finalité est recommandée par la CNIL.",
       link: "/ressources/rgpd-analytics",
       linkLabel: "Guide cookies CNIL",
       priority: "medium",
@@ -74,15 +74,15 @@ export function generateRecommendations(
     recommendations.push({
       title: "Remplacer Google Analytics 4 par une alternative conforme",
       description:
-        "GA4 transfere les donnees vers les USA et necessite un consentement explicite. Matomo ou Plausible sont des alternatives conformes RGPD et exemptees CNIL.",
+        "GA4 transfère les données vers les USA et nécessite un consentement explicite. Matomo ou Plausible sont des alternatives conformes RGPD et exemptées CNIL.",
       link: "/comparer/google-analytics-4-vs-matomo",
       linkLabel: "Comparer GA4 vs Matomo",
       priority: "high",
     });
     recommendations.push({
-      title: "Decouvrir Plausible comme alternative legere",
+      title: "Découvrir Plausible comme alternative légère",
       description:
-        "Plausible est une solution analytics simple, sans cookies, conforme RGPD et exemptee CNIL.",
+        "Plausible est une solution analytics simple, sans cookies, conforme RGPD et exemptée CNIL.",
       link: "/comparer/google-analytics-4-vs-plausible",
       linkLabel: "Comparer GA4 vs Plausible",
       priority: "medium",
@@ -93,7 +93,7 @@ export function generateRecommendations(
     recommendations.push({
       title: "Migrer d'Adobe Analytics vers Piwik PRO",
       description:
-        "Piwik PRO offre des fonctionnalites entreprise comparables a Adobe Analytics tout en etant conforme RGPD avec hebergement europeen.",
+        "Piwik PRO offre des fonctionnalités entreprise comparables à Adobe Analytics tout en étant conforme RGPD avec hébergement européen.",
       link: "/comparer/adobe-analytics-vs-piwik-pro",
       linkLabel: "Comparer Adobe vs Piwik PRO",
       priority: "high",
@@ -106,7 +106,7 @@ export function generateRecommendations(
     recommendations.push({
       title: "Ajouter un bandeau de consentement",
       description:
-        "Des pixels de tracking tiers ont ete detectes sans bandeau de consentement. Un bandeau conforme RGPD est obligatoire (Tarteaucitron, Axeptio, Cookiebot...).",
+        "Des pixels de tracking tiers ont été détectés sans bandeau de consentement. Un bandeau conforme RGPD est obligatoire (Tarteaucitron, Axeptio, Cookiebot...).",
       link: "/ressources/rgpd-analytics",
       linkLabel: "Guide RGPD Analytics",
       priority: "high",
@@ -119,7 +119,7 @@ export function generateRecommendations(
     recommendations.push({
       title: "Mettre en place un bandeau de consentement",
       description:
-        "Votre outil analytics necessite le consentement des visiteurs. Ajoutez un bandeau conforme (Tarteaucitron, Axeptio, Cookiebot, Didomi ou OneTrust).",
+        "Votre outil analytics nécessite le consentement des visiteurs. Ajoutez un bandeau conforme (Tarteaucitron, Axeptio, Cookiebot, Didomi ou OneTrust).",
       link: "/ressources/rgpd-analytics",
       linkLabel: "Guide RGPD Analytics",
       priority: "high",
@@ -132,7 +132,7 @@ export function generateRecommendations(
     recommendations.push({
       title: "Configurer le blocage des scripts avant consentement",
       description:
-        "Un bandeau est present mais les scripts ne semblent pas bloques avant consentement. Utilisez type=\"text/plain\" ou les attributs data-consent pour bloquer les scripts tant que le visiteur n'a pas consenti.",
+        "Un bandeau est présent mais les scripts ne semblent pas bloqués avant consentement. Utilisez type=\"text/plain\" ou les attributs data-consent pour bloquer les scripts tant que le visiteur n'a pas consenti.",
       link: "/ressources/rgpd-analytics",
       linkLabel: "Guide blocage scripts",
       priority: "high",
@@ -145,9 +145,9 @@ export function generateRecommendations(
     recommendations.push({
       title: "Activer HTTPS",
       description:
-        "Votre site n'utilise pas HTTPS. Les donnees transitent en clair, ce qui expose les visiteurs a des risques de vol de donnees. Installez un certificat SSL/TLS (Let's Encrypt est gratuit).",
+        "Votre site n'utilise pas HTTPS. Les données transitent en clair, ce qui expose les visiteurs à des risques de vol de données. Installez un certificat SSL/TLS (Let's Encrypt est gratuit).",
       link: "/ressources/rgpd-analytics",
-      linkLabel: "Guide securite",
+      linkLabel: "Guide sécurité",
       priority: "high",
     });
   }
@@ -156,9 +156,9 @@ export function generateRecommendations(
     recommendations.push({
       title: "Ajouter le header Strict-Transport-Security (HSTS)",
       description:
-        "HSTS force les navigateurs a utiliser HTTPS, empechant les attaques de downgrade HTTP. Ajoutez l'en-tete avec max-age d'au moins 6 mois.",
+        "HSTS force les navigateurs à utiliser HTTPS, empêchant les attaques de downgrade HTTP. Ajoutez l'en-tête avec max-age d'au moins 6 mois.",
       link: "/ressources/rgpd-analytics",
-      linkLabel: "Guide headers securite",
+      linkLabel: "Guide headers sécurité",
       priority: "medium",
     });
   }
@@ -167,7 +167,7 @@ export function generateRecommendations(
     recommendations.push({
       title: "Ajouter une Content-Security-Policy (CSP)",
       description:
-        "La CSP protege contre les injections de scripts (XSS) en limitant les sources de contenu autorisees. C'est aussi un moyen de controler les scripts tiers charges sur votre site.",
+        "La CSP protège contre les injections de scripts (XSS) en limitant les sources de contenu autorisées. C'est aussi un moyen de contrôler les scripts tiers chargés sur votre site.",
       link: "/ressources/rgpd-analytics",
       linkLabel: "Guide CSP",
       priority: "medium",
@@ -178,7 +178,7 @@ export function generateRecommendations(
     recommendations.push({
       title: "Ajouter un Referrer-Policy",
       description:
-        "Sans Referrer-Policy, les URLs completes de votre site peuvent fuiter vers les sites tiers. Utilisez \"strict-origin-when-cross-origin\" ou \"no-referrer\" pour limiter les fuites de donnees.",
+        "Sans Referrer-Policy, les URLs complètes de votre site peuvent fuiter vers les sites tiers. Utilisez \"strict-origin-when-cross-origin\" ou \"no-referrer\" pour limiter les fuites de données.",
       link: "/ressources/rgpd-analytics",
       linkLabel: "Guide Referrer-Policy",
       priority: "low",
@@ -191,9 +191,9 @@ export function generateRecommendations(
 
   if (riskyResources.some((r) => r.name === "Google Fonts")) {
     recommendations.push({
-      title: "Heberger les polices Google Fonts localement",
+      title: "Héberger les polices Google Fonts localement",
       description:
-        "Google Fonts transfere l'IP des visiteurs vers Google (USA). Depuis l'arret LG Munich 2022, cela peut entrainer une amende. Telechargez et hebergez les polices sur votre serveur.",
+        "Google Fonts transfère l'IP des visiteurs vers Google (USA). Depuis l'arrêt LG Munich 2022, cela peut entraîner une amende. Téléchargez et hébergez les polices sur votre serveur.",
       link: "/ressources/rgpd-analytics",
       linkLabel: "Guide Google Fonts RGPD",
       priority: "high",
@@ -204,7 +204,7 @@ export function generateRecommendations(
     recommendations.push({
       title: "Utiliser youtube-nocookie.com pour les embeds YouTube",
       description:
-        "L'embed YouTube standard depose des cookies de tracking Google. Remplacez youtube.com/embed par youtube-nocookie.com/embed ou ajoutez un consentement prealable.",
+        "L'embed YouTube standard dépose des cookies de tracking Google. Remplacez youtube.com/embed par youtube-nocookie.com/embed ou ajoutez un consentement préalable.",
       link: "/ressources/rgpd-analytics",
       linkLabel: "Guide embeds RGPD",
       priority: "medium",
@@ -215,9 +215,9 @@ export function generateRecommendations(
     recommendations.push({
       title: "Remplacer reCAPTCHA par une alternative respectueuse",
       description:
-        "reCAPTCHA collecte des donnees comportementales et les transfere a Google. Des alternatives comme hCaptcha ou Cloudflare Turnstile sont plus respectueuses de la vie privee.",
+        "reCAPTCHA collecte des données comportementales et les transfère à Google. Des alternatives comme hCaptcha ou Cloudflare Turnstile sont plus respectueuses de la vie privée.",
       link: "/ressources/rgpd-analytics",
-      linkLabel: "Alternatives a reCAPTCHA",
+      linkLabel: "Alternatives à reCAPTCHA",
       priority: "medium",
     });
   }
@@ -226,18 +226,18 @@ export function generateRecommendations(
     recommendations.push({
       title: "Envisager OpenStreetMap pour remplacer Google Maps",
       description:
-        "Google Maps transfere des donnees vers les USA et depose des cookies. OpenStreetMap (via Leaflet) est une alternative open-source sans tracking.",
+        "Google Maps transfère des données vers les USA et dépose des cookies. OpenStreetMap (via Leaflet) est une alternative open-source sans tracking.",
       link: "/ressources/rgpd-analytics",
-      linkLabel: "Alternatives a Google Maps",
+      linkLabel: "Alternatives à Google Maps",
       priority: "medium",
     });
   }
 
   if (riskyResources.some((r) => r.name === "Adobe Fonts (Typekit)")) {
     recommendations.push({
-      title: "Heberger les polices Adobe Fonts localement",
+      title: "Héberger les polices Adobe Fonts localement",
       description:
-        "Adobe Fonts transfere des donnees vers les USA. Telechargez les polices et hebergez-les sur votre serveur pour eviter les transferts de donnees.",
+        "Adobe Fonts transfère des données vers les USA. Téléchargez les polices et hébergez-les sur votre serveur pour éviter les transferts de données.",
       link: "/ressources/rgpd-analytics",
       linkLabel: "Guide polices RGPD",
       priority: "medium",
@@ -248,9 +248,9 @@ export function generateRecommendations(
 
   if (analytics.length === 0 && hasGtm && hasConsent) {
     recommendations.push({
-      title: "Configuration conforme detectee",
+      title: "Configuration conforme détectée",
       description:
-        "Un tag manager et un bandeau de consentement sont en place. Les outils analytics sont probablement charges apres consentement, ce qui est conforme. Pour aller plus loin, envisagez une solution exemptee CNIL.",
+        "Un tag manager et un bandeau de consentement sont en place. Les outils analytics sont probablement chargés après consentement, ce qui est conforme. Pour aller plus loin, envisagez une solution exemptée CNIL.",
       link: "/comparer",
       linkLabel: "Comparer les alternatives",
       priority: "low",
@@ -261,9 +261,9 @@ export function generateRecommendations(
     recommendations.push({
       title: "Envisager un outil analytics conforme (optionnel)",
       description:
-        "Aucun outil analytics n'a ete detecte. Si vous souhaitez mesurer votre audience, Plausible ou Matomo sont d'excellentes options conformes RGPD, exemptees CNIL et faciles a installer.",
+        "Aucun outil analytics n'a été détecté. Si vous souhaitez mesurer votre audience, Plausible ou Matomo sont d'excellentes options conformes RGPD, exemptées CNIL et faciles à installer.",
       link: "/outils/plausible",
-      linkLabel: "Decouvrir Plausible",
+      linkLabel: "Découvrir Plausible",
       priority: "low",
     });
   }
@@ -271,9 +271,9 @@ export function generateRecommendations(
   // --- Already compliant ---
   if (riskLevel === "faible" && analytics.length === 0 && pixels.length === 0) {
     recommendations.push({
-      title: "Votre site respecte la vie privee !",
+      title: "Votre site respecte la vie privée !",
       description:
-        "Aucun outil de tracking ou analytics n'a ete detecte. Votre site ne collecte pas de donnees personnelles via des traceurs, ce qui est ideal pour la conformite RGPD.",
+        "Aucun outil de tracking ou analytics n'a été détecté. Votre site ne collecte pas de données personnelles via des traceurs, ce qui est idéal pour la conformité RGPD.",
       link: "/comparer",
       linkLabel: "Voir les outils conformes",
       priority: "low",
@@ -282,9 +282,9 @@ export function generateRecommendations(
 
   if (riskLevel === "faible" && analytics.length > 0) {
     recommendations.push({
-      title: "Votre site est bien configure !",
+      title: "Votre site est bien configuré !",
       description:
-        "Felicitations, vos outils analytics semblent conformes RGPD. Continuez a surveiller votre conformite et consultez nos comparatifs pour optimiser votre stack.",
+        "Félicitations, vos outils analytics semblent conformes RGPD. Continuez à surveiller votre conformité et consultez nos comparatifs pour optimiser votre stack.",
       link: "/comparer",
       linkLabel: "Voir tous les comparatifs",
       priority: "low",

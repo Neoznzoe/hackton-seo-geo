@@ -151,7 +151,7 @@ export function detectThirdPartyResources(html: string): ThirdPartyResource[] {
       name: "Google Fonts",
       domain: "fonts.googleapis.com",
       gdprRisk: true,
-      detail: "Transfert d'IP vers Google (USA). Arret LG Munchen 2022 : amende possible. Heberger les polices localement.",
+      detail: "Transfert d'IP vers Google (USA). Arrêt LG München 2022 : amende possible. Héberger les polices localement.",
       patterns: [
         /fonts\.googleapis\.com/i,
         /fonts\.gstatic\.com/i,
@@ -162,7 +162,7 @@ export function detectThirdPartyResources(html: string): ThirdPartyResource[] {
       name: "YouTube",
       domain: "youtube.com",
       gdprRisk: true,
-      detail: "L'embed YouTube standard depose des cookies de tracking Google. Utiliser youtube-nocookie.com ou le consentement prealable.",
+      detail: "L'embed YouTube standard dépose des cookies de tracking Google. Utiliser youtube-nocookie.com ou le consentement préalable.",
       patterns: [
         /youtube\.com\/embed/i,
         /youtube\.com\/iframe/i,
@@ -174,7 +174,7 @@ export function detectThirdPartyResources(html: string): ThirdPartyResource[] {
       name: "YouTube (no-cookie)",
       domain: "youtube-nocookie.com",
       gdprRisk: false,
-      detail: "Mode privacy-enhanced de YouTube. Bonne pratique, mais verifier que le consentement est en place.",
+      detail: "Mode privacy-enhanced de YouTube. Bonne pratique, mais vérifier que le consentement est en place.",
       patterns: [
         /youtube-nocookie\.com/i,
       ],
@@ -184,7 +184,7 @@ export function detectThirdPartyResources(html: string): ThirdPartyResource[] {
       name: "Google Maps",
       domain: "google.com/maps",
       gdprRisk: true,
-      detail: "Google Maps transfere des donnees vers les USA et depose des cookies. Envisager une alternative (OpenStreetMap) ou le consentement prealable.",
+      detail: "Google Maps transfère des données vers les USA et dépose des cookies. Envisager une alternative (OpenStreetMap) ou le consentement préalable.",
       patterns: [
         /maps\.googleapis\.com/i,
         /google\.com\/maps/i,
@@ -196,7 +196,7 @@ export function detectThirdPartyResources(html: string): ThirdPartyResource[] {
       name: "Google reCAPTCHA",
       domain: "google.com/recaptcha",
       gdprRisk: true,
-      detail: "reCAPTCHA collecte des donnees comportementales et les transfere a Google. Des alternatives existent (hCaptcha, Turnstile).",
+      detail: "reCAPTCHA collecte des données comportementales et les transfère à Google. Des alternatives existent (hCaptcha, Turnstile).",
       patterns: [
         /google\.com\/recaptcha/i,
         /recaptcha\/api/i,
@@ -209,7 +209,7 @@ export function detectThirdPartyResources(html: string): ThirdPartyResource[] {
       name: "hCaptcha",
       domain: "hcaptcha.com",
       gdprRisk: false,
-      detail: "hCaptcha est une alternative respectueuse de la vie privee a reCAPTCHA.",
+      detail: "hCaptcha est une alternative respectueuse de la vie privée à reCAPTCHA.",
       patterns: [
         /hcaptcha\.com/i,
         /js\.hcaptcha/i,
@@ -220,7 +220,7 @@ export function detectThirdPartyResources(html: string): ThirdPartyResource[] {
       name: "Cloudflare Turnstile",
       domain: "challenges.cloudflare.com",
       gdprRisk: false,
-      detail: "Turnstile est une alternative privacy-friendly hebergee par Cloudflare.",
+      detail: "Turnstile est une alternative privacy-friendly hébergée par Cloudflare.",
       patterns: [
         /challenges\.cloudflare\.com/i,
         /turnstile/i,
@@ -231,7 +231,7 @@ export function detectThirdPartyResources(html: string): ThirdPartyResource[] {
       name: "Vimeo",
       domain: "vimeo.com",
       gdprRisk: true,
-      detail: "Vimeo peut deposer des cookies de tracking. Verifier la gestion du consentement.",
+      detail: "Vimeo peut déposer des cookies de tracking. Vérifier la gestion du consentement.",
       patterns: [
         /player\.vimeo\.com/i,
       ],
@@ -241,7 +241,7 @@ export function detectThirdPartyResources(html: string): ThirdPartyResource[] {
       name: "Cloudflare CDN",
       domain: "cdnjs.cloudflare.com",
       gdprRisk: false,
-      detail: "CDN Cloudflare. Pas de risque RGPD majeur si utilise pour des ressources statiques.",
+      detail: "CDN Cloudflare. Pas de risque RGPD majeur si utilisé pour des ressources statiques.",
       patterns: [
         /cdnjs\.cloudflare\.com/i,
       ],
@@ -271,7 +271,7 @@ export function detectThirdPartyResources(html: string): ThirdPartyResource[] {
       name: "Stripe",
       domain: "stripe.com",
       gdprRisk: false,
-      detail: "Stripe est conforme RGPD avec des garanties contractuelles et un hebergement UE possible.",
+      detail: "Stripe est conforme RGPD avec des garanties contractuelles et un hébergement UE possible.",
       patterns: [
         /js\.stripe\.com/i,
       ],
@@ -281,7 +281,7 @@ export function detectThirdPartyResources(html: string): ThirdPartyResource[] {
       name: "Adobe Fonts (Typekit)",
       domain: "use.typekit.net",
       gdprRisk: true,
-      detail: "Adobe Fonts transfere des donnees vers les USA. Envisager l'hebergement local des polices.",
+      detail: "Adobe Fonts transfère des données vers les USA. Envisager l'hébergement local des polices.",
       patterns: [
         /use\.typekit\.net/i,
         /p\.typekit\.net/i,
@@ -292,7 +292,7 @@ export function detectThirdPartyResources(html: string): ThirdPartyResource[] {
       name: "Twitter/X Embed",
       domain: "platform.twitter.com",
       gdprRisk: true,
-      detail: "Les embeds Twitter deposent des cookies de tracking. Consentement prealable necessaire.",
+      detail: "Les embeds Twitter déposent des cookies de tracking. Consentement préalable nécessaire.",
       patterns: [
         /platform\.twitter\.com/i,
         /platform\.x\.com/i,
@@ -303,7 +303,7 @@ export function detectThirdPartyResources(html: string): ThirdPartyResource[] {
       name: "Facebook/Instagram Embed",
       domain: "facebook.com",
       gdprRisk: true,
-      detail: "Les embeds Meta deposent des cookies de tracking. Consentement prealable necessaire.",
+      detail: "Les embeds Meta déposent des cookies de tracking. Consentement préalable nécessaire.",
       patterns: [
         /facebook\.com\/plugins/i,
         /instagram\.com\/embed/i,
@@ -341,13 +341,13 @@ export function detectConsentEffectiveness(html: string): ConsentEffectiveness {
   // Check for type="text/plain" pattern (scripts blocked until consent)
   const typePlaintext = /type\s*=\s*["']text\/plain["']/i.test(html);
   if (typePlaintext) {
-    details.push("Scripts bloques via type=\"text/plain\" (bonne pratique)");
+    details.push("Scripts bloqués via type=\"text/plain\" (bonne pratique)");
   }
 
   // Check for data-gdpr-src or similar consent-gating attributes
   const dataGdprSrc = /data-gdpr-src|data-cookieconsent|data-consent|data-requires-consent/i.test(html);
   if (dataGdprSrc) {
-    details.push("Attributs de consentement detectes sur les scripts (chargement conditionnel)");
+    details.push("Attributs de consentement détectés sur les scripts (chargement conditionnel)");
   }
 
   // Check for script blocking patterns (common in CMPs)
@@ -360,13 +360,13 @@ export function detectConsentEffectiveness(html: string): ConsentEffectiveness {
     /data-tarteaucitron/i.test(html);
 
   if (consentGating) {
-    details.push("Categorisation des scripts par type de consentement detectee");
+    details.push("Catégorisation des scripts par type de consentement détectée");
   }
 
   const scriptsBlocked = typePlaintext || dataGdprSrc || consentGating;
 
   if (!scriptsBlocked) {
-    details.push("Aucun mecanisme de blocage de scripts avant consentement detecte");
+    details.push("Aucun mécanisme de blocage de scripts avant consentement détecté");
   }
 
   return {
