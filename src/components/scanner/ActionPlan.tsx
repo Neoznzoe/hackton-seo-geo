@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Recommendation } from "@/lib/scanner/types";
-import { trackEvent } from "@/lib/tracking";
+import { trackScanRecommendationClick } from "@/lib/tracking";
 
 interface ActionPlanProps {
   recommendations: Recommendation[];
@@ -76,7 +76,7 @@ export default function ActionPlan({ recommendations }: ActionPlanProps) {
                     href={rec.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => trackEvent("scanner", "action_plan_click", rec.link)}
+                    onClick={() => trackScanRecommendationClick(rec.link)}
                     className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 hover:text-blue-900 transition-colors"
                   >
                     {rec.linkLabel}

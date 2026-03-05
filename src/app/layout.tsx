@@ -10,6 +10,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import PiwikProProvider from "@/components/analytics/PiwikProProvider";
 import CookieConsent from "@/components/analytics/CookieConsent";
 import ScrollTracker from "@/components/analytics/ScrollTracker";
+import FunnelTracker from "@/components/analytics/FunnelTracker";
 import { WebSite } from "schema-dts";
 
 const inter = Inter({
@@ -93,6 +94,7 @@ export default function RootLayout({
       </head>
       <body className="bg-white text-gray-900 antialiased min-h-screen flex flex-col">
         <PiwikProProvider />
+        <FunnelTracker />
         <JsonLd data={{ "@context": "https://schema.org", ...websiteJsonLd }} />
         <script
           type="application/ld+json"

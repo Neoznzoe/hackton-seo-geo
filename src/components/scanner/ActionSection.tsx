@@ -1,4 +1,4 @@
-import { trackEvent } from "@/lib/tracking";
+import { trackScanRecommendationClick } from "@/lib/tracking";
 
 export default function ActionSection() {
   const links = [
@@ -46,7 +46,7 @@ export default function ActionSection() {
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackEvent("scanner", "cta_click", link.event)}
+            onClick={() => trackScanRecommendationClick(link.event)}
             className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
           >
             <div className={`w-10 h-10 ${link.iconBg} rounded-lg flex items-center justify-center shrink-0`}>

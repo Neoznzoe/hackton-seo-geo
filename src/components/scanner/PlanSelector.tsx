@@ -1,6 +1,7 @@
 "use client";
 
 import { ScanPlan } from "@/lib/scanner/types";
+import { trackScanPlanSelect } from "@/lib/tracking";
 
 interface PlanSelectorProps {
   selectedPlan: ScanPlan;
@@ -43,7 +44,7 @@ export default function PlanSelector({ selectedPlan, onSelectPlan, isLoading }: 
         return (
           <button
             key={plan.id}
-            onClick={() => onSelectPlan(plan.id)}
+            onClick={() => { trackScanPlanSelect(plan.id); onSelectPlan(plan.id); }}
             disabled={isLoading}
             className={`relative flex flex-col items-center p-4 rounded-xl border-2 transition-all text-left ${
               isSelected

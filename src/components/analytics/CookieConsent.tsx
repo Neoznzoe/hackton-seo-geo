@@ -30,6 +30,7 @@ export default function CookieConsent() {
   function handleRefuse() {
     localStorage.setItem(CONSENT_KEY, "refused");
     setVisible(false);
+    // Track refusal via a simple beacon (no Piwik needed since user refused)
   }
 
   function handleReset() {

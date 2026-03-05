@@ -3,7 +3,12 @@
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { ScanResult, ScanPlan } from "@/lib/scanner/types";
-import { trackEvent } from "@/lib/tracking";
+import {
+  trackScan,
+  trackScanResult,
+  trackScanPlanSelect,
+  trackScannerOpen,
+} from "@/lib/tracking";
 import ScannerHero from "./ScannerHero";
 import ScannerLoading from "./ScannerLoading";
 import PlanSelector from "./PlanSelector";
@@ -26,6 +31,11 @@ export default function ScannerClient() {
   const searchParams = useSearchParams();
   const autoScanDone = useRef(false);
 
+  // Track scanner page open
+  useEffect(() => {
+    trackScannerOpen();
+  }, []);
+
   // Auto-scan if ?url= param is present (from homepage CTA)
   useEffect(() => {
     const urlParam = searchParams.get("url");
@@ -41,7 +51,7 @@ export default function ScannerClient() {
     setError("");
     setResult(null);
 
-    trackEvent("scanner", "scan_start", url);
+    trackScan(url);
 
     try {
       const response = await fetch("/api/scan", {
@@ -58,11 +68,10 @@ export default function ScannerClient() {
 
       setResult(data as ScanResult);
       setState("success");
-      trackEvent("scanner", "scan_result", data.globalLevel, data.globalScore);
+      trackScanResult(data.globalLevel, data.globalScore);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Une erreur est survenue.");
       setState("error");
-      trackEvent("scanner", "scan_error", url);
     }
   }
 

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { AnalyticsTool } from "@/lib/types";
 import ToolScore from "@/components/tools/ToolScore";
-import { trackEvent } from "@/lib/tracking";
+import { trackContentInteraction } from "@/lib/tracking";
 
 interface ToolCardProps {
   tool: AnalyticsTool;
@@ -50,7 +50,7 @@ export default function ToolCard({ tool }: ToolCardProps) {
       <Link
         href={`/outils/${tool.slug}`}
         className="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors"
-        onClick={() => trackEvent("tool", "click", tool.slug)}
+        onClick={() => trackContentInteraction("tool", "click", tool.slug)}
       >
         Voir le detail &rarr;
       </Link>
