@@ -10,8 +10,8 @@ interface SubScoresGridProps {
     trackers: SubScore;
     legal: SubScore;
     bestPractices: SubScore;
-    security: SubScore;
-    thirdParty: SubScore;
+    security?: SubScore;
+    thirdParty?: SubScore;
   };
 }
 
@@ -21,8 +21,6 @@ const ICONS: Record<string, string> = {
   trackers: "M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z M15 12a3 3 0 11-6 0 3 3 0 016 0z",
   legal: "M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z",
   bestPractices: "M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z",
-  security: "M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z",
-  thirdParty: "M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244",
 };
 
 const LEVEL_COLORS: Record<RiskLevel, { bar: string; text: string; bg: string }> = {
@@ -94,8 +92,6 @@ export default function SubScoresGrid({ subScores }: SubScoresGridProps) {
         <SubScoreCard id="consent" sub={subScores.consent} />
         <SubScoreCard id="trackers" sub={subScores.trackers} />
         <SubScoreCard id="legal" sub={subScores.legal} />
-        <SubScoreCard id="security" sub={subScores.security} />
-        <SubScoreCard id="thirdParty" sub={subScores.thirdParty} />
         <SubScoreCard id="bestPractices" sub={subScores.bestPractices} />
       </div>
     </div>

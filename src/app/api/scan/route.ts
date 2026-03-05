@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   detectTools,
   detectLegalPages,
+  detectEcommerce,
   extractSecurityHeaders,
   detectThirdPartyResources,
   detectConsentEffectiveness,
@@ -295,10 +296,11 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  // 6. Detect security headers, third-party resources, consent effectiveness
+  // 6. Detect security headers, third-party resources, consent effectiveness, e-commerce
   const securityHeaders: SecurityHeaders = extractSecurityHeaders(responseHeaders, normalizedUrl);
   const thirdPartyResources: ThirdPartyResource[] = detectThirdPartyResources(homepageHtml);
   const consentEffectiveness: ConsentEffectiveness = detectConsentEffectiveness(homepageHtml);
+  const isEcommerce = detectEcommerce(homepageHtml);
 
   // 7. Calculate scores on aggregated data
   const { globalScore, globalLevel, letterGrade, subScores } = calculateFullScore(
@@ -309,7 +311,8 @@ export async function POST(request: NextRequest) {
     allLegalPages,
     securityHeaders,
     thirdPartyResources,
-    consentEffectiveness
+    consentEffectiveness,
+    isEcommerce
   );
 
   // 8. Generate recommendations

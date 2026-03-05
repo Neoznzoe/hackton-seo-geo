@@ -128,7 +128,7 @@ function scoreTrackers(
   return { label: "Trackers tiers", score, level: toLevel(score), details };
 }
 
-function scoreLegal(legalPages: LegalPages): SubScore {
+function scoreLegal(legalPages: LegalPages, isEcommerce: boolean): SubScore {
   let score = 0;
   const details: string[] = [];
 
@@ -150,10 +150,20 @@ function scoreLegal(legalPages: LegalPages): SubScore {
     details.push("CGU manquantes (fortement recommande)");
   }
 
-  if (legalPages.cgv) {
-    score += 15;
+  if (isEcommerce) {
+    if (legalPages.cgv) {
+      score += 15;
+    } else {
+      details.push("CGV manquantes (obligatoire pour les sites e-commerce)");
+    }
   } else {
-    details.push("CGV manquantes (obligatoire pour les sites e-commerce)");
+    // Not e-commerce: CGV not required, give points automatically
+    score += 15;
+    if (legalPages.cgv) {
+      details.push("CGV presentes (non obligatoire pour un site non-marchand)");
+    } else {
+      details.push("CGV non requises (site non-marchand detecte)");
+    }
   }
 
   if (legalPages.politiqueCookies) {
@@ -327,12 +337,13 @@ export function calculateFullScore(
   legalPages: LegalPages,
   securityHeaders: SecurityHeaders,
   thirdPartyResources: ThirdPartyResource[],
-  consentEffectiveness: ConsentEffectiveness
+  consentEffectiveness: ConsentEffectiveness,
+  isEcommerce: boolean = false
 ): FullScoreResult {
   const rgpd = scoreRgpd(analytics, pixels);
   const consent = scoreConsent(analytics, pixels, consentBanners, consentEffectiveness);
   const trackers = scoreTrackers(pixels, tagManagers, consentBanners);
-  const legal = scoreLegal(legalPages);
+  const legal = scoreLegal(legalPages, isEcommerce);
   const bestPractices = scoreBestPractices(analytics, consentBanners, tagManagers, legalPages);
   const security = scoreSecurity(securityHeaders);
   const thirdParty = scoreThirdParty(thirdPartyResources);

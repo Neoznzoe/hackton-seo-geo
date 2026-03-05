@@ -54,10 +54,18 @@ export function detectLegalPages(html: string): LegalPages {
       /href=["'][^"']*mentions[_-]?legales/i.test(lower) ||
       /href=["'][^"']*legal[_-]?notice/i.test(lower),
 
-    cgu: /conditions[- _]?g[eé]n[eé]rales[- _]?d['']?utilisation/i.test(lower) ||
-      /href=["'][^"']*cgu/i.test(lower) ||
-      /href=["'][^"']*conditions[_-]?utilisation/i.test(lower) ||
-      />cgu<\//i.test(lower),
+    cgu: /conditions[- _]?g[eé]n[eé]rales[- _]?d[''\u2019]?utilisation/i.test(lower) ||
+      /href=["'][^"']*cgu[/"'?#]/i.test(lower) ||
+      /href=["'][^"']*\/cgu["']/i.test(lower) ||
+      /href=["'][^"']*conditions[_-]?(generales[_-]?)?utilisation/i.test(lower) ||
+      /href=["'][^"']*terms[_-]?(of[_-]?)?(use|service)/i.test(lower) ||
+      /href=["'][^"']*tos[/"'?#]/i.test(lower) ||
+      /href=["'][^"']*\/tos["']/i.test(lower) ||
+      />cgu<\//i.test(lower) ||
+      />\s*cgu\s*</i.test(lower) ||
+      />\s*conditions\s+(g[eé]n[eé]rales\s+)?d[''\u2019]?\s*utilisation\s*</i.test(lower) ||
+      />\s*terms\s+of\s+(use|service)\s*</i.test(lower) ||
+      />\s*conditions\s+d[''\u2019]?\s*utilisation\s*</i.test(lower),
 
     cgv: /conditions[- _]?g[eé]n[eé]rales[- _]?de[- _]?vente/i.test(lower) ||
       /href=["'][^"']*cgv/i.test(lower) ||
@@ -75,6 +83,29 @@ export function detectLegalPages(html: string): LegalPages {
       /gestion[- _]?des[- _]?cookies/i.test(lower) ||
       /cookie[- _]?policy/i.test(lower),
   };
+}
+
+/**
+ * Detect if the site appears to be an e-commerce site.
+ * Looks for cart/shop/payment indicators in the HTML.
+ */
+export function detectEcommerce(html: string): boolean {
+  const lower = html.toLowerCase();
+  return (
+    /href=["'][^"']*\/(panier|cart|basket|checkout|commande)/i.test(lower) ||
+    /href=["'][^"']*\/(shop|boutique|produit|product)/i.test(lower) ||
+    /class=["'][^"']*woocommerce/i.test(lower) ||
+    /shopify/i.test(lower) ||
+    /prestashop/i.test(lower) ||
+    /magento/i.test(lower) ||
+    /data-product/i.test(lower) ||
+    /add[_-]?to[_-]?cart/i.test(lower) ||
+    /ajouter[- _]?au[- _]?panier/i.test(lower) ||
+    /stripe\.com\/v/i.test(lower) ||
+    /paypal\.com/i.test(lower) ||
+    /schema\.org\/(Product|Offer)/i.test(lower) ||
+    /"@type"\s*:\s*"(Product|Offer)"/i.test(lower)
+  );
 }
 
 /**
