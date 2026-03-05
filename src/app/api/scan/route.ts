@@ -1,8 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
-import { detectTools, detectLegalPages } from "@/lib/scanner/detectors";
+import {
+  detectTools,
+  detectLegalPages,
+  extractSecurityHeaders,
+  detectThirdPartyResources,
+  detectConsentEffectiveness,
+} from "@/lib/scanner/detectors";
 import { calculateFullScore } from "@/lib/scanner/scoring";
 import { generateRecommendations } from "@/lib/scanner/recommendations";
-import { ScanResult, ScanPlan, PLAN_LIMITS, DetectedTool, LegalPages } from "@/lib/scanner/types";
+import {
+  ScanResult,
+  ScanPlan,
+  PLAN_LIMITS,
+  DetectedTool,
+  LegalPages,
+  SecurityHeaders,
+  ThirdPartyResource,
+  ConsentEffectiveness,
+} from "@/lib/scanner/types";
 import { discoverSitemap, selectPages } from "@/lib/scanner/sitemap";
 
 // In-memory rate limiting
@@ -167,6 +182,7 @@ export async function POST(request: NextRequest) {
 
   // 1. Fetch homepage HTML first (validates the site is reachable)
   let homepageHtml: string;
+  let responseHeaders: Record<string, string> = {};
   try {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 10_000);
@@ -193,17 +209,22 @@ export async function POST(request: NextRequest) {
         normalizedUrl = parsed.toString();
       } else {
         clearTimeout(timer);
-        throw new Error("Connexion refusée par le serveur.");
+        throw new Error("Connexion refusee par le serveur.");
       }
     }
     clearTimeout(timer);
 
     if (!response.ok) {
       return NextResponse.json(
-        { error: `Le site a répondu avec le statut ${response.status}.` },
+        { error: `Le site a repondu avec le statut ${response.status}.` },
         { status: 422 }
       );
     }
+
+    // Capture response headers for security analysis
+    response.headers.forEach((value, key) => {
+      responseHeaders[key.toLowerCase()] = value;
+    });
 
     homepageHtml = await response.text();
     if (homepageHtml.length > 2 * 1024 * 1024) {
@@ -213,8 +234,8 @@ export async function POST(request: NextRequest) {
     const isTimeout = error instanceof Error && error.name === "AbortError";
     const detail = error instanceof Error ? error.message : String(error);
     const message = isTimeout
-      ? "Le site n'a pas répondu dans les 10 secondes."
-      : `Impossible de charger le site. Vérifiez l'URL et réessayez. (${detail})`;
+      ? "Le site n'a pas repondu dans les 10 secondes."
+      : `Impossible de charger le site. Verifiez l'URL et reessayez. (${detail})`;
     return NextResponse.json({ error: message }, { status: 422 });
   }
 
@@ -274,23 +295,34 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  // 6. Calculate scores on aggregated data
-  const { globalScore, globalLevel, subScores } = calculateFullScore(
+  // 6. Detect security headers, third-party resources, consent effectiveness
+  const securityHeaders: SecurityHeaders = extractSecurityHeaders(responseHeaders, normalizedUrl);
+  const thirdPartyResources: ThirdPartyResource[] = detectThirdPartyResources(homepageHtml);
+  const consentEffectiveness: ConsentEffectiveness = detectConsentEffectiveness(homepageHtml);
+
+  // 7. Calculate scores on aggregated data
+  const { globalScore, globalLevel, letterGrade, subScores } = calculateFullScore(
     allAnalytics,
     allPixels,
     allConsentBanners,
     allTagManagers,
-    allLegalPages
+    allLegalPages,
+    securityHeaders,
+    thirdPartyResources,
+    consentEffectiveness
   );
 
-  // 7. Generate recommendations
+  // 8. Generate recommendations
   const recommendations = generateRecommendations(
     allAnalytics,
     allPixels,
     allConsentBanners,
     allTagManagers,
     allLegalPages,
-    globalLevel
+    globalLevel,
+    securityHeaders,
+    thirdPartyResources,
+    consentEffectiveness
   );
 
   const scanResult: ScanResult = {
@@ -306,8 +338,12 @@ export async function POST(request: NextRequest) {
     consentBanners: allConsentBanners,
     tagManagers: allTagManagers,
     legalPages: allLegalPages,
+    securityHeaders,
+    thirdPartyResources,
+    consentEffectiveness,
     globalScore,
     globalLevel,
+    letterGrade,
     subScores,
     recommendations,
   };

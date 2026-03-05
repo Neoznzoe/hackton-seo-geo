@@ -1,13 +1,5 @@
-import { DetectedTool } from "./types";
+import { DetectedTool, LegalPages, SecurityHeaders, ThirdPartyResource, ConsentEffectiveness } from "./types";
 import { DETECTION_PATTERNS } from "./patterns";
-
-export interface LegalPages {
-  mentionsLegales: boolean;
-  cgu: boolean;
-  cgv: boolean;
-  politiqueConfidentialite: boolean;
-  politiqueCookies: boolean;
-}
 
 export function detectTools(html: string): {
   analytics: DetectedTool[];
@@ -55,7 +47,6 @@ export function detectTools(html: string): {
 }
 
 export function detectLegalPages(html: string): LegalPages {
-  // Normalize: lowercase for matching
   const lower = html.toLowerCase();
 
   return {
@@ -83,5 +74,275 @@ export function detectLegalPages(html: string): LegalPages {
       /href=["'][^"']*cookie[s]?[_-]?polic/i.test(lower) ||
       /gestion[- _]?des[- _]?cookies/i.test(lower) ||
       /cookie[- _]?policy/i.test(lower),
+  };
+}
+
+/**
+ * Extract security headers from the HTTP response.
+ */
+export function extractSecurityHeaders(
+  headers: Record<string, string>,
+  url: string
+): SecurityHeaders {
+  const get = (name: string) => headers[name.toLowerCase()] || "";
+
+  return {
+    https: url.startsWith("https://"),
+    hsts: get("strict-transport-security") !== "",
+    contentSecurityPolicy: get("content-security-policy") !== "",
+    xFrameOptions: get("x-frame-options") !== "",
+    xContentTypeOptions: get("x-content-type-options") !== "",
+    referrerPolicy: get("referrer-policy") !== "",
+  };
+}
+
+/**
+ * Detect third-party resources that may cause GDPR issues:
+ * - Google Fonts (CJUE ruling 2022)
+ * - YouTube embeds
+ * - Google Maps
+ * - reCAPTCHA
+ * - External CDNs with tracking
+ */
+export function detectThirdPartyResources(html: string): ThirdPartyResource[] {
+  const resources: ThirdPartyResource[] = [];
+
+  const THIRD_PARTY_PATTERNS: {
+    type: ThirdPartyResource["type"];
+    name: string;
+    domain: string;
+    gdprRisk: boolean;
+    detail: string;
+    patterns: RegExp[];
+  }[] = [
+    {
+      type: "font",
+      name: "Google Fonts",
+      domain: "fonts.googleapis.com",
+      gdprRisk: true,
+      detail: "Transfert d'IP vers Google (USA). Arret LG Munchen 2022 : amende possible. Heberger les polices localement.",
+      patterns: [
+        /fonts\.googleapis\.com/i,
+        /fonts\.gstatic\.com/i,
+      ],
+    },
+    {
+      type: "iframe",
+      name: "YouTube",
+      domain: "youtube.com",
+      gdprRisk: true,
+      detail: "L'embed YouTube standard depose des cookies de tracking Google. Utiliser youtube-nocookie.com ou le consentement prealable.",
+      patterns: [
+        /youtube\.com\/embed/i,
+        /youtube\.com\/iframe/i,
+        /youtu\.be/i,
+      ],
+    },
+    {
+      type: "iframe",
+      name: "YouTube (no-cookie)",
+      domain: "youtube-nocookie.com",
+      gdprRisk: false,
+      detail: "Mode privacy-enhanced de YouTube. Bonne pratique, mais verifier que le consentement est en place.",
+      patterns: [
+        /youtube-nocookie\.com/i,
+      ],
+    },
+    {
+      type: "iframe",
+      name: "Google Maps",
+      domain: "google.com/maps",
+      gdprRisk: true,
+      detail: "Google Maps transfere des donnees vers les USA et depose des cookies. Envisager une alternative (OpenStreetMap) ou le consentement prealable.",
+      patterns: [
+        /maps\.googleapis\.com/i,
+        /google\.com\/maps/i,
+        /maps\.google\./i,
+      ],
+    },
+    {
+      type: "captcha",
+      name: "Google reCAPTCHA",
+      domain: "google.com/recaptcha",
+      gdprRisk: true,
+      detail: "reCAPTCHA collecte des donnees comportementales et les transfere a Google. Des alternatives existent (hCaptcha, Turnstile).",
+      patterns: [
+        /google\.com\/recaptcha/i,
+        /recaptcha\/api/i,
+        /grecaptcha/i,
+        /gstatic\.com\/recaptcha/i,
+      ],
+    },
+    {
+      type: "captcha",
+      name: "hCaptcha",
+      domain: "hcaptcha.com",
+      gdprRisk: false,
+      detail: "hCaptcha est une alternative respectueuse de la vie privee a reCAPTCHA.",
+      patterns: [
+        /hcaptcha\.com/i,
+        /js\.hcaptcha/i,
+      ],
+    },
+    {
+      type: "captcha",
+      name: "Cloudflare Turnstile",
+      domain: "challenges.cloudflare.com",
+      gdprRisk: false,
+      detail: "Turnstile est une alternative privacy-friendly hebergee par Cloudflare.",
+      patterns: [
+        /challenges\.cloudflare\.com/i,
+        /turnstile/i,
+      ],
+    },
+    {
+      type: "iframe",
+      name: "Vimeo",
+      domain: "vimeo.com",
+      gdprRisk: true,
+      detail: "Vimeo peut deposer des cookies de tracking. Verifier la gestion du consentement.",
+      patterns: [
+        /player\.vimeo\.com/i,
+      ],
+    },
+    {
+      type: "cdn",
+      name: "Cloudflare CDN",
+      domain: "cdnjs.cloudflare.com",
+      gdprRisk: false,
+      detail: "CDN Cloudflare. Pas de risque RGPD majeur si utilise pour des ressources statiques.",
+      patterns: [
+        /cdnjs\.cloudflare\.com/i,
+      ],
+    },
+    {
+      type: "cdn",
+      name: "jsDelivr CDN",
+      domain: "cdn.jsdelivr.net",
+      gdprRisk: false,
+      detail: "CDN open-source. Faible risque RGPD.",
+      patterns: [
+        /cdn\.jsdelivr\.net/i,
+      ],
+    },
+    {
+      type: "cdn",
+      name: "unpkg CDN",
+      domain: "unpkg.com",
+      gdprRisk: false,
+      detail: "CDN npm. Faible risque RGPD.",
+      patterns: [
+        /unpkg\.com/i,
+      ],
+    },
+    {
+      type: "iframe",
+      name: "Stripe",
+      domain: "stripe.com",
+      gdprRisk: false,
+      detail: "Stripe est conforme RGPD avec des garanties contractuelles et un hebergement UE possible.",
+      patterns: [
+        /js\.stripe\.com/i,
+      ],
+    },
+    {
+      type: "font",
+      name: "Adobe Fonts (Typekit)",
+      domain: "use.typekit.net",
+      gdprRisk: true,
+      detail: "Adobe Fonts transfere des donnees vers les USA. Envisager l'hebergement local des polices.",
+      patterns: [
+        /use\.typekit\.net/i,
+        /p\.typekit\.net/i,
+      ],
+    },
+    {
+      type: "iframe",
+      name: "Twitter/X Embed",
+      domain: "platform.twitter.com",
+      gdprRisk: true,
+      detail: "Les embeds Twitter deposent des cookies de tracking. Consentement prealable necessaire.",
+      patterns: [
+        /platform\.twitter\.com/i,
+        /platform\.x\.com/i,
+      ],
+    },
+    {
+      type: "iframe",
+      name: "Facebook/Instagram Embed",
+      domain: "facebook.com",
+      gdprRisk: true,
+      detail: "Les embeds Meta deposent des cookies de tracking. Consentement prealable necessaire.",
+      patterns: [
+        /facebook\.com\/plugins/i,
+        /instagram\.com\/embed/i,
+      ],
+    },
+  ];
+
+  for (const pattern of THIRD_PARTY_PATTERNS) {
+    for (const regex of pattern.patterns) {
+      if (regex.test(html)) {
+        if (!resources.some((r) => r.name === pattern.name)) {
+          resources.push({
+            type: pattern.type,
+            name: pattern.name,
+            domain: pattern.domain,
+            gdprRisk: pattern.gdprRisk,
+            detail: pattern.detail,
+          });
+        }
+        break;
+      }
+    }
+  }
+
+  return resources;
+}
+
+/**
+ * Evaluate whether the consent banner actually blocks scripts before consent.
+ * Checks for common implementation patterns.
+ */
+export function detectConsentEffectiveness(html: string): ConsentEffectiveness {
+  const details: string[] = [];
+
+  // Check for type="text/plain" pattern (scripts blocked until consent)
+  const typePlaintext = /type\s*=\s*["']text\/plain["']/i.test(html);
+  if (typePlaintext) {
+    details.push("Scripts bloques via type=\"text/plain\" (bonne pratique)");
+  }
+
+  // Check for data-gdpr-src or similar consent-gating attributes
+  const dataGdprSrc = /data-gdpr-src|data-cookieconsent|data-consent|data-requires-consent/i.test(html);
+  if (dataGdprSrc) {
+    details.push("Attributs de consentement detectes sur les scripts (chargement conditionnel)");
+  }
+
+  // Check for script blocking patterns (common in CMPs)
+  const consentGating =
+    /data-category\s*=\s*["']analytics["']/i.test(html) ||
+    /data-category\s*=\s*["']marketing["']/i.test(html) ||
+    /data-service\s*=\s*["']/i.test(html) ||
+    /class\s*=\s*["'][^"']*optanon-category/i.test(html) ||
+    /data-cmp-/i.test(html) ||
+    /data-tarteaucitron/i.test(html);
+
+  if (consentGating) {
+    details.push("Categorisation des scripts par type de consentement detectee");
+  }
+
+  const scriptsBlocked = typePlaintext || dataGdprSrc || consentGating;
+
+  if (!scriptsBlocked) {
+    details.push("Aucun mecanisme de blocage de scripts avant consentement detecte");
+  }
+
+  return {
+    scriptsBlocked,
+    dataGdprSrc,
+    typePlaintext,
+    consentGating,
+    details,
   };
 }

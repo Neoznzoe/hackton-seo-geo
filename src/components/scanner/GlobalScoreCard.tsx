@@ -1,12 +1,22 @@
-import { RiskLevel } from "@/lib/scanner/types";
+import { RiskLevel, LetterGrade } from "@/lib/scanner/types";
 
 interface GlobalScoreCardProps {
   score: number;
   level: RiskLevel;
+  letterGrade: LetterGrade;
   url: string;
   pagesScanned?: number;
   sitemapFound?: boolean;
 }
+
+const GRADE_COLORS: Record<LetterGrade, string> = {
+  "A+": "text-green-600 bg-green-100 border-green-300",
+  "A": "text-green-600 bg-green-100 border-green-300",
+  "B": "text-blue-600 bg-blue-100 border-blue-300",
+  "C": "text-amber-600 bg-amber-100 border-amber-300",
+  "D": "text-orange-600 bg-orange-100 border-orange-300",
+  "E": "text-red-600 bg-red-100 border-red-300",
+};
 
 const LEVEL_CONFIG = {
   faible: {
@@ -38,7 +48,7 @@ const LEVEL_CONFIG = {
   },
 };
 
-export default function GlobalScoreCard({ score, level, url, pagesScanned, sitemapFound }: GlobalScoreCardProps) {
+export default function GlobalScoreCard({ score, level, letterGrade, url, pagesScanned, sitemapFound }: GlobalScoreCardProps) {
   const config = LEVEL_CONFIG[level];
   const circumference = 2 * Math.PI * 54;
   const offset = circumference - (score / 100) * circumference;
@@ -63,9 +73,14 @@ export default function GlobalScoreCard({ score, level, url, pagesScanned, sitem
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className={`text-5xl font-bold ${config.color}`}>{score}</span>
+            <span className={`text-4xl font-bold ${config.color}`}>{score}</span>
             <span className="text-sm font-medium text-gray-500">/100</span>
           </div>
+        </div>
+
+        {/* Letter grade badge */}
+        <div className={`w-16 h-16 rounded-xl border-2 flex items-center justify-center shrink-0 ${GRADE_COLORS[letterGrade]}`}>
+          <span className="text-2xl font-black">{letterGrade}</span>
         </div>
 
         {/* Info */}

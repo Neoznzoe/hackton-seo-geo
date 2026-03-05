@@ -19,6 +19,9 @@ import DetectedToolsCard from "./DetectedToolsCard";
 import ConsentBannerCard from "./ConsentBannerCard";
 import ActionPlan from "./ActionPlan";
 import LegalPagesCard from "./LegalPagesCard";
+import SecurityHeadersCard from "./SecurityHeadersCard";
+import ThirdPartyCard from "./ThirdPartyCard";
+import ConsentEffectivenessCard from "./ConsentEffectivenessCard";
 import ActionSection from "./ActionSection";
 
 type ScanState = "idle" | "loading" | "success" | "error";
@@ -132,6 +135,7 @@ export default function ScannerClient() {
           <GlobalScoreCard
             score={result.globalScore}
             level={result.globalLevel}
+            letterGrade={result.letterGrade}
             url={result.url}
             pagesScanned={result.pagesScanned}
             sitemapFound={result.sitemapFound}
@@ -161,6 +165,19 @@ export default function ScannerClient() {
                 emptyMessage="Aucun tag manager détecté"
               />
               <LegalPagesCard legalPages={result.legalPages} />
+            </div>
+          </div>
+
+          {/* 3b. Securite, ressources tierces, efficacite consentement */}
+          <div>
+            <h2 className="text-lg font-bold text-gray-900 mb-4">Analyse approfondie</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <SecurityHeadersCard headers={result.securityHeaders} />
+              <ThirdPartyCard resources={result.thirdPartyResources} />
+              <ConsentEffectivenessCard
+                effectiveness={result.consentEffectiveness}
+                hasConsentBanner={result.consentBanners.length > 0}
+              />
             </div>
           </div>
 

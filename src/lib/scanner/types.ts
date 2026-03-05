@@ -1,5 +1,7 @@
 export type RiskLevel = "faible" | "moyen" | "eleve";
 
+export type LetterGrade = "A+" | "A" | "B" | "C" | "D" | "E";
+
 export type ScanPlan = "gratuit" | "rapide" | "complet";
 
 export const PLAN_LIMITS: Record<ScanPlan, number> = {
@@ -22,6 +24,31 @@ export interface LegalPages {
   cgv: boolean;
   politiqueConfidentialite: boolean;
   politiqueCookies: boolean;
+}
+
+export interface SecurityHeaders {
+  https: boolean;
+  hsts: boolean;
+  contentSecurityPolicy: boolean;
+  xFrameOptions: boolean;
+  xContentTypeOptions: boolean;
+  referrerPolicy: boolean;
+}
+
+export interface ThirdPartyResource {
+  type: "font" | "iframe" | "cdn" | "captcha";
+  name: string;
+  domain: string;
+  gdprRisk: boolean;
+  detail: string;
+}
+
+export interface ConsentEffectiveness {
+  scriptsBlocked: boolean;
+  dataGdprSrc: boolean;
+  typePlaintext: boolean;
+  consentGating: boolean;
+  details: string[];
 }
 
 export interface SubScore {
@@ -52,14 +79,29 @@ export interface ScanResult {
   consentBanners: DetectedTool[];
   tagManagers: DetectedTool[];
   legalPages: LegalPages;
+  securityHeaders: SecurityHeaders;
+  thirdPartyResources: ThirdPartyResource[];
+  consentEffectiveness: ConsentEffectiveness;
   globalScore: number;
   globalLevel: RiskLevel;
+  letterGrade: LetterGrade;
   subScores: {
     rgpd: SubScore;
     consent: SubScore;
     trackers: SubScore;
     legal: SubScore;
     bestPractices: SubScore;
+    security: SubScore;
+    thirdParty: SubScore;
   };
   recommendations: Recommendation[];
+}
+
+export function scoreToLetterGrade(score: number): LetterGrade {
+  if (score >= 90) return "A+";
+  if (score >= 75) return "A";
+  if (score >= 60) return "B";
+  if (score >= 45) return "C";
+  if (score >= 30) return "D";
+  return "E";
 }
