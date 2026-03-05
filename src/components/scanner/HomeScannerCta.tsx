@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { trackCtaClick } from "@/lib/tracking";
+import { trackScannerCtaClick } from "@/lib/tracking";
 
 export default function HomeScannerCta() {
   const [url, setUrl] = useState("");
@@ -15,7 +15,7 @@ export default function HomeScannerCta() {
       router.push("/scanner");
       return;
     }
-    trackCtaClick("scanner-homepage");
+    trackScannerCtaClick("homepage");
     router.push(`/scanner?url=${encodeURIComponent(trimmed)}`);
   }
 

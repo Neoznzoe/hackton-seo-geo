@@ -71,6 +71,11 @@ export default function Footer() {
             </p>
             <ul className="mt-3 space-y-2">
               <li>
+                <Link href="/scanner" className="text-sm hover:text-white transition-colors font-medium text-blue-300">
+                  Scanner RGPD gratuit
+                </Link>
+              </li>
+              <li>
                 <Link href="/guide/choisir-outil-analytics" className="text-sm hover:text-white transition-colors">
                   Guide : choisir son outil
                 </Link>

@@ -5,10 +5,8 @@ import Link from "next/link";
 import { SITE_NAME } from "@/lib/constants";
 
 const navigation = [
-  { name: "Accueil", href: "/" },
   { name: "Comparer", href: "/comparer" },
   { name: "Outils", href: "/#outils" },
-  { name: "Scanner", href: "/scanner" },
   { name: "Guide", href: "/guide/choisir-outil-analytics" },
   { name: "Glossaire", href: "/glossaire" },
 ];
@@ -28,18 +26,26 @@ export default function Header() {
           </Link>
 
           {/* Desktop nav */}
-          <ul className="hidden md:flex md:items-center md:gap-6">
-            {navigation.map((item) => (
-              <li key={item.name}>
-                <Link
-                  href={item.href}
-                  className="text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors"
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="hidden md:flex md:items-center md:gap-6">
+            <ul className="flex items-center gap-6">
+              {navigation.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link
+              href="/scanner"
+              className="ml-2 px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
+            >
+              Scanner mon site
+            </Link>
+          </div>
 
           {/* Mobile menu button */}
           <button
@@ -76,19 +82,28 @@ export default function Header() {
 
         {/* Mobile nav */}
         {mobileMenuOpen && (
-          <ul className="md:hidden pb-4 space-y-2">
-            {navigation.map((item) => (
-              <li key={item.name}>
-                <Link
-                  href={item.href}
-                  className="block py-2 text-sm font-medium text-gray-700 hover:text-blue-600"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="md:hidden pb-4 space-y-2">
+            <Link
+              href="/scanner"
+              className="block w-full text-center py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Scanner mon site
+            </Link>
+            <ul className="space-y-2 pt-2">
+              {navigation.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="block py-2 text-sm font-medium text-gray-700 hover:text-blue-600"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
       </nav>
     </header>

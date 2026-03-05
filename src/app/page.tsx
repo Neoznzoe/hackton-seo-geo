@@ -69,59 +69,48 @@ export default function HomePage() {
     <>
       <JsonLd data={{ "@context": "https://schema.org", ...itemListJsonLd }} />
 
-      {/* Hero */}
-      <section className="bg-gradient-to-b from-blue-50 to-white py-16 sm:py-24">
+      {/* Hero — Scanner as primary action */}
+      <section className="bg-gradient-to-br from-blue-700 to-indigo-900 text-white py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight">
-            Comparez les meilleurs outils analytics web
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 mb-6 bg-white/15 rounded-full text-sm font-medium text-blue-100">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+            </svg>
+            Gratuit et sans inscription
+          </span>
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
+            Votre site est-il conforme RGPD ?
           </h1>
-          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-            Google Analytics 4, Matomo, Plausible, Piwik PRO, Simple Analytics,
-            Fathom, Adobe Analytics et Umami : trouvez la solution adaptee a vos
-            besoins en fonctionnalites, prix et conformite RGPD.
+          <p className="mt-4 text-lg text-blue-100 max-w-2xl mx-auto">
+            Scannez votre site en quelques secondes : detection des trackers,
+            pixels, bandeaux cookies et pages legales. Score de conformite
+            instantane avec recommandations personnalisees.
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <TrackedCta
-              href="/scanner"
-              label="Scanner mon site gratuitement"
-              className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-lg"
-            />
-            <TrackedCta
-              href="/comparer"
-              label="Comparer les outils"
-              className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
-            />
+
+          <div className="mt-10">
+            <HomeScannerCta />
           </div>
+
+          <p className="text-sm text-blue-200 mt-4">
+            Analyse multi-pages automatique via sitemap. Jusqu&apos;a 50 pages scannees.
+          </p>
         </div>
       </section>
 
-      {/* Scanner CTA - prominent position */}
-      <section className="py-12 bg-gradient-to-br from-blue-700 to-indigo-900 text-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/15 rounded-full text-sm font-medium text-blue-100">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-              </svg>
-              Outil gratuit
-            </span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-3">
-            Votre site est-il conforme RGPD ?
-          </h2>
-          <p className="text-lg text-blue-100 max-w-2xl mx-auto mb-8">
-            Scannez votre site pour detecter les outils analytics, pixels de tracking
-            et obtenir un score de conformite instantane.
-          </p>
-          <HomeScannerCta />
-          <p className="text-sm text-blue-200 mt-4">
-            Analyse multi-pages automatique. Aucune inscription requise.
-          </p>
+      {/* CTA secondaire — Comparer les outils */}
+      <section className="py-10 bg-white text-center">
+        <div className="mx-auto max-w-3xl px-4">
+          <p className="text-gray-600 mb-4">Vous cherchez un outil analytics ? Comparez 8 solutions sur les prix, fonctionnalites et conformite RGPD.</p>
+          <TrackedCta
+            href="/comparer"
+            label="Comparer les outils analytics"
+            className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+          />
         </div>
       </section>
 
       {/* Outils */}
-      <section id="outils" className="py-16">
+      <section id="outils" className="py-16 bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
             8 outils analytics compares
@@ -135,11 +124,18 @@ export default function HomePage() {
               <ToolCard key={tool.slug} tool={tool} />
             ))}
           </div>
+          <div className="text-center mt-8">
+            <TrackedCta
+              href="/comparer"
+              label="Comparer les outils entre eux"
+              className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-white transition-colors"
+            />
+          </div>
         </div>
       </section>
 
       {/* Categories */}
-      <section id="categories" className="py-16 bg-gray-50">
+      <section id="categories" className="py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
             Explorez par categorie
@@ -159,44 +155,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Pourquoi DevRadar */}
-      <section className="py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">
-            Pourquoi utiliser DevRadar ?
+      {/* Bottom CTA — rappel scanner */}
+      <section className="py-14 bg-gradient-to-br from-blue-700 to-indigo-900 text-white">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-3">
+            Pret a verifier votre conformite ?
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <h3 className="font-semibold text-gray-900 text-lg">
-                Comparaison objective
-              </h3>
-              <p className="mt-2 text-gray-600 text-sm">
-                Nous analysons chaque outil sur des criteres factuels :
-                fonctionnalites, tarifs, conformite RGPD, performance. Pas de
-                classement sponsorise.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-900 text-lg">
-                Focus conformite RGPD
-              </h3>
-              <p className="mt-2 text-gray-600 text-sm">
-                Chaque fiche outil detaille la conformite RGPD, les
-                recommandations CNIL et la possibilite d&apos;utiliser l&apos;outil
-                sans bandeau cookies.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-900 text-lg">
-                Donnees a jour
-              </h3>
-              <p className="mt-2 text-gray-600 text-sm">
-                Tarifs, fonctionnalites et politiques de confidentialite sont
-                regulierement verifies pour vous offrir des informations fiables
-                et actuelles.
-              </p>
-            </div>
-          </div>
+          <p className="text-blue-100 mb-8">
+            Lancez un scan gratuit maintenant et recevez votre score RGPD en quelques secondes.
+          </p>
+          <HomeScannerCta />
         </div>
       </section>
 

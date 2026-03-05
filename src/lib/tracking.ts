@@ -26,8 +26,73 @@ export function trackPageView(title?: string) {
 }
 
 // ---------------------------------------------------------------------------
-// PLAN DE MARQUAGE — Events custom organises par categorie
+// PLAN DE MARQUAGE — Funnel principal = Scanner RGPD
 // ---------------------------------------------------------------------------
+
+// --- Funnel principal : Scanner RGPD --------------------------------------
+// Etapes : Homepage CTA → Open scanner → Choix plan → Lancer scan → Résultat → Action
+
+/** Step 0 : clic sur le CTA scanner depuis la homepage */
+export function trackScannerCtaClick(source: string) {
+  sendEvent("funnel", "step_0_scanner_cta", source);
+}
+
+/** Step 1 : ouverture de la page scanner */
+export function trackScannerOpen() {
+  sendEvent("funnel", "step_1_scanner_open", "scanner_page");
+}
+
+/** Step 2 : saisie d'une URL dans le champ */
+export function trackScanUrlInput(url: string) {
+  sendEvent("funnel", "step_2_url_input", url);
+}
+
+/** Step 3 : sélection d'un plan (gratuit/rapide/complet) */
+export function trackScanPlanSelect(plan: string) {
+  sendEvent("funnel", "step_3_plan_select", plan);
+}
+
+/** Step 4 : lancement du scan */
+export function trackScan(url: string) {
+  sendEvent("funnel", "step_4_scan_start", url);
+}
+
+/** Step 5 : résultat affiché (score + niveau de risque) */
+export function trackScanResult(riskLevel: string, score: number) {
+  sendEvent("funnel", "step_5_scan_result", riskLevel, score);
+}
+
+/** Step 6 : clic sur une recommandation du plan d'action */
+export function trackScanRecommendationClick(link: string) {
+  sendEvent("funnel", "step_6_recommendation_click", link);
+}
+
+/** Step 6b : clic vers un outil depuis les résultats scanner */
+export function trackScanToolClick(toolName: string) {
+  sendEvent("funnel", "step_6_tool_click", toolName);
+}
+
+// --- Funnel secondaire : Découverte outils --------------------------------
+
+export function trackToolView(toolSlug: string) {
+  sendEvent("discovery", "view_tool", toolSlug);
+}
+
+export function trackComparison(tool1: string, tool2: string) {
+  sendEvent("discovery", "compare", `${tool1}-vs-${tool2}`);
+}
+
+export function trackClickCompare(from: string, to: string) {
+  sendEvent("discovery", "compare_click", `${from} -> ${to}`);
+}
+
+export function trackExternalLink(toolName: string, url: string) {
+  sendEvent("discovery", "external_link", `${toolName} | ${url}`);
+}
+
+export function trackCtaClick(label: string) {
+  sendEvent("discovery", "cta_click", label);
+}
 
 // --- Navigation -----------------------------------------------------------
 
@@ -41,56 +106,6 @@ export function trackInternalNavigation(from: string, to: string) {
 
 export function trackCategoryClick(slug: string) {
   sendEvent("navigation", "category_click", slug);
-}
-
-// --- Funnel : Decouverte --------------------------------------------------
-
-export function trackToolView(toolSlug: string) {
-  sendEvent("funnel", "step_1_view_tool", toolSlug);
-}
-
-export function trackComparison(tool1: string, tool2: string) {
-  sendEvent("funnel", "step_2_compare", `${tool1}-vs-${tool2}`);
-}
-
-export function trackClickCompare(from: string, to: string) {
-  sendEvent("funnel", "step_2_compare_click", `${from} -> ${to}`);
-}
-
-// --- Funnel : Conversion --------------------------------------------------
-
-export function trackExternalLink(toolName: string, url: string) {
-  sendEvent("funnel", "step_3_conversion_click", `${toolName} | ${url}`);
-}
-
-export function trackCtaClick(label: string) {
-  sendEvent("funnel", "step_cta_click", label);
-}
-
-// --- Funnel : Scanner (funnel secondaire) ---------------------------------
-
-export function trackScannerOpen() {
-  sendEvent("scanner_funnel", "step_1_open", "scanner_page");
-}
-
-export function trackScanUrlInput(url: string) {
-  sendEvent("scanner_funnel", "step_2_url_input", url);
-}
-
-export function trackScanPlanSelect(plan: string) {
-  sendEvent("scanner_funnel", "step_3_plan_select", plan);
-}
-
-export function trackScan(url: string) {
-  sendEvent("scanner_funnel", "step_4_scan_start", url);
-}
-
-export function trackScanResult(riskLevel: string, score: number) {
-  sendEvent("scanner_funnel", "step_5_scan_result", riskLevel, score);
-}
-
-export function trackScanRecommendationClick(link: string) {
-  sendEvent("scanner_funnel", "step_6_recommendation_click", link);
 }
 
 // --- Engagement -----------------------------------------------------------
@@ -140,4 +155,13 @@ export function trackEntryPoint(referrer: string) {
 
 export function trackConsentChoice(choice: "accepted" | "refused") {
   sendEvent("consent", "cookie_banner", choice);
+}
+
+// ---------------------------------------------------------------------------
+// Legacy aliases (deprecated — kept for backwards compatibility)
+// ---------------------------------------------------------------------------
+
+/** @deprecated Use trackScan */
+export function trackEvent(category: string, action: string, name?: string, value?: number) {
+  sendEvent(category, action, name, value);
 }
