@@ -112,14 +112,14 @@ export default async function ToolPage({ params }: PageProps) {
         {/* Header */}
         <header className="mb-8">
           <div className="flex items-start gap-4">
-            <div className="w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center text-2xl font-bold text-blue-600 shrink-0">
+            <div className="w-14 h-14 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center text-2xl font-bold text-blue-600 shrink-0">
               {tool.name[0]}
             </div>
             <div>
-              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
+              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100">
                 {tool.name}
               </h1>
-              <p className="mt-2 text-lg text-gray-600">
+              <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">
                 {tool.shortDescription}
               </p>
             </div>
@@ -131,10 +131,10 @@ export default async function ToolPage({ params }: PageProps) {
 
         {/* Presentation */}
         <section className="mb-12" aria-labelledby="presentation">
-          <h2 id="presentation" className="text-2xl font-bold text-gray-900 mb-4">
+          <h2 id="presentation" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
             Presentation de {tool.name}
           </h2>
-          <p className="text-gray-700 leading-relaxed">{tool.description}</p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{tool.description}</p>
           <p className="mt-4">
             <ToolPageTracker
               toolSlug={tool.slug}
@@ -150,7 +150,7 @@ export default async function ToolPage({ params }: PageProps) {
 
         {/* Tarifs */}
         <section className="mb-12" aria-labelledby="tarifs">
-          <h2 id="tarifs" className="text-2xl font-bold text-gray-900 mb-6">
+          <h2 id="tarifs" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
             Tarifs de {tool.name}
           </h2>
           <PricingTable tiers={tool.pricing} />
@@ -160,7 +160,7 @@ export default async function ToolPage({ params }: PageProps) {
         <section className="mb-12" aria-labelledby="fonctionnalites">
           <h2
             id="fonctionnalites"
-            className="text-2xl font-bold text-gray-900 mb-6"
+            className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6"
           >
             Fonctionnalites
           </h2>
@@ -169,7 +169,7 @@ export default async function ToolPage({ params }: PageProps) {
 
         {/* Conformite */}
         <section className="mb-12" aria-labelledby="conformite">
-          <h2 id="conformite" className="text-2xl font-bold text-gray-900 mb-6">
+          <h2 id="conformite" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
             Conformite RGPD et vie privee
           </h2>
           <ComplianceDetails compliance={tool.compliance} />
@@ -179,7 +179,7 @@ export default async function ToolPage({ params }: PageProps) {
         <section className="mb-12" aria-labelledby="avantages-inconvenients">
           <h2
             id="avantages-inconvenients"
-            className="text-2xl font-bold text-gray-900 mb-6"
+            className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6"
           >
             Avantages et inconvenients
           </h2>
@@ -196,7 +196,7 @@ export default async function ToolPage({ params }: PageProps) {
 
         {/* Contextual VS CTAs */}
         <section className="mb-12" id="comparaisons" aria-labelledby="comparaisons-heading">
-          <h2 id="comparaisons-heading" className="text-2xl font-bold text-gray-900 mb-6">
+          <h2 id="comparaisons-heading" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
             Comparez {tool.name} avec les alternatives
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

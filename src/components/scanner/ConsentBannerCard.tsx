@@ -10,8 +10,8 @@ export default function ConsentBannerCard({ banners, needsConsent = false }: Con
   const isOk = hasBanner || !needsConsent;
 
   return (
-    <div className={`border rounded-xl p-6 shadow-sm ${isOk ? "bg-green-50 border-green-300" : "bg-red-50 border-red-300"}`}>
-      <h3 className="font-bold text-gray-900 mb-3">Bandeau de consentement</h3>
+    <div className={`border rounded-xl p-6 shadow-sm ${isOk ? "bg-green-50 dark:bg-green-950 border-green-300 dark:border-green-700" : "bg-red-50 dark:bg-red-950 border-red-300 dark:border-red-700"}`}>
+      <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-3">Bandeau de consentement</h3>
       {hasBanner ? (
         <div>
           <p className="text-sm font-medium text-green-800 mb-3 flex items-center gap-2">
@@ -24,7 +24,7 @@ export default function ConsentBannerCard({ banners, needsConsent = false }: Con
             {banners.map((banner) => (
               <span
                 key={banner.id}
-                className="inline-block text-sm font-medium px-3 py-1.5 rounded-full bg-green-100 text-green-800 border border-green-300"
+                className="inline-block text-sm font-medium px-3 py-1.5 rounded-full bg-green-100 dark:bg-green-950 text-green-800 dark:text-green-300 border border-green-300 dark:border-green-700"
               >
                 {banner.name}
               </span>

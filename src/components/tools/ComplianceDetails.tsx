@@ -51,11 +51,11 @@ export default function ComplianceDetails({ compliance }: ComplianceDetailsProps
           </span>
         ))}
       </div>
-      <p className="text-sm text-gray-600">
-        <strong className="text-gray-900">Localisation des donnees :</strong>{" "}
+      <p className="text-sm text-gray-600 dark:text-gray-400">
+        <strong className="text-gray-900 dark:text-gray-100">Localisation des donnees :</strong>{" "}
         {compliance.dataLocation}
       </p>
-      <p className="text-sm text-gray-600 leading-relaxed">
+      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
         {compliance.details}
       </p>
     </div>

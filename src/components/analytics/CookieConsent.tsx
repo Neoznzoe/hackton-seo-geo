@@ -45,11 +45,11 @@ export default function CookieConsent() {
     <div
       role="dialog"
       aria-label="Gestion des cookies"
-      className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg p-4 sm:p-6"
+      className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg p-4 sm:p-6"
     >
       <div className="mx-auto max-w-4xl flex flex-col sm:flex-row items-start sm:items-center gap-4">
         <div className="flex-1">
-          <p className="text-sm text-gray-700">
+          <p className="text-sm text-gray-700 dark:text-gray-300">
             Nous utilisons Piwik Pro pour mesurer l&apos;audience de ce site.
             Ces cookies nous permettent d&apos;ameliorer votre experience.
             Conformement au RGPD et aux recommandations de la CNIL, vous pouvez
@@ -62,7 +62,7 @@ export default function CookieConsent() {
         <div className="flex gap-2 shrink-0">
           <button
             onClick={handleRefuse}
-            className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+            className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
           >
             Refuser
           </button>

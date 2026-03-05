@@ -52,7 +52,7 @@ function SubScoreCard({ id, sub }: { id: string; sub: SubScore }) {
   const colors = LEVEL_COLORS[sub.level];
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
+    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-5 shadow-sm">
       <div className="flex items-center gap-3 mb-3">
         <div className={`w-9 h-9 ${colors.bg} rounded-lg flex items-center justify-center shrink-0`}>
           <svg className={`w-5 h-5 ${colors.text}`} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -60,13 +60,13 @@ function SubScoreCard({ id, sub }: { id: string; sub: SubScore }) {
           </svg>
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-gray-900">{sub.label}</p>
+          <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">{sub.label}</p>
         </div>
         <span className={`text-lg font-bold ${colors.text}`}>{sub.score}</span>
       </div>
 
       {/* Progress bar */}
-      <div className="w-full bg-gray-100 rounded-full h-2 mb-3">
+      <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-2 mb-3">
         <div
           className={`${colors.bar} h-2 rounded-full transition-all`}
           style={{ width: `${sub.score}%` }}
@@ -76,7 +76,7 @@ function SubScoreCard({ id, sub }: { id: string; sub: SubScore }) {
       {/* Toggle details */}
       <button
         onClick={() => setOpen(!open)}
-        className="text-xs text-gray-500 hover:text-gray-700 flex items-center gap-1"
+        className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 flex items-center gap-1"
       >
         {open ? "Masquer" : "Voir"} le détail
         <svg
@@ -88,7 +88,7 @@ function SubScoreCard({ id, sub }: { id: string; sub: SubScore }) {
       </button>
 
       {open && (
-        <ul className="mt-3 space-y-1.5 border-t border-gray-100 pt-3">
+        <ul className="mt-3 space-y-1.5 border-t border-gray-100 dark:border-gray-800 pt-3">
           {sub.details.map((d) => {
             const negative = isNegativeDetail(d);
             return (
@@ -115,7 +115,7 @@ function SubScoreCard({ id, sub }: { id: string; sub: SubScore }) {
 export default function SubScoresGrid({ subScores }: SubScoresGridProps) {
   return (
     <div>
-      <h2 className="text-lg font-bold text-gray-900 mb-4">Détail par catégorie</h2>
+      <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Détail par catégorie</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <SubScoreCard id="rgpd" sub={subScores.rgpd} />
         <SubScoreCard id="consent" sub={subScores.consent} />

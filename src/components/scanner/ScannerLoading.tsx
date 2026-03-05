@@ -34,13 +34,13 @@ export default function ScannerLoading({ plan }: ScannerLoadingProps) {
 
   return (
     <div className="mx-auto max-w-xl px-4 py-12">
-      <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm">
+      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-8 shadow-sm">
         {/* Plan info */}
-        <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
-          <span className="text-sm text-gray-500">
-            Plan <span className="font-semibold text-gray-900 capitalize">{plan}</span>
+        <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100 dark:border-gray-800">
+          <span className="text-sm text-gray-500 dark:text-gray-400">
+            Plan <span className="font-semibold text-gray-900 dark:text-gray-100 capitalize">{plan}</span>
           </span>
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-gray-500 dark:text-gray-400">
             Jusqu&apos;à <span className="font-semibold text-blue-700">{pageLimit} pages</span>
           </span>
         </div>
@@ -55,9 +55,9 @@ export default function ScannerLoading({ plan }: ScannerLoadingProps) {
               ) : i === currentStep ? (
                 <div className="w-5 h-5 shrink-0 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
               ) : (
-                <div className="w-5 h-5 shrink-0 rounded-full border-2 border-gray-300" />
+                <div className="w-5 h-5 shrink-0 rounded-full border-2 border-gray-300 dark:border-gray-600" />
               )}
-              <span className={`text-sm ${i < currentStep ? "text-gray-900 font-medium" : i === currentStep ? "text-blue-700 font-medium" : "text-gray-400"}`}>
+              <span className={`text-sm ${i < currentStep ? "text-gray-900 dark:text-gray-100 font-medium" : i === currentStep ? "text-blue-700 font-medium" : "text-gray-400 dark:text-gray-500"}`}>
                 {step}
               </span>
             </div>

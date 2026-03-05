@@ -48,8 +48,8 @@ export default function PlanSelector({ selectedPlan, onSelectPlan, isLoading }: 
             disabled={isLoading}
             className={`relative flex flex-col items-center p-4 rounded-xl border-2 transition-all text-left ${
               isSelected
-                ? "border-blue-600 bg-blue-50 shadow-md"
-                : "border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm"
+                ? "border-blue-600 bg-blue-50 dark:bg-blue-950 shadow-md"
+                : "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-sm"
             } ${isLoading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
           >
             {plan.id === "rapide" && (
@@ -57,14 +57,14 @@ export default function PlanSelector({ selectedPlan, onSelectPlan, isLoading }: 
                 Populaire
               </span>
             )}
-            <span className="text-sm font-bold text-gray-900">{plan.name}</span>
+            <span className="text-sm font-bold text-gray-900 dark:text-gray-100">{plan.name}</span>
             <span className="text-2xl font-bold text-blue-700 mt-1">{plan.pages}</span>
-            <span className="text-xs text-gray-500">pages max</span>
-            <span className="text-xs text-gray-400 mt-1 text-center">{plan.description}</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">pages max</span>
+            <span className="text-xs text-gray-400 dark:text-gray-500 mt-1 text-center">{plan.description}</span>
             <span className={`mt-2 text-xs font-semibold px-3 py-1 rounded-full ${
               plan.id === "gratuit"
-                ? "bg-green-100 text-green-700"
-                : "bg-gray-100 text-gray-600"
+                ? "bg-green-100 dark:bg-green-950 text-green-700"
+                : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
             }`}>
               {plan.price}
             </span>

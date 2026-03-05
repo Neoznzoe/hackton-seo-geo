@@ -45,7 +45,7 @@ export default function VeilleClient() {
       )}
 
       {loading && (
-        <div className="mt-6 flex items-center gap-3 text-gray-500">
+        <div className="mt-6 flex items-center gap-3 text-gray-500 dark:text-gray-400">
           <div className="animate-spin h-5 w-5 border-2 border-blue-600 border-t-transparent rounded-full" />
           <span>Scraping en cours... Respect du rate limiting entre chaque source.</span>
         </div>
@@ -75,46 +75,46 @@ export default function VeilleClient() {
 
           {/* Tool results */}
           <div>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">
               Donnees collectees
             </h2>
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg">
-                <thead className="bg-gray-50">
+              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 border border-gray-200 dark:border-gray-700 rounded-lg">
+                <thead className="bg-gray-50 dark:bg-gray-800">
                   <tr>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                       Outil
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                       Pricing detecte
                     </th>
-                    <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">
+                    <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                       Gratuit
                     </th>
-                    <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">
+                    <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                       Open Source
                     </th>
-                    <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">
+                    <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                       Self-hosted
                     </th>
-                    <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">
+                    <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                       RGPD
                     </th>
-                    <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">
+                    <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                       Sans cookies
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                       Source
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                   {result.tools.map((tool, i) => (
-                    <tr key={i} className="hover:bg-gray-50">
-                      <td className="px-4 py-3 font-medium text-gray-900">
+                    <tr key={i} className="hover:bg-gray-50 dark:hover:bg-gray-800">
+                      <td className="px-4 py-3 font-medium text-gray-900 dark:text-gray-100">
                         {tool.name}
                       </td>
-                      <td className="px-4 py-3 text-sm text-gray-600">
+                      <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
                         {tool.pricing || "—"}
                       </td>
                       <td className="px-4 py-3 text-center">
@@ -132,7 +132,7 @@ export default function VeilleClient() {
                       <td className="px-4 py-3 text-center">
                         <Badge value={tool.cookieless} />
                       </td>
-                      <td className="px-4 py-3 text-sm text-gray-500 max-w-[200px] truncate">
+                      <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400 max-w-[200px] truncate">
                         {tool.source}
                       </td>
                     </tr>
@@ -153,39 +153,39 @@ export default function VeilleClient() {
 
             {showLogs && (
               <div className="mt-4 overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg text-sm">
-                  <thead className="bg-gray-50">
+                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 border border-gray-200 dark:border-gray-700 rounded-lg text-sm">
+                  <thead className="bg-gray-50 dark:bg-gray-800">
                     <tr>
-                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                         Horodatage
                       </th>
-                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                         Cible
                       </th>
-                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase">
+                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                         robots.txt
                       </th>
-                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase">
+                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                         Status
                       </th>
-                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase">
+                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                         Duree
                       </th>
-                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase">
+                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                         Points
                       </th>
-                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                         Erreur
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-200">
+                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                     {result.logs.map((log, i) => (
                       <tr key={i} className={log.error ? "bg-red-50" : ""}>
-                        <td className="px-3 py-2 text-gray-500 whitespace-nowrap">
+                        <td className="px-3 py-2 text-gray-500 dark:text-gray-400 whitespace-nowrap">
                           {new Date(log.timestamp).toLocaleTimeString("fr-FR")}
                         </td>
-                        <td className="px-3 py-2 text-gray-700 max-w-[200px] truncate">
+                        <td className="px-3 py-2 text-gray-700 dark:text-gray-300 max-w-[200px] truncate">
                           {log.target}
                         </td>
                         <td className="px-3 py-2 text-center">
@@ -226,9 +226,9 @@ export default function VeilleClient() {
 
 function MetricCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4">
-      <p className="text-sm text-gray-500">{label}</p>
-      <p className="text-xl font-bold text-gray-900 mt-1">{value}</p>
+    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+      <p className="text-sm text-gray-500 dark:text-gray-400">{label}</p>
+      <p className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-1">{value}</p>
     </div>
   );
 }

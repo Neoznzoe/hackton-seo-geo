@@ -79,9 +79,9 @@ const CookieTable = ({ rows }: { rows: typeof necessaryCookies }) => (
   <div className="overflow-x-auto mt-3">
     <table className="w-full text-sm border-collapse">
       <thead>
-        <tr className="bg-gray-50">
+        <tr className="bg-gray-50 dark:bg-gray-800">
           {cookieTableHeaders.map((h) => (
-            <th key={h} className="text-left p-3 border border-gray-200 font-semibold text-gray-700">
+            <th key={h} className="text-left p-3 border border-gray-200 dark:border-gray-700 font-semibold text-gray-700 dark:text-gray-300">
               {h}
             </th>
           ))}
@@ -89,13 +89,13 @@ const CookieTable = ({ rows }: { rows: typeof necessaryCookies }) => (
       </thead>
       <tbody>
         {rows.map((row, i) => (
-          <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-            <td className="p-3 border border-gray-200">
-              <code className="bg-gray-100 px-1 rounded text-xs">{row.name}</code>
+          <tr key={i} className={i % 2 === 0 ? "bg-white dark:bg-gray-900" : "bg-gray-50 dark:bg-gray-800"}>
+            <td className="p-3 border border-gray-200 dark:border-gray-700">
+              <code className="bg-gray-100 dark:bg-gray-800 px-1 rounded text-xs">{row.name}</code>
             </td>
-            <td className="p-3 border border-gray-200 text-gray-700">{row.purpose}</td>
-            <td className="p-3 border border-gray-200 text-gray-600 whitespace-nowrap">{row.duration}</td>
-            <td className="p-3 border border-gray-200 text-gray-600">{row.emitter}</td>
+            <td className="p-3 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">{row.purpose}</td>
+            <td className="p-3 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 whitespace-nowrap">{row.duration}</td>
+            <td className="p-3 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400">{row.emitter}</td>
           </tr>
         ))}
       </tbody>
@@ -122,10 +122,10 @@ const sections = [
       <div className="space-y-8">
         {/* 2.1 */}
         <div>
-          <h3 className="text-base font-semibold text-gray-900 mb-1">
+          <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-1">
             2.1 Cookies strictement nécessaires
           </h3>
-          <p className="text-sm text-gray-600 bg-gray-50 border border-gray-200 rounded p-3 mb-2">
+          <p className="text-sm text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded p-3 mb-2">
             Ces cookies sont indispensables au fonctionnement du site. Ils ne nécessitent pas votre
             consentement (article 82 de la loi Informatique et Libertés, exemption CNIL).
           </p>
@@ -134,16 +134,16 @@ const sections = [
 
         {/* 2.2 */}
         <div>
-          <h3 className="text-base font-semibold text-gray-900 mb-1">
+          <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-1">
             2.2 Cookies analytics — Piwik PRO
           </h3>
-          <p className="text-sm text-gray-600 bg-gray-50 border border-gray-200 rounded p-3 mb-2">
+          <p className="text-sm text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded p-3 mb-2">
             Ces cookies sont déposés uniquement après votre consentement explicite. Ils permettent
             de mesurer l&apos;audience du site de manière anonymisée. Piwik PRO est une solution
             européenne hébergée en Allemagne (UE).
           </p>
           <CookieTable rows={piwikCookies} />
-          <p className="text-xs text-gray-500 mt-2 italic">
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 italic">
             Données collectées : pages visitées, durée de visite, profondeur de scroll, clics CTA,
             source de trafic, type d&apos;appareil et navigateur. Aucun fingerprinting, aucune
             donnée personnelle identifiante.
@@ -152,10 +152,10 @@ const sections = [
 
         {/* 2.3 */}
         <div>
-          <h3 className="text-base font-semibold text-gray-900 mb-1">
+          <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-1">
             2.3 Cookies tiers — Ahrefs Analytics
           </h3>
-          <p className="text-sm text-gray-600 bg-gray-50 border border-gray-200 rounded p-3 mb-2">
+          <p className="text-sm text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded p-3 mb-2">
             Déposé uniquement après votre consentement. Utilisé pour l&apos;analyse SEO du site.
           </p>
           <CookieTable rows={ahrefsCookies} />
@@ -169,14 +169,14 @@ const sections = [
     content: (
       <div className="space-y-6">
         <div>
-          <h3 className="text-base font-semibold text-gray-900 mb-2">
+          <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2">
             3.1 Bandeau de consentement
           </h3>
-          <p className="text-sm text-gray-700 mb-3">
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
             Lors de votre première visite, un bandeau vous propose d&apos;accepter ou de refuser
             les cookies non essentiels. Conformément aux recommandations de la CNIL :
           </p>
-          <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+          <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
             <li>
               Le bouton <strong>Refuser</strong> est aussi visible et accessible que le bouton{" "}
               <strong>Accepter</strong>
@@ -189,23 +189,23 @@ const sections = [
           </ul>
         </div>
         <div>
-          <h3 className="text-base font-semibold text-gray-900 mb-2">
+          <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2">
             3.2 Modifier votre choix
           </h3>
-          <p className="text-sm text-gray-700">
+          <p className="text-sm text-gray-700 dark:text-gray-300">
             Vous pouvez modifier votre choix à tout moment en supprimant les données du site dans
             les paramètres de votre navigateur (localStorage), ce qui fera réapparaître le bandeau
             de consentement.
           </p>
         </div>
         <div>
-          <h3 className="text-base font-semibold text-gray-900 mb-2">
+          <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2">
             3.3 Paramètres du navigateur
           </h3>
-          <p className="text-sm text-gray-700 mb-3">
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
             Vous pouvez également configurer votre navigateur pour bloquer les cookies :
           </p>
-          <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+          <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
             <li>
               <strong>Chrome</strong> : Paramètres &gt; Confidentialité et sécurité &gt; Cookies
             </li>
@@ -228,14 +228,14 @@ const sections = [
     title: "4. Conséquences du refus des cookies",
     content: (
       <div>
-        <p className="text-sm text-gray-700 mb-3">Si vous refusez les cookies analytics :</p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+        <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">Si vous refusez les cookies analytics :</p>
+        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
           <li>Le site reste entièrement fonctionnel (scanner, comparateur, guides)</li>
           <li>Aucune donnée de navigation n&apos;est collectée</li>
           <li>Aucun cookie Piwik PRO ou Ahrefs n&apos;est déposé</li>
           <li>
             Seul le cookie de consentement (
-            <code className="bg-gray-100 px-1 rounded text-xs">devradar_consent</code>) est
+            <code className="bg-gray-100 dark:bg-gray-800 px-1 rounded text-xs">devradar_consent</code>) est
             conservé pour mémoriser votre refus
           </li>
         </ul>
@@ -249,9 +249,9 @@ const sections = [
       <div className="overflow-x-auto">
         <table className="w-full text-sm border-collapse">
           <thead>
-            <tr className="bg-gray-50">
+            <tr className="bg-gray-50 dark:bg-gray-800">
               {["Catégorie", "Durée maximale", "Conformité"].map((h) => (
-                <th key={h} className="text-left p-3 border border-gray-200 font-semibold text-gray-700">
+                <th key={h} className="text-left p-3 border border-gray-200 dark:border-gray-700 font-semibold text-gray-700 dark:text-gray-300">
                   {h}
                 </th>
               ))}
@@ -263,10 +263,10 @@ const sections = [
               ["Cookies analytics Piwik PRO", "13 mois", "Recommandation CNIL (25 mois max pour les données)"],
               ["Données collectées via Piwik PRO", "25 mois", "Recommandation CNIL"],
             ].map(([cat, duree, conf], i) => (
-              <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                <td className="p-3 border border-gray-200 text-gray-700">{cat}</td>
-                <td className="p-3 border border-gray-200 text-gray-600 whitespace-nowrap">{duree}</td>
-                <td className="p-3 border border-gray-200 text-gray-500 text-xs">{conf}</td>
+              <tr key={i} className={i % 2 === 0 ? "bg-white dark:bg-gray-900" : "bg-gray-50 dark:bg-gray-800"}>
+                <td className="p-3 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">{cat}</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 whitespace-nowrap">{duree}</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 text-xs">{conf}</td>
               </tr>
             ))}
           </tbody>
@@ -290,11 +290,11 @@ const sections = [
     title: "7. Vos droits",
     content: (
       <div>
-        <p className="text-sm text-gray-700 mb-3">
+        <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
           Conformément au RGPD (articles 15 à 22), vous disposez de droits sur vos données
           personnelles. Pour plus de détails, consultez notre politique de confidentialité.
         </p>
-        <ul className="list-none space-y-1 text-sm text-gray-700">
+        <ul className="list-none space-y-1 text-sm text-gray-700 dark:text-gray-300">
           <li>
             <span className="font-medium">Contact :</span>{" "}
             <a href="mailto:contact@devradar.fr" className="text-blue-600 hover:underline">
@@ -320,7 +320,7 @@ const sections = [
     id: "references",
     title: "8. Références réglementaires",
     content: (
-      <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+      <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
         <li>Règlement Général sur la Protection des Données (RGPD — Règlement UE 2016/679)</li>
         <li>Directive ePrivacy (2002/58/CE modifiée)</li>
         <li>Loi Informatique et Libertés — Article 82 (transposition ePrivacy)</li>
@@ -349,11 +349,11 @@ export default function PolitiqueCookiesPage() {
       />
 
       <header className="mb-10">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100">
           Politique de cookies
         </h1>
-        <p className="mt-3 text-lg text-gray-600">Dernière mise à jour : 5 mars 2026</p>
-        <p className="mt-2 text-sm text-gray-500">
+        <p className="mt-3 text-lg text-gray-600 dark:text-gray-400">Dernière mise à jour : 5 mars 2026</p>
+        <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
           Conformément au RGPD, à la directive ePrivacy et aux lignes directrices de la CNIL
           (délibération n° 2020-091).
         </p>
@@ -364,9 +364,9 @@ export default function PolitiqueCookiesPage() {
         <p className="text-sm font-semibold text-blue-800 uppercase tracking-wide mb-3">
           En résumé
         </p>
-        <ul className="space-y-2 text-sm text-gray-700">
+        <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
           <li>
-            Seul le cookie <code className="bg-white border border-blue-100 px-1 rounded text-xs">devradar_consent</code> est déposé <strong>sans votre accord</strong>.
+            Seul le cookie <code className="bg-white dark:bg-gray-900 border border-blue-100 px-1 rounded text-xs">devradar_consent</code> est déposé <strong>sans votre accord</strong>.
           </li>
           <li>
             Les cookies analytics (Piwik PRO) ne sont activés <strong>qu&apos;après votre consentement explicite</strong>.
@@ -381,8 +381,8 @@ export default function PolitiqueCookiesPage() {
       </section>
 
       {/* Sommaire */}
-      <nav className="mb-12 border border-gray-200 rounded-lg p-6" aria-label="Sommaire">
-        <p className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">Sommaire</p>
+      <nav className="mb-12 border border-gray-200 dark:border-gray-700 rounded-lg p-6" aria-label="Sommaire">
+        <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-3">Sommaire</p>
         <ol className="space-y-1 text-sm text-blue-600">
           {sections.map((section) => (
             <li key={section.id}>
@@ -397,17 +397,17 @@ export default function PolitiqueCookiesPage() {
       {/* Sections */}
       {sections.map((section) => (
         <section key={section.id} className="mb-10" aria-labelledby={section.id}>
-          <h2 id={section.id} className="text-2xl font-bold text-gray-900 mb-4">
+          <h2 id={section.id} className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
             {section.title}
           </h2>
-          <div className="prose prose-sm text-gray-700">{section.content}</div>
+          <div className="prose prose-sm text-gray-700 dark:text-gray-300">{section.content}</div>
         </section>
       ))}
 
       {/* Contact */}
       <section className="bg-blue-50 rounded-lg p-8 text-center mt-12">
-        <h2 className="text-xl font-bold text-gray-900">Gérer vos préférences cookies</h2>
-        <p className="mt-2 text-gray-600 text-sm">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Gérer vos préférences cookies</h2>
+        <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
           Pour toute question sur nos cookies ou pour exercer vos droits, contactez-nous.
         </p>
         <div className="mt-4 flex flex-col sm:flex-row gap-3 justify-center">
@@ -419,7 +419,7 @@ export default function PolitiqueCookiesPage() {
           </a>
           <a
             href="/politique-confidentialite"
-            className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           >
             Politique de confidentialité
           </a>

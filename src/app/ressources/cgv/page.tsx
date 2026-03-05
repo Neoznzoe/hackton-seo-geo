@@ -79,7 +79,7 @@ const sections = [
     content: (
       <div>
         <p className="mb-3">DevRadar propose notamment :</p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 mb-4">
+        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300 mb-4">
           <li>un accès à une plateforme de veille technologique</li>
           <li>l&apos;agrégation d&apos;articles issus de sources publiques</li>
           <li>des outils de recherche et de filtrage par technologies</li>
@@ -109,7 +109,7 @@ const sections = [
     content: (
       <div>
         <p className="mb-3">Le paiement peut être effectué par :</p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 mb-4">
+        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300 mb-4">
           <li>carte bancaire</li>
           <li>service de paiement en ligne</li>
         </ul>
@@ -131,7 +131,7 @@ const sections = [
           disponibilité du service.
         </p>
         <p className="mb-3">Cependant, des interruptions peuvent survenir notamment pour :</p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
           <li>maintenance</li>
           <li>mise à jour</li>
           <li>problème technique</li>
@@ -161,7 +161,7 @@ const sections = [
           DevRadar agit comme un agrégateur de contenus provenant de sources externes.
         </p>
         <p className="mb-3">L&apos;éditeur ne peut être tenu responsable :</p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
           <li>de l&apos;exactitude des informations publiées par les sources tierces</li>
           <li>de l&apos;indisponibilité temporaire du service</li>
           <li>de dommages indirects liés à l&apos;utilisation du service</li>
@@ -236,10 +236,10 @@ export default function CgvPage() {
       />
 
       <header className="mb-10">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100">
           Conditions Générales de Vente
         </h1>
-        <p className="mt-3 text-lg text-gray-600">
+        <p className="mt-3 text-lg text-gray-600 dark:text-gray-400">
           Dernière mise à jour :{" "}
           {new Date().toLocaleDateString("fr-FR", {
             day: "numeric",
@@ -254,7 +254,7 @@ export default function CgvPage() {
         <p className="text-sm font-semibold text-blue-800 uppercase tracking-wide mb-3">
           En résumé
         </p>
-        <ul className="space-y-2 text-sm text-gray-700">
+        <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
           <li>DevRadar propose des offres payantes sous forme d&apos;<strong>abonnement premium ou accès API</strong>.</li>
           <li>Le paiement est <strong>immédiat</strong> lors de la souscription.</li>
           <li>Vous disposez d&apos;un <strong>délai de rétractation de 14 jours</strong>.</li>
@@ -263,8 +263,8 @@ export default function CgvPage() {
       </section>
 
       {/* Sommaire */}
-      <nav className="mb-12 border border-gray-200 rounded-lg p-6" aria-label="Sommaire">
-        <p className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">Sommaire</p>
+      <nav className="mb-12 border border-gray-200 dark:border-gray-700 rounded-lg p-6" aria-label="Sommaire">
+        <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-3">Sommaire</p>
         <ol className="space-y-1 text-sm text-blue-600">
           {sections.map((section) => (
             <li key={section.id}>
@@ -279,17 +279,17 @@ export default function CgvPage() {
       {/* Sections */}
       {sections.map((section) => (
         <section key={section.id} className="mb-10" aria-labelledby={section.id}>
-          <h2 id={section.id} className="text-2xl font-bold text-gray-900 mb-4">
+          <h2 id={section.id} className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
             {section.title}
           </h2>
-          <div className="prose prose-sm text-gray-700">{section.content}</div>
+          <div className="prose prose-sm text-gray-700 dark:text-gray-300">{section.content}</div>
         </section>
       ))}
 
       {/* Contact */}
       <section className="bg-blue-50 rounded-lg p-8 text-center mt-12">
-        <h2 className="text-xl font-bold text-gray-900">Une question sur nos offres ?</h2>
-        <p className="mt-2 text-gray-600 text-sm">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Une question sur nos offres ?</h2>
+        <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
           Pour toute question relative aux présentes CGV ou à nos services, contactez-nous par email.
         </p>
         <div className="mt-4">

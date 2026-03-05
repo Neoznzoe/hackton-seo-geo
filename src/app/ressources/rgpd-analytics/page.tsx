@@ -66,10 +66,10 @@ export default function RgpdAnalyticsPage() {
       />
 
       <header className="mb-10">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100">
           Analytics conforme RGPD : le guide complet {CURRENT_YEAR}
         </h1>
-        <p className="mt-3 text-lg text-gray-600">
+        <p className="mt-3 text-lg text-gray-600 dark:text-gray-400">
           Tout savoir sur la conformite RGPD des outils analytics web : reglementation,
           recommandations CNIL, outils conformes et bonnes pratiques.
         </p>
@@ -80,7 +80,7 @@ export default function RgpdAnalyticsPage() {
         <p className="text-sm font-semibold text-blue-800 uppercase tracking-wide mb-3">
           En resume
         </p>
-        <ul className="space-y-2 text-sm text-gray-700">
+        <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
           <li><strong>{compliantTools.length} outils sur {tools.length}</strong> sont conformes au RGPD dans notre comparatif.</li>
           <li><strong>{cnilExemptTools.length} outils</strong> sont exemptes de consentement par la CNIL.</li>
           <li><strong>{cookielessTools.length} outils</strong> fonctionnent sans aucun cookie.</li>
@@ -90,10 +90,10 @@ export default function RgpdAnalyticsPage() {
 
       {/* Contexte reglementaire */}
       <section className="mb-12" aria-labelledby="contexte">
-        <h2 id="contexte" className="text-2xl font-bold text-gray-900 mb-4">
+        <h2 id="contexte" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
           Contexte reglementaire
         </h2>
-        <div className="prose prose-sm text-gray-700 space-y-4">
+        <div className="prose prose-sm text-gray-700 dark:text-gray-300 space-y-4">
           <p>
             Le RGPD (Reglement General sur la Protection des Donnees), en vigueur depuis mai 2018,
             impose des regles strictes sur la collecte de donnees personnelles des residents europeens.
@@ -114,38 +114,38 @@ export default function RgpdAnalyticsPage() {
 
       {/* Outils conformes */}
       <section className="mb-12" aria-labelledby="outils-conformes">
-        <h2 id="outils-conformes" className="text-2xl font-bold text-gray-900 mb-4">
+        <h2 id="outils-conformes" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
           Outils analytics conformes RGPD
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
             <thead>
-              <tr className="bg-gray-50">
-                <th className="text-left p-3 border border-gray-200 font-semibold">Outil</th>
-                <th className="text-center p-3 border border-gray-200 font-semibold">Conforme RGPD</th>
-                <th className="text-center p-3 border border-gray-200 font-semibold">Exempte CNIL</th>
-                <th className="text-center p-3 border border-gray-200 font-semibold">Sans cookies</th>
-                <th className="text-left p-3 border border-gray-200 font-semibold">Donnees</th>
+              <tr className="bg-gray-50 dark:bg-gray-800">
+                <th className="text-left p-3 border border-gray-200 dark:border-gray-700 font-semibold">Outil</th>
+                <th className="text-center p-3 border border-gray-200 dark:border-gray-700 font-semibold">Conforme RGPD</th>
+                <th className="text-center p-3 border border-gray-200 dark:border-gray-700 font-semibold">Exempte CNIL</th>
+                <th className="text-center p-3 border border-gray-200 dark:border-gray-700 font-semibold">Sans cookies</th>
+                <th className="text-left p-3 border border-gray-200 dark:border-gray-700 font-semibold">Donnees</th>
               </tr>
             </thead>
             <tbody>
               {tools.map((tool) => (
                 <tr key={tool.slug}>
-                  <td className="p-3 border border-gray-200">
+                  <td className="p-3 border border-gray-200 dark:border-gray-700">
                     <Link href={`/outils/${tool.slug}`} className="text-blue-600 hover:text-blue-800 font-medium">
                       {tool.name}
                     </Link>
                   </td>
-                  <td className="p-3 border border-gray-200 text-center">
+                  <td className="p-3 border border-gray-200 dark:border-gray-700 text-center">
                     {tool.compliance.gdprCompliant ? <span className="text-green-600">Oui</span> : <span className="text-red-600">Non</span>}
                   </td>
-                  <td className="p-3 border border-gray-200 text-center">
+                  <td className="p-3 border border-gray-200 dark:border-gray-700 text-center">
                     {tool.compliance.cnilExempt ? <span className="text-green-600">Oui</span> : <span className="text-red-600">Non</span>}
                   </td>
-                  <td className="p-3 border border-gray-200 text-center">
+                  <td className="p-3 border border-gray-200 dark:border-gray-700 text-center">
                     {tool.compliance.cookieless ? <span className="text-green-600">Oui</span> : <span className="text-red-600">Non</span>}
                   </td>
-                  <td className="p-3 border border-gray-200 text-gray-600">{tool.compliance.dataLocation}</td>
+                  <td className="p-3 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400">{tool.compliance.dataLocation}</td>
                 </tr>
               ))}
             </tbody>
@@ -155,10 +155,10 @@ export default function RgpdAnalyticsPage() {
 
       {/* Bonnes pratiques */}
       <section className="mb-12" aria-labelledby="bonnes-pratiques">
-        <h2 id="bonnes-pratiques" className="text-2xl font-bold text-gray-900 mb-4">
+        <h2 id="bonnes-pratiques" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
           Bonnes pratiques pour etre conforme
         </h2>
-        <ol className="list-decimal list-inside space-y-3 text-sm text-gray-700">
+        <ol className="list-decimal list-inside space-y-3 text-sm text-gray-700 dark:text-gray-300">
           <li>
             <strong>Choisissez un outil exempte de consentement CNIL</strong> : Matomo, Plausible, Umami,
             Fathom, Simple Analytics ou Piwik PRO en mode cookieless.
@@ -189,10 +189,10 @@ export default function RgpdAnalyticsPage() {
 
       {/* CTA */}
       <section className="bg-blue-50 rounded-lg p-8 text-center">
-        <h2 className="text-xl font-bold text-gray-900">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
           Trouvez un outil analytics conforme RGPD
         </h2>
-        <p className="mt-2 text-gray-600 text-sm">
+        <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
           Comparez les {cnilExemptTools.length} outils exemptes de consentement CNIL dans notre comparatif.
         </p>
         <div className="mt-4 flex flex-col sm:flex-row gap-3 justify-center">
@@ -204,7 +204,7 @@ export default function RgpdAnalyticsPage() {
           </Link>
           <Link
             href="/categorie/privacy-first"
-            className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           >
             Outils privacy-first
           </Link>

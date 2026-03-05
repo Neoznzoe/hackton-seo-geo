@@ -14,7 +14,7 @@ export default function VsSummaryBox({ tool1, tool2 }: VsSummaryBoxProps) {
       <p className="text-sm font-semibold text-blue-800 uppercase tracking-wide mb-3">
         En resume
       </p>
-      <ul className="space-y-2 text-sm text-gray-700">
+      <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
         <li>
           <strong>{tool1.name}</strong> : {tool1.shortDescription}
           {t1Free ? " Offre gratuite disponible." : ` A partir de ${tool1.pricing[0]?.price}${tool1.pricing[0]?.period || ""}.`}

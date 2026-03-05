@@ -66,10 +66,10 @@ export default function GuidePage() {
       />
 
       <header className="mb-10">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100">
           Comment choisir son outil analytics en {CURRENT_YEAR} ?
         </h1>
-        <p className="mt-3 text-lg text-gray-600">
+        <p className="mt-3 text-lg text-gray-600 dark:text-gray-400">
           Guide complet pour trouver la solution analytics adaptee a vos besoins :
           criteres de choix, conformite RGPD, comparatif et recommandations.
         </p>
@@ -77,36 +77,36 @@ export default function GuidePage() {
 
       {/* Criteres essentiels */}
       <section className="mb-12" aria-labelledby="criteres">
-        <h2 id="criteres" className="text-2xl font-bold text-gray-900 mb-4">
+        <h2 id="criteres" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
           Les criteres essentiels pour choisir
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="border border-gray-200 rounded-lg p-5">
-            <h3 className="font-semibold text-gray-900 mb-2">Fonctionnalites</h3>
-            <p className="text-sm text-gray-600">
+          <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-5">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Fonctionnalites</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               Identifiez vos besoins : metriques de base (pages vues, sources, pays) ou avancees
               (e-commerce, entonnoirs, heatmaps, A/B testing). Un site vitrine n&apos;a pas les
               memes besoins qu&apos;un e-commerce.
             </p>
           </div>
-          <div className="border border-gray-200 rounded-lg p-5">
-            <h3 className="font-semibold text-gray-900 mb-2">Conformite RGPD</h3>
-            <p className="text-sm text-gray-600">
+          <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-5">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Conformite RGPD</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               La conformite au RGPD est obligatoire en Europe. Privilegiez les outils exemptes
               de consentement par la CNIL pour eviter la perte de donnees liee aux refus de cookies
               (30-50 % des visiteurs).
             </p>
           </div>
-          <div className="border border-gray-200 rounded-lg p-5">
-            <h3 className="font-semibold text-gray-900 mb-2">Budget</h3>
-            <p className="text-sm text-gray-600">
+          <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-5">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Budget</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               Les prix varient de 0 € (GA4, Matomo On-Premise, Umami) a plus de 100 000 $/an
               (Adobe Analytics). Evaluez le cout total : hebergement, plugins, support.
             </p>
           </div>
-          <div className="border border-gray-200 rounded-lg p-5">
-            <h3 className="font-semibold text-gray-900 mb-2">Facilite d&apos;utilisation</h3>
-            <p className="text-sm text-gray-600">
+          <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-5">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Facilite d&apos;utilisation</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               Un outil complexe non maitrise est inutile. Plausible et Simple Analytics sont les
               plus simples. GA4 et Adobe Analytics necessitent une formation approfondie.
             </p>
@@ -116,22 +116,22 @@ export default function GuidePage() {
 
       {/* RGPD/CNIL */}
       <section className="mb-12" aria-labelledby="rgpd">
-        <h2 id="rgpd" className="text-2xl font-bold text-gray-900 mb-4">
+        <h2 id="rgpd" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
           RGPD et recommandations CNIL
         </h2>
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-6">
-          <p className="text-sm text-gray-700 mb-3">
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
             <strong>Ce que dit la CNIL :</strong> Depuis fevrier 2022, la CNIL considere que
             l&apos;utilisation de Google Analytics entraine des transferts illegaux de donnees vers
             les Etats-Unis. Elle recommande des alternatives conformes.
           </p>
-          <p className="text-sm text-gray-700">
+          <p className="text-sm text-gray-700 dark:text-gray-300">
             <strong>Outils exemptes de consentement :</strong> Matomo (en configuration sans cookies),
             Plausible, Simple Analytics, Fathom, Umami et Piwik PRO (en mode cookieless) peuvent
             etre utilises sans bandeau de consentement.
           </p>
         </div>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
           <strong>{privacyTools.length} outils sur {tools.length}</strong> sont conformes RGPD et
           exemptes de consentement CNIL dans notre comparatif.
         </p>
@@ -139,7 +139,7 @@ export default function GuidePage() {
 
       {/* Comparatif rapide */}
       <section className="mb-12" aria-labelledby="comparatif">
-        <h2 id="comparatif" className="text-2xl font-bold text-gray-900 mb-6">
+        <h2 id="comparatif" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
           Comparatif rapide
         </h2>
         <ComparisonTable tools={tools} />
@@ -147,40 +147,40 @@ export default function GuidePage() {
 
       {/* Recommandations par profil */}
       <section className="mb-12" aria-labelledby="recommandations">
-        <h2 id="recommandations" className="text-2xl font-bold text-gray-900 mb-4">
+        <h2 id="recommandations" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
           Recommandations par profil
         </h2>
         <div className="space-y-4">
-          <div className="border border-gray-200 rounded-lg p-5">
-            <h3 className="font-semibold text-gray-900 mb-2">Blog / site vitrine</h3>
-            <p className="text-sm text-gray-600">
+          <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-5">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Blog / site vitrine</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               <strong>Recommande :</strong>{" "}
               <Link href="/outils/plausible" className="text-blue-600 hover:text-blue-800">Plausible</Link> ou{" "}
               <Link href="/outils/umami" className="text-blue-600 hover:text-blue-800">Umami</Link>.
               Legers, simples, conformes RGPD. Umami est gratuit en auto-hebergement.
             </p>
           </div>
-          <div className="border border-gray-200 rounded-lg p-5">
-            <h3 className="font-semibold text-gray-900 mb-2">Site e-commerce</h3>
-            <p className="text-sm text-gray-600">
+          <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-5">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Site e-commerce</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               <strong>Recommande :</strong>{" "}
               <Link href="/outils/matomo" className="text-blue-600 hover:text-blue-800">Matomo</Link> ou{" "}
               <Link href="/outils/piwik-pro" className="text-blue-600 hover:text-blue-800">Piwik PRO</Link>.
               Suivi e-commerce complet, entonnoirs de conversion, conformes RGPD.
             </p>
           </div>
-          <div className="border border-gray-200 rounded-lg p-5">
-            <h3 className="font-semibold text-gray-900 mb-2">Grande entreprise</h3>
-            <p className="text-sm text-gray-600">
+          <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-5">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Grande entreprise</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               <strong>Recommande :</strong>{" "}
               <Link href="/outils/adobe-analytics" className="text-blue-600 hover:text-blue-800">Adobe Analytics</Link> ou{" "}
               <Link href="/outils/google-analytics-4" className="text-blue-600 hover:text-blue-800">GA4 360</Link>.
               Fonctionnalites avancees, IA predictive, support dedie, SLA garanti.
             </p>
           </div>
-          <div className="border border-gray-200 rounded-lg p-5">
-            <h3 className="font-semibold text-gray-900 mb-2">Budget zero</h3>
-            <p className="text-sm text-gray-600">
+          <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-5">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Budget zero</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               <strong>Recommande :</strong>{" "}
               {freeTools.map((t, i) => (
                 <span key={t.slug}>
@@ -196,10 +196,10 @@ export default function GuidePage() {
 
       {/* Migration GA */}
       <section className="mb-12" aria-labelledby="migration">
-        <h2 id="migration" className="text-2xl font-bold text-gray-900 mb-4">
+        <h2 id="migration" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
           Migrer depuis Google Analytics
         </h2>
-        <ol className="list-decimal list-inside space-y-3 text-sm text-gray-700">
+        <ol className="list-decimal list-inside space-y-3 text-sm text-gray-700 dark:text-gray-300">
           <li>
             <strong>Choisissez votre alternative</strong> : utilisez notre{" "}
             <Link href="/comparer" className="text-blue-600 hover:text-blue-800">comparatif</Link>{" "}
@@ -226,11 +226,11 @@ export default function GuidePage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-blue-50 rounded-lg p-8 text-center">
-        <h2 className="text-xl font-bold text-gray-900">
+      <section className="bg-blue-50 dark:bg-blue-950 rounded-lg p-8 text-center">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
           Pret a comparer ?
         </h2>
-        <p className="mt-2 text-gray-600 text-sm">
+        <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
           Consultez notre tableau comparatif complet avec les 8 outils analytics.
         </p>
         <Link

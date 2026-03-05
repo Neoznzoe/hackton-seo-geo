@@ -39,10 +39,10 @@ export default function ComparerPage() {
       <Breadcrumb items={[{ label: "Comparer" }]} />
 
       <header className="mb-10">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100">
           Comparatif des outils analytics web
         </h1>
-        <p className="mt-3 text-lg text-gray-600 max-w-3xl">
+        <p className="mt-3 text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
           Comparez les 8 principaux outils analytics cote a cote : tarifs,
           fonctionnalites, conformite RGPD et respect de la vie privee.
         </p>
@@ -61,10 +61,10 @@ export default function ComparerPage() {
 
       {/* Comparaisons VS */}
       <section aria-labelledby="comparaisons-vs" className="mb-12">
-        <h2 id="comparaisons-vs" className="text-2xl font-bold text-gray-900 mb-6">
+        <h2 id="comparaisons-vs" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
           Comparaisons detaillees
         </h2>
-        <p className="text-gray-600 mb-6 text-sm">
+        <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm">
           Comparez deux outils face a face pour un comparatif approfondi.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -72,7 +72,7 @@ export default function ComparerPage() {
             <Link
               key={pair.slug}
               href={`/comparer/${pair.slug}`}
-              className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow text-sm font-medium text-blue-600 hover:text-blue-800"
+              className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow text-sm font-medium text-blue-600 hover:text-blue-800"
             >
               {pair.tool1.name} vs {pair.tool2.name}
             </Link>

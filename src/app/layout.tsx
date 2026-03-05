@@ -11,6 +11,8 @@ import PiwikProProvider from "@/components/analytics/PiwikProProvider";
 import CookieConsent from "@/components/analytics/CookieConsent";
 import ScrollTracker from "@/components/analytics/ScrollTracker";
 import FunnelTracker from "@/components/analytics/FunnelTracker";
+import { ThemeProvider } from "@/lib/theme/ThemeProvider";
+import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
 import { WebSite } from "schema-dts";
 
 const inter = Inter({
@@ -92,20 +94,24 @@ export default function RootLayout({
         />
         <meta name="google-site-verification" content="OpBP-OpU253pvgSruj3o8hV4VM_c8I6i0EYVFtbt2F4" />
       </head>
-      <body className="bg-white text-gray-900 antialiased min-h-screen flex flex-col">
-        <PiwikProProvider />
-        <FunnelTracker />
-        <JsonLd data={{ "@context": "https://schema.org", ...websiteJsonLd }} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-        />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <ScrollToTop />
-        <ScrollTracker />
-        <CookieConsent />
+      <body className="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased min-h-screen flex flex-col transition-colors">
+        <ThemeProvider>
+          <LanguageProvider>
+            <PiwikProProvider />
+            <FunnelTracker />
+            <JsonLd data={{ "@context": "https://schema.org", ...websiteJsonLd }} />
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+            />
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <ScrollToTop />
+            <ScrollTracker />
+            <CookieConsent />
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

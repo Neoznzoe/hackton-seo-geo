@@ -26,7 +26,7 @@ export default function HomeScannerCta() {
         value={url}
         onChange={(e) => setUrl(e.target.value)}
         placeholder="exemple.fr"
-        className="flex-1 px-5 py-3.5 rounded-lg bg-white text-gray-900 placeholder-gray-400 shadow-lg focus:outline-none focus:ring-2 focus:ring-white text-base"
+        className="flex-1 px-5 py-3.5 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 shadow-lg focus:outline-none focus:ring-2 focus:ring-white text-base"
         aria-label="URL du site à analyser"
       />
       <button

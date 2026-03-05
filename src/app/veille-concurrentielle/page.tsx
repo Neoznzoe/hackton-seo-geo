@@ -27,10 +27,10 @@ export default function VeillePage() {
       <Breadcrumb items={breadcrumbItems} />
 
       <div className="mt-6">
-        <h1 className="text-3xl font-bold text-gray-900">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
           Veille concurrentielle analytics
         </h1>
-        <p className="mt-3 text-lg text-gray-600 max-w-3xl">
+        <p className="mt-3 text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
           Surveillance automatisee des outils analytics concurrents : tarifs,
           fonctionnalites et conformite RGPD. Toutes les donnees sont collectees
           de maniere ethique, dans le respect du fichier robots.txt de chaque

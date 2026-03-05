@@ -9,6 +9,7 @@ import {
   trackScanPlanSelect,
   trackScannerOpen,
 } from "@/lib/tracking";
+import { useTranslation } from "@/lib/i18n/LanguageProvider";
 import ScannerHero from "./ScannerHero";
 import ScannerLoading from "./ScannerLoading";
 import PlanSelector from "./PlanSelector";
@@ -31,6 +32,7 @@ export default function ScannerClient() {
   const [result, setResult] = useState<ScanResult | null>(null);
   const [error, setError] = useState("");
   const [plan, setPlan] = useState<ScanPlan>("gratuit");
+  const { t } = useTranslation();
   const searchParams = useSearchParams();
   const autoScanDone = useRef(false);
 
@@ -93,20 +95,20 @@ export default function ScannerClient() {
 
       {state === "error" && (
         <div className="mx-auto max-w-3xl px-4 py-8">
-          <div className="bg-red-50 border border-red-300 rounded-xl p-8 text-center shadow-sm">
-            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+          <div className="bg-red-50 dark:bg-red-950 border border-red-300 dark:border-red-700 rounded-xl p-8 text-center shadow-sm">
+            <div className="w-12 h-12 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 text-red-600 dark:text-red-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
               </svg>
             </div>
-            <p className="text-red-800 font-semibold text-lg mb-2">Erreur d&apos;analyse</p>
+            <p className="text-red-800 dark:text-red-200 font-semibold text-lg mb-2">{t("scanner.error")}</p>
 
-            <p className="text-red-700 text-sm mb-4">{error}</p>
+            <p className="text-red-700 dark:text-red-300 text-sm mb-4">{error}</p>
             <button
               onClick={() => setState("idle")}
-              className="px-5 py-2.5 bg-white text-blue-700 font-medium rounded-lg border border-blue-200 hover:bg-blue-50 transition-colors text-sm"
+              className="px-5 py-2.5 bg-white dark:bg-gray-800 text-blue-700 dark:text-blue-400 font-medium rounded-lg border border-blue-200 dark:border-blue-800 hover:bg-blue-50 transition-colors text-sm"
             >
-              Réessayer
+              {t("scanner.retry")}
             </button>
           </div>
         </div>
@@ -115,15 +117,15 @@ export default function ScannerClient() {
       {state === "success" && result && (
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-10 space-y-8">
           {/* Timestamp + pages info */}
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500 dark:text-gray-400">
             <p>
-              Analyse effectuée le {new Date(result.scannedAt).toLocaleString("fr-FR")}
+              {t("scanner.analysisDate")} {new Date(result.scannedAt).toLocaleString("fr-FR")}
             </p>
             <span className="hidden sm:inline">·</span>
-            <p className="font-medium text-gray-700">
-              {result.pagesScanned} page{result.pagesScanned > 1 ? "s" : ""} analysée{result.pagesScanned > 1 ? "s" : ""}
+            <p className="font-medium text-gray-700 dark:text-gray-300">
+              {result.pagesScanned} {result.pagesScanned > 1 ? t("scanner.pagesAnalyzedPlural") : t("scanner.pagesAnalyzed")}
               {result.sitemapFound && result.totalPagesInSitemap > 0 && (
-                <span className="text-gray-400 font-normal"> / {result.totalPagesInSitemap} dans le sitemap</span>
+                <span className="text-gray-400 dark:text-gray-500 font-normal"> / {result.totalPagesInSitemap} {t("scanner.inSitemap")}</span>
               )}
             </p>
           </div>
@@ -146,17 +148,17 @@ export default function ScannerClient() {
 
           {/* 3. Détail des outils détectés */}
           <div>
-            <h2 className="text-lg font-bold text-gray-900 mb-4">Outils détectés</h2>
+            <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">{t("scanner.detectedTools")}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <DetectedToolsCard
                 tools={result.analytics}
                 title="Analytics"
-                emptyMessage="Aucun outil analytics détecté — bon pour la vie privée"
+                emptyMessage={t("scanner.noAnalytics")}
               />
               <DetectedToolsCard
                 tools={result.pixels}
-                title="Pixels de tracking"
-                emptyMessage="Aucun pixel détecté"
+                title={t("scanner.trackingPixels")}
+                emptyMessage={t("scanner.noPixels")}
               />
               <ConsentBannerCard
                 banners={result.consentBanners}
@@ -167,8 +169,8 @@ export default function ScannerClient() {
               />
               <DetectedToolsCard
                 tools={result.tagManagers}
-                title="Tag managers"
-                emptyMessage="Aucun tag manager détecté"
+                title={t("scanner.tagManagers")}
+                emptyMessage={t("scanner.noTagManager")}
               />
               <LegalPagesCard legalPages={result.legalPages} />
             </div>
@@ -176,7 +178,7 @@ export default function ScannerClient() {
 
           {/* 3b. Sécurité, ressources tierces, efficacité consentement */}
           <div>
-            <h2 className="text-lg font-bold text-gray-900 mb-4">Analyse approfondie</h2>
+            <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">{t("scanner.deepAnalysis")}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <SecurityHeadersCard headers={result.securityHeaders} />
               <ThirdPartyCard resources={result.thirdPartyResources} />

@@ -136,14 +136,14 @@ const sections = [
           DevRadar propose un scanner de conformité RGPD et un module de veille concurrentielle qui
           analysent des pages web publiques. Ces fonctionnalités :
         </p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 mb-4">
+        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300 mb-4">
           <li>Ne collectent aucune donnée personnelle des sites scannés</li>
-          <li>Respectent le fichier <code className="bg-gray-100 px-1 rounded text-xs">robots.txt</code> de chaque site cible</li>
+          <li>Respectent le fichier <code className="bg-gray-100 dark:bg-gray-800 px-1 rounded text-xs">robots.txt</code> de chaque site cible</li>
           <li>Appliquent un rate limiting strict (2 secondes minimum entre requêtes)</li>
-          <li>Utilisent un User-Agent identifié (<code className="bg-gray-100 px-1 rounded text-xs">DevRadarBot/1.0</code>)</li>
+          <li>Utilisent un User-Agent identifié (<code className="bg-gray-100 dark:bg-gray-800 px-1 rounded text-xs">DevRadarBot/1.0</code>)</li>
           <li>Journalisent toutes les opérations pour transparence</li>
         </ul>
-        <p className="text-sm text-gray-600 italic">
+        <p className="text-sm text-gray-600 dark:text-gray-400 italic">
           Conformément à la jurisprudence française et européenne, l&apos;extraction de données
           publiques non protégées par un droit sui generis et ne contenant pas de données
           personnelles est licite, sous réserve du respect des CGU du site cible et du robots.txt.
@@ -188,10 +188,10 @@ export default function MentionsLegalesPage() {
       />
 
       <header className="mb-10">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100">
           Mentions légales
         </h1>
-        <p className="mt-3 text-lg text-gray-600">
+        <p className="mt-3 text-lg text-gray-600 dark:text-gray-400">
           Dernière mise à jour : 5 mars 2026
         </p>
       </header>
@@ -201,7 +201,7 @@ export default function MentionsLegalesPage() {
         <p className="text-sm font-semibold text-blue-800 uppercase tracking-wide mb-3">
           En résumé
         </p>
-        <ul className="space-y-2 text-sm text-gray-700">
+        <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
           <li>DevRadar est un <strong>projet pédagogique</strong> — Hackathon Fil Rouge M2 IW.</li>
           <li>Le site est hébergé par <strong>Railway Corp.</strong> (San Francisco, USA).</li>
           <li>Les informations fournies sont à titre indicatif et <strong>ne constituent pas un conseil juridique</strong>.</li>
@@ -210,8 +210,8 @@ export default function MentionsLegalesPage() {
       </section>
 
       {/* Sommaire */}
-      <nav className="mb-12 border border-gray-200 rounded-lg p-6" aria-label="Sommaire">
-        <p className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">Sommaire</p>
+      <nav className="mb-12 border border-gray-200 dark:border-gray-700 rounded-lg p-6" aria-label="Sommaire">
+        <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-3">Sommaire</p>
         <ol className="space-y-1 text-sm text-blue-600">
           {sections.map((section) => (
             <li key={section.id}>
@@ -226,17 +226,17 @@ export default function MentionsLegalesPage() {
       {/* Sections */}
       {sections.map((section) => (
         <section key={section.id} className="mb-10" aria-labelledby={section.id}>
-          <h2 id={section.id} className="text-2xl font-bold text-gray-900 mb-4">
+          <h2 id={section.id} className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
             {section.title}
           </h2>
-          <div className="prose prose-sm text-gray-700">{section.content}</div>
+          <div className="prose prose-sm text-gray-700 dark:text-gray-300">{section.content}</div>
         </section>
       ))}
 
       {/* Contact */}
       <section className="bg-blue-50 rounded-lg p-8 text-center mt-12">
-        <h2 className="text-xl font-bold text-gray-900">Une question légale ?</h2>
-        <p className="mt-2 text-gray-600 text-sm">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Une question légale ?</h2>
+        <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
           Pour toute question relative aux présentes mentions légales, contactez-nous par email.
         </p>
         <div className="mt-4">

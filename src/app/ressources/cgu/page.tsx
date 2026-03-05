@@ -95,7 +95,7 @@ const sections = [
     content: (
       <div>
         <p className="mb-3">Le Site met à disposition :</p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
           <li>une agrégation automatisée d&apos;articles et contenus liés au développement logiciel</li>
           <li>un classement par technologies ou thématiques</li>
           <li>des liens vers les sources originales des contenus</li>
@@ -113,12 +113,12 @@ const sections = [
     content: (
       <div>
         <p className="mb-3">L&apos;éditeur s&apos;efforce de fournir des informations fiables. Toutefois :</p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 mb-4">
+        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300 mb-4">
           <li>les contenus agrégés proviennent de sources externes</li>
           <li>leur exactitude, exhaustivité ou mise à jour ne peut être garantie</li>
         </ul>
         <p className="mb-3">En conséquence, l&apos;éditeur ne pourra être tenu responsable :</p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
           <li>d&apos;erreurs ou d&apos;informations inexactes provenant de sources tierces</li>
           <li>d&apos;un dommage résultant de l&apos;utilisation des informations présentes sur le Site</li>
           <li>d&apos;une indisponibilité temporaire du service</li>
@@ -132,7 +132,7 @@ const sections = [
     content: (
       <div>
         <p className="mb-3">Les éléments suivants sont protégés par le droit de la propriété intellectuelle :</p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 mb-4">
+        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300 mb-4">
           <li>le design du site</li>
           <li>le code source</li>
           <li>la structure et l&apos;organisation du service</li>
@@ -150,7 +150,7 @@ const sections = [
     content: (
       <div>
         <p className="mb-3">L&apos;utilisateur s&apos;engage à :</p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 mb-4">
+        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300 mb-4">
           <li>ne pas utiliser le Site à des fins illégales</li>
           <li>ne pas perturber le fonctionnement du service</li>
           <li>ne pas tenter d&apos;accéder de manière frauduleuse aux systèmes du Site</li>
@@ -169,7 +169,7 @@ const sections = [
       <div>
         <p className="mb-3">Le Site peut contenir des liens vers des sites tiers.</p>
         <p className="mb-3">L&apos;éditeur ne contrôle pas ces sites et ne peut être tenu responsable :</p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
           <li>du contenu qu&apos;ils publient</li>
           <li>de leur politique de confidentialité</li>
           <li>de leurs pratiques commerciales</li>
@@ -229,10 +229,10 @@ export default function CguPage() {
       />
 
       <header className="mb-10">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100">
           Conditions Générales d&apos;Utilisation
         </h1>
-        <p className="mt-3 text-lg text-gray-600">
+        <p className="mt-3 text-lg text-gray-600 dark:text-gray-400">
           Dernière mise à jour : {new Date().toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}
         </p>
       </header>
@@ -242,7 +242,7 @@ export default function CguPage() {
         <p className="text-sm font-semibold text-blue-800 uppercase tracking-wide mb-3">
           En résumé
         </p>
-        <ul className="space-y-2 text-sm text-gray-700">
+        <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
           <li>DevRadar est un service de <strong>veille technologique gratuit</strong> édité par Victor BESSON.</li>
           <li>Les contenus agrégés proviennent de <strong>sources tierces publiques</strong>.</li>
           <li>Les données personnelles sont traitées conformément au <strong>RGPD</strong>.</li>
@@ -251,8 +251,8 @@ export default function CguPage() {
       </section>
 
       {/* Sommaire */}
-      <nav className="mb-12 border border-gray-200 rounded-lg p-6" aria-label="Sommaire">
-        <p className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">Sommaire</p>
+      <nav className="mb-12 border border-gray-200 dark:border-gray-700 rounded-lg p-6" aria-label="Sommaire">
+        <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-3">Sommaire</p>
         <ol className="space-y-1 text-sm text-blue-600">
           {sections.map((section) => (
             <li key={section.id}>
@@ -267,10 +267,10 @@ export default function CguPage() {
       {/* Sections */}
       {sections.map((section) => (
         <section key={section.id} className="mb-10" aria-labelledby={section.id}>
-          <h2 id={section.id} className="text-2xl font-bold text-gray-900 mb-4">
+          <h2 id={section.id} className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
             {section.title}
           </h2>
-          <div className="prose prose-sm text-gray-700">
+          <div className="prose prose-sm text-gray-700 dark:text-gray-300">
             {section.content}
           </div>
         </section>
@@ -278,8 +278,8 @@ export default function CguPage() {
 
       {/* Contact */}
       <section className="bg-blue-50 rounded-lg p-8 text-center mt-12">
-        <h2 className="text-xl font-bold text-gray-900">Une question ?</h2>
-        <p className="mt-2 text-gray-600 text-sm">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Une question ?</h2>
+        <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
           Pour toute question relative aux présentes CGU, vous pouvez nous contacter par email.
         </p>
         <div className="mt-4">

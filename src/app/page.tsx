@@ -98,24 +98,24 @@ export default function HomePage() {
       </section>
 
       {/* CTA secondaire — Comparer les outils */}
-      <section className="py-10 bg-white text-center">
+      <section className="py-10 bg-white dark:bg-gray-900 text-center">
         <div className="mx-auto max-w-3xl px-4">
-          <p className="text-gray-600 mb-4">Vous cherchez un outil analytics ? Comparez 8 solutions sur les prix, fonctionnalites et conformite RGPD.</p>
+          <p className="text-gray-600 dark:text-gray-400 mb-4">Vous cherchez un outil analytics ? Comparez 8 solutions sur les prix, fonctionnalites et conformite RGPD.</p>
           <TrackedCta
             href="/comparer"
             label="Comparer les outils analytics"
-            className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           />
         </div>
       </section>
 
       {/* Outils */}
-      <section id="outils" className="py-16 bg-gray-50">
+      <section id="outils" className="py-16 bg-gray-50 dark:bg-gray-950">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             8 outils analytics compares
           </h2>
-          <p className="text-gray-600 mb-8">
+          <p className="text-gray-600 dark:text-gray-400 mb-8">
             De la solution gratuite a la suite entreprise, trouvez l&apos;outil
             qui correspond a votre projet.
           </p>
@@ -128,7 +128,7 @@ export default function HomePage() {
             <TrackedCta
               href="/comparer"
               label="Comparer les outils entre eux"
-              className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-white transition-colors"
+              className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-white dark:hover:bg-gray-800 transition-colors"
             />
           </div>
         </div>
@@ -137,10 +137,10 @@ export default function HomePage() {
       {/* Categories */}
       <section id="categories" className="py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             Explorez par categorie
           </h2>
-          <p className="text-gray-600 mb-8">
+          <p className="text-gray-600 dark:text-gray-400 mb-8">
             Filtrez les outils analytics selon vos criteres prioritaires.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -169,7 +169,7 @@ export default function HomePage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-gray-950">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FaqSection items={homeFaq} />
         </div>

@@ -92,10 +92,10 @@ export default async function VsPage({ params }: PageProps) {
       />
 
       <header className="mb-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100">
           {tool1.name} vs {tool2.name} : comparatif {CURRENT_YEAR}
         </h1>
-        <p className="mt-3 text-lg text-gray-600">
+        <p className="mt-3 text-lg text-gray-600 dark:text-gray-400">
           Comparaison detaillee entre {tool1.name} et {tool2.name} : fonctionnalites,
           tarifs, conformite RGPD et vie privee.
         </p>
@@ -105,7 +105,7 @@ export default async function VsPage({ params }: PageProps) {
 
       {/* Comparison Table */}
       <section className="mb-12" aria-labelledby="comparatif">
-        <h2 id="comparatif" className="text-2xl font-bold text-gray-900 mb-6">
+        <h2 id="comparatif" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
           Tableau comparatif
         </h2>
         <ComparisonTable tools={[tool1, tool2]} />
@@ -113,16 +113,16 @@ export default async function VsPage({ params }: PageProps) {
 
       {/* Tarifs */}
       <section className="mb-12" aria-labelledby="tarifs">
-        <h2 id="tarifs" className="text-2xl font-bold text-gray-900 mb-6">
+        <h2 id="tarifs" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
           Tarifs : {tool1.name} vs {tool2.name}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">{tool1.name}</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">{tool1.name}</h3>
             <PricingTable tiers={tool1.pricing} />
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">{tool2.name}</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">{tool2.name}</h3>
             <PricingTable tiers={tool2.pricing} />
           </div>
         </div>
@@ -130,16 +130,16 @@ export default async function VsPage({ params }: PageProps) {
 
       {/* Conformite RGPD */}
       <section className="mb-12" aria-labelledby="conformite">
-        <h2 id="conformite" className="text-2xl font-bold text-gray-900 mb-6">
+        <h2 id="conformite" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
           Conformite RGPD
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">{tool1.name}</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">{tool1.name}</h3>
             <ComplianceDetails compliance={tool1.compliance} />
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">{tool2.name}</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">{tool2.name}</h3>
             <ComplianceDetails compliance={tool2.compliance} />
           </div>
         </div>
@@ -147,16 +147,16 @@ export default async function VsPage({ params }: PageProps) {
 
       {/* Avantages / Inconvenients */}
       <section className="mb-12" aria-labelledby="avantages">
-        <h2 id="avantages" className="text-2xl font-bold text-gray-900 mb-6">
+        <h2 id="avantages" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
           Avantages et inconvenients
         </h2>
         <div className="space-y-8">
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">{tool1.name}</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">{tool1.name}</h3>
             <ProsCons pros={tool1.pros} cons={tool1.cons} />
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">{tool2.name}</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">{tool2.name}</h3>
             <ProsCons pros={tool2.pros} cons={tool2.cons} />
           </div>
         </div>
@@ -176,7 +176,7 @@ export default async function VsPage({ params }: PageProps) {
       {/* Related comparisons */}
       {relatedSlugs.length > 0 && (
         <section className="mb-12" aria-labelledby="comparaisons-liees">
-          <h2 id="comparaisons-liees" className="text-2xl font-bold text-gray-900 mb-6">
+          <h2 id="comparaisons-liees" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
             Comparaisons liees
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -187,7 +187,7 @@ export default async function VsPage({ params }: PageProps) {
                 <Link
                   key={relSlug}
                   href={`/comparer/${relSlug}`}
-                  className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow text-sm font-medium text-blue-600 hover:text-blue-800"
+                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow text-sm font-medium text-blue-600 hover:text-blue-800"
                 >
                   {parsed.tool1.name} vs {parsed.tool2.name}
                 </Link>

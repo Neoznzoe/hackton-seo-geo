@@ -38,10 +38,10 @@ export default function GlossairePage() {
       <Breadcrumb items={[{ label: "Glossaire" }]} />
 
       <header className="mb-10">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100">
           Glossaire analytics et RGPD
         </h1>
-        <p className="mt-3 text-lg text-gray-600">
+        <p className="mt-3 text-lg text-gray-600 dark:text-gray-400">
           {glossaryTerms.length} definitions pour comprendre l&apos;analytics web,
           la protection des donnees et la conformite RGPD.
         </p>
@@ -52,10 +52,10 @@ export default function GlossairePage() {
           <div
             key={term.slug}
             id={term.slug}
-            className="border border-gray-200 rounded-lg p-5"
+            className="border border-gray-200 dark:border-gray-700 rounded-lg p-5"
           >
-            <dt className="text-lg font-semibold text-gray-900">{term.term}</dt>
-            <dd className="mt-2 text-sm text-gray-600 leading-relaxed">
+            <dt className="text-lg font-semibold text-gray-900 dark:text-gray-100">{term.term}</dt>
+            <dd className="mt-2 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
               {term.definition}
             </dd>
             {term.relatedTools && term.relatedTools.length > 0 && (
@@ -67,7 +67,7 @@ export default function GlossairePage() {
                     <Link
                       key={toolSlug}
                       href={`/outils/${toolSlug}`}
-                      className="inline-block text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-full hover:bg-blue-100 transition-colors"
+                      className="inline-block text-xs bg-blue-50 dark:bg-blue-950 text-blue-700 px-2 py-1 rounded-full hover:bg-blue-100 transition-colors"
                     >
                       {tool.name}
                     </Link>

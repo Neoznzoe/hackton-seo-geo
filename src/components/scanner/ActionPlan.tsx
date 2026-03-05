@@ -33,8 +33,8 @@ export default function ActionPlan({ recommendations }: ActionPlanProps) {
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold text-gray-900">Plan d&apos;action</h2>
-        <div className="flex items-center gap-3 text-xs text-gray-500">
+        <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">Plan d&apos;action</h2>
+        <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
           {highCount > 0 && (
             <span className="flex items-center gap-1">
               <span className="w-2 h-2 rounded-full bg-red-500" />
@@ -56,7 +56,7 @@ export default function ActionPlan({ recommendations }: ActionPlanProps) {
           return (
             <div
               key={rec.title}
-              className={`bg-white border border-gray-200 ${config.borderColor} border-l-4 rounded-lg p-4 shadow-sm`}
+              className={`bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 ${config.borderColor} border-l-4 rounded-lg p-4 shadow-sm`}
             >
               <div className="flex items-start gap-3">
                 {/* Step number */}
@@ -66,12 +66,12 @@ export default function ActionPlan({ recommendations }: ActionPlanProps) {
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-semibold text-gray-900 text-sm">{rec.title}</h3>
-                    <span className="text-[10px] font-medium text-gray-400 uppercase tracking-wide shrink-0">
+                    <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{rec.title}</h3>
+                    <span className="text-[10px] font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wide shrink-0">
                       {config.label}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-600 mb-2 leading-relaxed">{rec.description}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 leading-relaxed">{rec.description}</p>
                   <Link
                     href={rec.link}
                     target="_blank"

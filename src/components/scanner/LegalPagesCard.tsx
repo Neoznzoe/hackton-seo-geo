@@ -12,13 +12,13 @@ export default function LegalPagesCard({ legalPages }: { legalPages: LegalPages 
   const found = LEGAL_ITEMS.filter((item) => legalPages[item.key]).length;
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
+    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-5 shadow-sm">
       <div className="flex items-center gap-2 mb-4">
         <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
         </svg>
-        <h3 className="font-semibold text-gray-900">Pages légales</h3>
-        <span className="ml-auto text-sm text-gray-500">{found}/{LEGAL_ITEMS.length}</span>
+        <h3 className="font-semibold text-gray-900 dark:text-gray-100">Pages légales</h3>
+        <span className="ml-auto text-sm text-gray-500 dark:text-gray-400">{found}/{LEGAL_ITEMS.length}</span>
       </div>
       <ul className="space-y-2.5">
         {LEGAL_ITEMS.map((item) => {
@@ -35,10 +35,10 @@ export default function LegalPagesCard({ legalPages }: { legalPages: LegalPages 
                 </svg>
               )}
               <div>
-                <p className={`text-sm font-medium ${detected ? "text-gray-900" : "text-red-700"}`}>
+                <p className={`text-sm font-medium ${detected ? "text-gray-900 dark:text-gray-100" : "text-red-700"}`}>
                   {item.label}
                 </p>
-                <p className="text-xs text-gray-500">{item.required}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{item.required}</p>
               </div>
             </li>
           );

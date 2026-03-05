@@ -15,14 +15,14 @@ export default function ToolCard({ tool }: ToolCardProps) {
   );
 
   return (
-    <article className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow flex flex-col">
+    <article className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-md transition-shadow flex flex-col">
       <div className="flex items-start gap-3 mb-3">
-        <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-lg font-bold text-blue-600 shrink-0">
+        <div className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-lg font-bold text-blue-600 shrink-0">
           {tool.name[0]}
         </div>
         <div className="flex-1">
           <div className="flex items-center gap-2">
-            <h3 className="font-semibold text-gray-900">{tool.name}</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100">{tool.name}</h3>
             <ToolScore tool={tool} />
           </div>
           <div className="flex flex-wrap gap-1 mt-1">
@@ -44,7 +44,7 @@ export default function ToolCard({ tool }: ToolCardProps) {
           </div>
         </div>
       </div>
-      <p className="text-sm text-gray-600 mb-4 flex-1">
+      <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-1">
         {tool.shortDescription}
       </p>
       <Link

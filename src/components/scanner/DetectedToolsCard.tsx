@@ -8,10 +8,10 @@ interface DetectedToolsCardProps {
 
 export default function DetectedToolsCard({ tools, title, emptyMessage }: DetectedToolsCardProps) {
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-      <h3 className="font-bold text-gray-900 mb-3">{title}</h3>
+    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
+      <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-3">{title}</h3>
       {tools.length === 0 ? (
-        <p className="text-sm text-gray-500 italic">{emptyMessage}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 italic">{emptyMessage}</p>
       ) : (
         <div className="flex flex-wrap gap-2">
           {tools.map((tool) => (
@@ -19,8 +19,8 @@ export default function DetectedToolsCard({ tools, title, emptyMessage }: Detect
               key={tool.id}
               className={`inline-flex items-center gap-1.5 text-sm font-medium px-3 py-1.5 rounded-full ${
                 tool.cnilExempt
-                  ? "bg-green-100 text-green-800 border border-green-300"
-                  : "bg-red-100 text-red-800 border border-red-300"
+                  ? "bg-green-100 dark:bg-green-950 text-green-800 dark:text-green-300 border border-green-300 dark:border-green-700"
+                  : "bg-red-100 dark:bg-red-950 text-red-800 dark:text-red-300 border border-red-300 dark:border-red-700"
               }`}
             >
               {tool.name}

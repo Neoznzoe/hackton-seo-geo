@@ -17,16 +17,16 @@ export default function SecurityHeadersCard({ headers }: SecurityHeadersCardProp
   const presentCount = Object.values(headers).filter(Boolean).length;
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
+    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-5 shadow-sm">
       <div className="flex items-center gap-3 mb-4">
-        <div className="w-9 h-9 bg-blue-50 rounded-lg flex items-center justify-center shrink-0">
+        <div className="w-9 h-9 bg-blue-50 dark:bg-blue-950 rounded-lg flex items-center justify-center shrink-0">
           <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
           </svg>
         </div>
         <div>
-          <h3 className="text-sm font-semibold text-gray-900">En-têtes de sécurité</h3>
-          <p className="text-xs text-gray-500">{presentCount}/6 headers présents</p>
+          <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">En-têtes de sécurité</h3>
+          <p className="text-xs text-gray-500 dark:text-gray-400">{presentCount}/6 headers présents</p>
         </div>
       </div>
 
@@ -45,10 +45,10 @@ export default function SecurityHeadersCard({ headers }: SecurityHeadersCardProp
                 </svg>
               )}
               <div className="min-w-0">
-                <span className={`text-xs font-medium ${present ? "text-gray-900" : "text-gray-500"}`}>
+                <span className={`text-xs font-medium ${present ? "text-gray-900 dark:text-gray-100" : "text-gray-500 dark:text-gray-400"}`}>
                   {label}
                 </span>
-                <span className="text-xs text-gray-400 ml-1.5">{detail}</span>
+                <span className="text-xs text-gray-400 dark:text-gray-500 ml-1.5">{detail}</span>
               </div>
             </div>
           );
