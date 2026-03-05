@@ -219,11 +219,23 @@ export const DETECTION_PATTERNS: Pattern[] = [
   },
   {
     id: "cookiebot",
-    name: "Cookiebot",
+    name: "Cookiebot (Usercentrics)",
     category: "consent",
     cnilExempt: true,
     patterns: [
       /cookiebot\.com/i,
+      /consent\.cookiebot/i,
+    ],
+  },
+  {
+    id: "usercentrics",
+    name: "Usercentrics",
+    category: "consent",
+    cnilExempt: true,
+    patterns: [
+      /usercentrics/i,
+      /app\.usercentrics\.eu/i,
+      /settingsUrl.*usercentrics/i,
     ],
   },
   {
@@ -245,6 +257,8 @@ export const DETECTION_PATTERNS: Pattern[] = [
       /onetrust/i,
       /cookielaw\.org/i,
       /optanon/i,
+      /otSDKStub/i,
+      /otAutoBlock/i,
     ],
   },
   {
@@ -258,14 +272,148 @@ export const DETECTION_PATTERNS: Pattern[] = [
     ],
   },
   {
+    id: "quantcast",
+    name: "Quantcast Choice",
+    category: "consent",
+    cnilExempt: true,
+    patterns: [
+      /quantcast\.mgr\.consensu/i,
+      /quantcast\.com\/choice/i,
+      /quantcast-choice/i,
+    ],
+  },
+  {
+    id: "iubenda",
+    name: "Iubenda",
+    category: "consent",
+    cnilExempt: true,
+    patterns: [
+      /iubenda\.com/i,
+      /iubenda_cs/i,
+    ],
+  },
+  {
+    id: "cookieyes",
+    name: "CookieYes",
+    category: "consent",
+    cnilExempt: true,
+    patterns: [
+      /cookieyes\.com/i,
+      /cookie-law-info/i,
+    ],
+  },
+  {
+    id: "complianz",
+    name: "Complianz",
+    category: "consent",
+    cnilExempt: true,
+    patterns: [
+      /complianz/i,
+      /cmplz/i,
+    ],
+  },
+  {
+    id: "sirdata",
+    name: "Sirdata",
+    category: "consent",
+    cnilExempt: true,
+    patterns: [
+      /sirdata/i,
+      /sddan\.com/i,
+    ],
+  },
+  {
+    id: "trustcommander",
+    name: "TrustCommander (Commanders Act)",
+    category: "consent",
+    cnilExempt: true,
+    patterns: [
+      /trustcommander/i,
+      /commander1\.com/i,
+      /commandersact/i,
+    ],
+  },
+  {
+    id: "osano",
+    name: "Osano",
+    category: "consent",
+    cnilExempt: true,
+    patterns: [
+      /osano\.com/i,
+      /cmp\.osano/i,
+    ],
+  },
+  {
+    id: "cookiefirst",
+    name: "CookieFirst",
+    category: "consent",
+    cnilExempt: true,
+    patterns: [
+      /cookiefirst\.com/i,
+    ],
+  },
+  {
+    id: "civic-cookie",
+    name: "Civic Cookie Control",
+    category: "consent",
+    cnilExempt: true,
+    patterns: [
+      /civiccomputing\.com/i,
+      /CookieControl/i,
+    ],
+  },
+  {
+    id: "cookie-script",
+    name: "Cookie Script",
+    category: "consent",
+    cnilExempt: true,
+    patterns: [
+      /cookie-script\.com/i,
+      /cookiescript/i,
+    ],
+  },
+  {
+    id: "hubspot-cookie",
+    name: "HubSpot Cookie Banner",
+    category: "consent",
+    cnilExempt: true,
+    patterns: [
+      /hs-banner-/i,
+      /hubspot.*cookie-?banner/i,
+      /__hs_cookie_cat_pref/i,
+    ],
+  },
+  {
     id: "tcf-iab",
     name: "Bandeau CMP (TCF/IAB)",
     category: "consent",
     cnilExempt: true,
     patterns: [
       /__tcfapi/i,
-      /gdprApplies/i,
       /__cmpLocator/i,
+      /consensu\.org/i,
+    ],
+  },
+  {
+    id: "generic-consent",
+    name: "Bandeau de consentement",
+    category: "consent",
+    cnilExempt: true,
+    patterns: [
+      /cookie[_-]?consent/i,
+      /cookie[_-]?banner/i,
+      /cookie[_-]?notice/i,
+      /cookie[_-]?modal/i,
+      /gdpr[_-]?banner/i,
+      /gdpr[_-]?consent/i,
+      /gdpr[_-]?modal/i,
+      /cc-window/i,
+      /cc-banner/i,
+      /js-cookie-consent/i,
+      /cookie-law-popup/i,
+      /accept[_-]?cookies/i,
+      /data-cookie-consent/i,
+      /data-gdpr/i,
     ],
   },
 ];

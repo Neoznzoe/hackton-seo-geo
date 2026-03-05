@@ -13,7 +13,7 @@ const PRIORITY_CONFIG = {
     borderColor: "border-l-red-500",
   },
   medium: {
-    label: "Recommande",
+    label: "Recommandé",
     dotColor: "bg-amber-500",
     borderColor: "border-l-amber-500",
   },
@@ -44,7 +44,7 @@ export default function ActionPlan({ recommendations }: ActionPlanProps) {
           {mediumCount > 0 && (
             <span className="flex items-center gap-1">
               <span className="w-2 h-2 rounded-full bg-amber-500" />
-              {mediumCount} recommande{mediumCount > 1 ? "s" : ""}
+              {mediumCount} recommandé{mediumCount > 1 ? "s" : ""}
             </span>
           )}
         </div>

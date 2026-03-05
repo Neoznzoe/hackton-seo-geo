@@ -78,12 +78,13 @@ export default function ScannerClient() {
               </svg>
             </div>
             <p className="text-red-800 font-semibold text-lg mb-2">Erreur d&apos;analyse</p>
+
             <p className="text-red-700 text-sm mb-4">{error}</p>
             <button
               onClick={() => setState("idle")}
               className="px-5 py-2.5 bg-white text-blue-700 font-medium rounded-lg border border-blue-200 hover:bg-blue-50 transition-colors text-sm"
             >
-              Reessayer
+              Réessayer
             </button>
           </div>
         </div>
@@ -93,7 +94,7 @@ export default function ScannerClient() {
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-10 space-y-8">
           {/* Timestamp */}
           <p className="text-sm text-gray-500">
-            Analyse effectuee le {new Date(result.scannedAt).toLocaleString("fr-FR")}
+            Analyse effectuée le {new Date(result.scannedAt).toLocaleString("fr-FR")}
           </p>
 
           {/* 1. Score global */}
@@ -108,23 +109,23 @@ export default function ScannerClient() {
 
           {/* 3. Detail des outils detectes */}
           <div>
-            <h2 className="text-lg font-bold text-gray-900 mb-4">Outils detectes</h2>
+            <h2 className="text-lg font-bold text-gray-900 mb-4">Outils détectés</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <DetectedToolsCard
                 tools={result.analytics}
                 title="Analytics"
-                emptyMessage="Aucun outil analytics detecte"
+                emptyMessage="Aucun outil analytics détecté"
               />
               <DetectedToolsCard
                 tools={result.pixels}
                 title="Pixels de tracking"
-                emptyMessage="Aucun pixel detecte"
+                emptyMessage="Aucun pixel détecté"
               />
               <ConsentBannerCard banners={result.consentBanners} />
               <DetectedToolsCard
                 tools={result.tagManagers}
                 title="Tag managers"
-                emptyMessage="Aucun tag manager detecte"
+                emptyMessage="Aucun tag manager détecté"
               />
               <LegalPagesCard legalPages={result.legalPages} />
             </div>

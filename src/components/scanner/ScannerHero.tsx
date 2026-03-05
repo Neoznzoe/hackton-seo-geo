@@ -25,9 +25,9 @@ export default function ScannerHero({ onScan, isLoading, initialUrl }: ScannerHe
           Scanner RGPD Analytics
         </h1>
         <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto leading-relaxed">
-          Analysez n&apos;importe quel site web pour detecter ses outils
-          analytics, evaluer sa conformite RGPD/CNIL et recevoir des
-          recommandations personnalisees.
+          Analysez n&apos;importe quel site web pour détecter ses outils
+          analytics, évaluer sa conformité RGPD/CNIL et recevoir des
+          recommandations personnalisées.
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
@@ -38,7 +38,7 @@ export default function ScannerHero({ onScan, isLoading, initialUrl }: ScannerHe
             placeholder="exemple.fr"
             className="flex-1 px-5 py-3.5 rounded-lg bg-white text-gray-900 placeholder-gray-400 text-base shadow-lg focus:outline-none focus:ring-2 focus:ring-white"
             disabled={isLoading}
-            aria-label="URL du site a analyser"
+            aria-label="URL du site à analyser"
           />
           <button
             type="submit"
@@ -50,7 +50,7 @@ export default function ScannerHero({ onScan, isLoading, initialUrl }: ScannerHe
         </form>
 
         <p className="text-sm text-blue-200 mt-5">
-          Gratuit et sans inscription. Nous ne stockons aucune donnee.
+          Gratuit et sans inscription. Nous ne stockons aucune donnée.
         </p>
       </div>
     </section>

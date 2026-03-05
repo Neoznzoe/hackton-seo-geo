@@ -9,7 +9,7 @@ interface GlobalScoreCardProps {
 const LEVEL_CONFIG = {
   faible: {
     label: "Excellent",
-    subtitle: "Votre site est bien configure",
+    subtitle: "Votre site est bien configuré",
     color: "text-green-700",
     bg: "bg-gradient-to-br from-green-50 to-emerald-50",
     border: "border-green-300",
@@ -17,8 +17,8 @@ const LEVEL_CONFIG = {
     trackColor: "stroke-green-200",
   },
   moyen: {
-    label: "A ameliorer",
-    subtitle: "Des points d'attention ont ete detectes",
+    label: "À améliorer",
+    subtitle: "Des points d'attention ont été détectés",
     color: "text-amber-700",
     bg: "bg-gradient-to-br from-amber-50 to-orange-50",
     border: "border-amber-300",
@@ -27,7 +27,7 @@ const LEVEL_CONFIG = {
   },
   eleve: {
     label: "Non conforme",
-    subtitle: "Des risques importants ont ete identifies",
+    subtitle: "Des risques importants ont été identifiés",
     color: "text-red-700",
     bg: "bg-gradient-to-br from-red-50 to-rose-50",
     border: "border-red-300",
@@ -76,7 +76,7 @@ export default function GlobalScoreCard({ score, level, url }: GlobalScoreCardPr
             {config.subtitle}
           </p>
           <p className="text-xs text-gray-400 mt-3">
-            Score global base sur la conformite RGPD, le consentement, les trackers et les bonnes pratiques.
+            Score global basé sur la conformité RGPD, le consentement, les trackers et les bonnes pratiques.
           </p>
         </div>
       </div>

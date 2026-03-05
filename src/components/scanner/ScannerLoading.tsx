@@ -5,10 +5,10 @@ import { useState, useEffect } from "react";
 const STEPS = [
   "Connexion au site...",
   "Analyse du code source...",
-  "Detection des outils analytics...",
-  "Detection des pixels de tracking...",
-  "Verification du bandeau de consentement...",
-  "Verification des pages legales...",
+  "Détection des outils analytics...",
+  "Détection des pixels de tracking...",
+  "Vérification du bandeau de consentement...",
+  "Vérification des pages légales...",
   "Calcul du score RGPD...",
 ];
 

@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
 
   if (isRateLimited(ip)) {
     return NextResponse.json(
-      { error: "Trop de requetes. Reessayez dans une minute." },
+      { error: "Trop de requêtes. Réessayez dans une minute." },
       { status: 429 }
     );
   }
@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
     body = await request.json();
   } catch {
     return NextResponse.json(
-      { error: "Corps de requete invalide." },
+      { error: "Corps de requête invalide." },
       { status: 400 }
     );
   }
@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
   // SSRF protection
   if (isPrivateUrl(normalizedUrl)) {
     return NextResponse.json(
-      { error: "URL non autorisee." },
+      { error: "URL non autorisée." },
       { status: 400 }
     );
   }
@@ -140,13 +140,13 @@ export async function POST(request: NextRequest) {
         parsed.hostname = "www." + parsed.hostname;
         response = await fetchWithTimeout(parsed.toString());
       } else {
-        throw new Error("Connexion refusee par le serveur.");
+        throw new Error("Connexion refusée par le serveur.");
       }
     }
 
     if (!response.ok) {
       return NextResponse.json(
-        { error: `Le site a repondu avec le statut ${response.status}.` },
+        { error: `Le site a répondu avec le statut ${response.status}.` },
         { status: 422 }
       );
     }
@@ -169,8 +169,8 @@ export async function POST(request: NextRequest) {
     const isTimeout = error instanceof Error && error.name === "AbortError";
     const detail = error instanceof Error ? error.message : String(error);
     const message = isTimeout
-      ? "Le site n'a pas repondu dans les 10 secondes."
-      : `Impossible de charger le site. Verifiez l'URL et reessayez. (${detail})`;
+      ? "Le site n'a pas répondu dans les 10 secondes."
+      : `Impossible de charger le site. Vérifiez l'URL et réessayez. (${detail})`;
     return NextResponse.json({ error: message }, { status: 422 });
   }
 

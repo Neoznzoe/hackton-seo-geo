@@ -58,7 +58,7 @@ function SubScoreCard({ id, sub }: { id: string; sub: SubScore }) {
         onClick={() => setOpen(!open)}
         className="text-xs text-gray-500 hover:text-gray-700 flex items-center gap-1"
       >
-        {open ? "Masquer" : "Voir"} le detail
+        {open ? "Masquer" : "Voir"} le détail
         <svg
           className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`}
           fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"
@@ -84,7 +84,7 @@ function SubScoreCard({ id, sub }: { id: string; sub: SubScore }) {
 export default function SubScoresGrid({ subScores }: SubScoresGridProps) {
   return (
     <div>
-      <h2 className="text-lg font-bold text-gray-900 mb-4">Detail par categorie</h2>
+      <h2 className="text-lg font-bold text-gray-900 mb-4">Détail par catégorie</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <SubScoreCard id="rgpd" sub={subScores.rgpd} />
         <SubScoreCard id="consent" sub={subScores.consent} />
