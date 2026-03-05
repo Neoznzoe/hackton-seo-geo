@@ -86,6 +86,16 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/ressources/cgu" className="text-sm hover:text-white transition-colors">
+                  CGU
+                </Link>
+              </li>
+              <li>
+                <Link href="/ressources/cgv" className="text-sm hover:text-white transition-colors">
+                  CGV
+                </Link>
+              </li>
+              <li>
                 <Link href="/glossaire" className="text-sm hover:text-white transition-colors">
                   Glossaire
                 </Link>
