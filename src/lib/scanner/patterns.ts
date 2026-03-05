@@ -56,6 +56,9 @@ export const DETECTION_PATTERNS: Pattern[] = [
       /containers\.piwik\.pro/i,
       /piwik\.pro\/ppms\.php/i,
       /PiwikPROProvider/i,
+      /PiwikProProvider/i,
+      /piwikpro/i,
+      /ppms\.php/i,
     ],
   },
   {

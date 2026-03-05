@@ -39,6 +39,7 @@ const NEGATIVE_KEYWORDS = [
   "Transfert d'", "transfère",
   "dépose", "déposent",
   "risque d", "risque de",
+  "quasi-complètes",
   "Aucun mécanisme", "Aucun blocage",
 ];
 
