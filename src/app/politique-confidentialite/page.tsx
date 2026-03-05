@@ -1,205 +1,423 @@
-import type { Metadata } from "next";
-import { SITE_NAME, BASE_URL } from "@/lib/constants";
+import { Metadata } from "next";
+import { SITE_NAME, BASE_URL, CURRENT_YEAR } from "@/lib/constants";
 import Breadcrumb from "@/components/layout/Breadcrumb";
+import JsonLd from "@/components/seo/JsonLd";
+import { Article } from "schema-dts";
 
 export const metadata: Metadata = {
-  title: `Politique de confidentialite - ${SITE_NAME}`,
-  description: `Politique de confidentialite de ${SITE_NAME}. Informations sur le traitement de vos donnees personnelles conformement au RGPD.`,
-  alternates: { canonical: `${BASE_URL}politique-confidentialite` },
-  robots: { index: true, follow: true },
+  title: `Politique de confidentialité – DevRadar`,
+  description: `Politique de confidentialité de DevRadar. Données collectées, cookies, droits RGPD, durée de conservation et sécurité.`,
+  alternates: { canonical: "/politique-confidentialite" },
+  openGraph: {
+    title: `Politique de confidentialité | DevRadar`,
+    description: `Comment DevRadar collecte, utilise et protège vos données personnelles.`,
+    type: "article",
+  },
 };
 
-const breadcrumbItems = [
-  { label: "Politique de confidentialite" },
+const articleJsonLd: Article = {
+  "@type": "Article",
+  headline: `Politique de confidentialité – DevRadar`,
+  description: `Politique de confidentialité du site DevRadar.`,
+  url: `${BASE_URL}/politique-confidentialite`,
+  inLanguage: "fr",
+  datePublished: `${CURRENT_YEAR}-01-01`,
+  dateModified: "2026-03-05",
+  author: { "@type": "Organization", name: SITE_NAME },
+  publisher: { "@type": "Organization", name: SITE_NAME },
+};
+
+const sections = [
+  {
+    id: "responsable",
+    title: "1. Responsable du traitement",
+    content: (
+      <div>
+        <p className="mb-3">
+          Le responsable du traitement des données est l&apos;équipe DevRadar, dans le cadre du
+          projet hackathon M2 IW.
+        </p>
+        <ul className="list-none space-y-1 text-sm">
+          <li>
+            <span className="font-medium">Site web :</span>{" "}
+            <a
+              href="https://devradar.up.railway.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:underline"
+            >
+              https://devradar.up.railway.app/
+            </a>
+          </li>
+          <li>
+            <span className="font-medium">Contact :</span>{" "}
+            <a href="mailto:contact@devradar.fr" className="text-blue-600 hover:underline">
+              contact@devradar.fr
+            </a>{" "}
+            <span className="text-gray-500">(adresse projet)</span>
+          </li>
+        </ul>
+      </div>
+    ),
+  },
+  {
+    id: "donnees-collectees",
+    title: "2. Données collectées",
+    content: (
+      <div className="space-y-8">
+        {/* 2.1 */}
+        <div>
+          <h3 className="text-base font-semibold text-gray-900 mb-2">
+            2.1 Données de navigation (analytics)
+          </h3>
+          <p className="text-sm text-gray-700 mb-3">
+            Nous utilisons <strong>Piwik PRO</strong>, une solution d&apos;analytics respectueuse de
+            la vie privée, hébergée en Union Européenne. Les données collectées incluent :
+          </p>
+          <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 mb-3">
+            <li>Pages visitées et parcours de navigation</li>
+            <li>Durée de visite et profondeur de scroll</li>
+            <li>Source de trafic (referrer)</li>
+            <li>Type d&apos;appareil et navigateur (sans fingerprinting)</li>
+            <li>Événements d&apos;interaction (clics CTA, utilisation du scanner)</li>
+          </ul>
+          <p className="text-sm text-gray-600 bg-gray-50 border border-gray-200 rounded p-3">
+            <span className="font-medium">Base légale :</span> Consentement (article 6.1.a du RGPD).
+            Le tracking n&apos;est activé qu&apos;après acceptation explicite via notre bandeau de
+            consentement.
+          </p>
+        </div>
+
+        {/* 2.2 */}
+        <div>
+          <h3 className="text-base font-semibold text-gray-900 mb-2">
+            2.2 Données du scanner RGPD
+          </h3>
+          <p className="text-sm text-gray-700 mb-3">
+            Lorsque vous utilisez notre scanner de conformité, nous traitons :
+          </p>
+          <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 mb-3">
+            <li>L&apos;URL du site soumis à l&apos;analyse</li>
+            <li>Les résultats du scan (outils détectés, score)</li>
+          </ul>
+          <p className="text-sm text-gray-600 bg-gray-50 border border-gray-200 rounded p-3 mb-3">
+            <span className="font-medium">Base légale :</span> Intérêt légitime (article 6.1.f du
+            RGPD) — fournir le service demandé par l&apos;utilisateur.
+          </p>
+          <p className="text-sm text-gray-700">
+            Aucune donnée personnelle du site scanné n&apos;est stockée. Seul le code HTML public
+            est analysé de manière éphémère.
+          </p>
+        </div>
+
+        {/* 2.3 */}
+        <div>
+          <h3 className="text-base font-semibold text-gray-900 mb-2">
+            2.3 Données de veille concurrentielle (scraping)
+          </h3>
+          <p className="text-sm text-gray-700 mb-3">
+            Notre module de veille concurrentielle collecte exclusivement des données produit
+            publiquement accessibles (tarifs, fonctionnalités) sur les sites des outils analytics.{" "}
+            <strong>Aucune donnée personnelle n&apos;est collectée via le scraping.</strong>
+          </p>
+          <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+            <li>
+              Respect systématique du fichier{" "}
+              <code className="bg-gray-100 px-1 rounded text-xs">robots.txt</code> de chaque site
+              cible
+            </li>
+            <li>Rate limiting : minimum 2 secondes entre chaque requête</li>
+            <li>
+              User-Agent identifié :{" "}
+              <code className="bg-gray-100 px-1 rounded text-xs">DevRadarBot/1.0</code>
+            </li>
+            <li>Journalisation complète de chaque opération</li>
+            <li>Données minimisées : seules les informations produit sont extraites</li>
+          </ul>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: "cookies",
+    title: "3. Cookies et technologies de suivi",
+    content: (
+      <div className="space-y-6">
+        <div>
+          <h3 className="text-base font-semibold text-gray-900 mb-2">3.1 Cookies essentiels</h3>
+          <p className="text-sm text-gray-700">
+            Cookie de consentement (
+            <code className="bg-gray-100 px-1 rounded text-xs">devradar_consent</code>) : stocke
+            votre choix concernant les cookies. Durée : <strong>12 mois</strong>. Pas de
+            consentement requis (nécessaire au fonctionnement du site).
+          </p>
+        </div>
+        <div>
+          <h3 className="text-base font-semibold text-gray-900 mb-2">
+            3.2 Cookies analytics (Piwik PRO)
+          </h3>
+          <p className="text-sm text-gray-700">
+            Déposés uniquement après votre consentement explicite. Permettent l&apos;analyse
+            d&apos;audience anonymisée. Durée : <strong>13 mois maximum</strong>.
+          </p>
+        </div>
+        <div>
+          <h3 className="text-base font-semibold text-gray-900 mb-2">3.3 Cookies tiers</h3>
+          <p className="text-sm text-gray-700">
+            Ahrefs Analytics : script d&apos;analyse SEO, déposé après consentement.
+          </p>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: "conservation",
+    title: "4. Durée de conservation",
+    content: (
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm border-collapse">
+          <thead>
+            <tr className="bg-gray-50">
+              <th className="text-left p-3 border border-gray-200 font-semibold">Donnée</th>
+              <th className="text-left p-3 border border-gray-200 font-semibold">
+                Durée de conservation
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ["Données analytics Piwik PRO", "25 mois (recommandation CNIL)"],
+              ["Cookie de consentement", "12 mois"],
+              ["Résultats de scan", "Non conservés (temps réel uniquement)"],
+              [
+                "Logs de scraping",
+                "1 000 dernières opérations en mémoire, non persistés",
+              ],
+            ].map(([donnee, duree], i) => (
+              <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                <td className="p-3 border border-gray-200 text-gray-700">{donnee}</td>
+                <td className="p-3 border border-gray-200 text-gray-600">{duree}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    ),
+  },
+  {
+    id: "transferts",
+    title: "5. Transferts de données",
+    content: (
+      <p>
+        Piwik PRO héberge les données en <strong>Union Européenne (Allemagne)</strong>. Aucun
+        transfert de données hors UE n&apos;est effectué pour les données analytics.
+        <br /><br />
+        Le site est hébergé sur Railway. Les données de navigation transitent via leurs serveurs.
+      </p>
+    ),
+  },
+  {
+    id: "droits",
+    title: "6. Vos droits (RGPD)",
+    content: (
+      <div>
+        <p className="text-sm text-gray-700 mb-3">
+          Conformément aux articles 15 à 22 du RGPD, vous disposez des droits suivants :
+        </p>
+        <ul className="space-y-2 text-sm text-gray-700 mb-4">
+          {[
+            ["Droit d'accès", "obtenir une copie de vos données personnelles"],
+            ["Droit de rectification", "corriger des données inexactes"],
+            ["Droit à l'effacement", "demander la suppression de vos données"],
+            ["Droit à la limitation", "restreindre le traitement"],
+            [
+              "Droit à la portabilité",
+              "recevoir vos données dans un format structuré",
+            ],
+            ["Droit d'opposition", "vous opposer au traitement"],
+            [
+              "Droit de retirer votre consentement",
+              "à tout moment, sans affecter la licéité du traitement antérieur",
+            ],
+          ].map(([droit, description], i) => (
+            <li key={i} className="flex gap-2">
+              <span className="text-blue-500 mt-0.5">→</span>
+              <span>
+                <strong>{droit}</strong> : {description}
+              </span>
+            </li>
+          ))}
+        </ul>
+        <p className="text-sm text-gray-700 mb-2">
+          Pour exercer vos droits, contactez-nous à :{" "}
+          <a href="mailto:contact@devradar.fr" className="text-blue-600 hover:underline">
+            contact@devradar.fr
+          </a>
+        </p>
+        <p className="text-sm text-gray-700">
+          Vous pouvez également introduire une réclamation auprès de la{" "}
+          <strong>CNIL</strong> :{" "}
+          <a
+            href="https://www.cnil.fr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"
+          >
+            www.cnil.fr
+          </a>
+        </p>
+      </div>
+    ),
+  },
+  {
+    id: "securite",
+    title: "7. Sécurité",
+    content: (
+      <div>
+        <p className="text-sm text-gray-700 mb-3">
+          Nous mettons en œuvre les mesures techniques et organisationnelles appropriées pour
+          protéger vos données :
+        </p>
+        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+          <li>Connexion HTTPS obligatoire</li>
+          <li>Protection SSRF sur les endpoints de scan</li>
+          <li>Rate limiting sur toutes les API</li>
+          <li>Pas de base de données de données personnelles</li>
+          <li>Minimisation des données collectées</li>
+        </ul>
+      </div>
+    ),
+  },
+  {
+    id: "privacy-by-design",
+    title: "8. Privacy-by-Design",
+    content: (
+      <div>
+        <p className="text-sm text-gray-700 mb-3">
+          Conformément à l&apos;article 25 du RGPD, DevRadar intègre la protection des données dès
+          la conception :
+        </p>
+        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+          <li>Analytics respectueux de la vie privée (Piwik PRO, hébergement UE)</li>
+          <li>Consentement requis avant tout tracking</li>
+          <li>Aucune collecte de données personnelles via le scraping</li>
+          <li>Pas de stockage persistant des données de scan</li>
+          <li>Journalisation des opérations de scraping pour audit</li>
+        </ul>
+      </div>
+    ),
+  },
+  {
+    id: "modifications",
+    title: "9. Modifications",
+    content: (
+      <p>
+        Cette politique peut être mise à jour. La date de dernière modification est indiquée en haut
+        du document. En cas de modification substantielle, nous vous en informerons via un bandeau
+        sur le site.
+      </p>
+    ),
+  },
 ];
 
 export default function PolitiqueConfidentialitePage() {
   return (
-    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
-      <Breadcrumb items={breadcrumbItems} />
+    <article className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
+      <JsonLd data={{ "@context": "https://schema.org", ...articleJsonLd }} />
 
-      <article className="mt-6 prose prose-gray max-w-none">
-        <h1>Politique de confidentialite</h1>
-        <p className="text-sm text-gray-500">Derniere mise a jour : 5 mars 2026</p>
+      <Breadcrumb
+        items={[
+          { label: "Légal" },
+          { label: "Politique de confidentialité" },
+        ]}
+      />
 
-        <p>
-          La presente politique de confidentialite decrit comment <strong>{SITE_NAME}</strong>{" "}
-          collecte, utilise et protege vos donnees personnelles conformement au{" "}
-          <strong>Reglement General sur la Protection des Donnees (RGPD — Reglement UE 2016/679)</strong>{" "}
-          et a la <strong>loi Informatique et Libertes</strong> modifiee.
+      <header className="mb-10">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
+          Politique de confidentialité
+        </h1>
+        <p className="mt-3 text-lg text-gray-600">
+          Dernière mise à jour : 5 mars 2026
         </p>
-
-        <h2>1. Responsable du traitement</h2>
-        <p>
-          Le responsable du traitement des donnees est l&apos;equipe {SITE_NAME}, dans le cadre
-          du projet hackathon M2 IW.
+        <p className="mt-2 text-sm text-gray-500">
+          Conformément au RGPD — Règlement UE 2016/679 et à la loi Informatique et Libertés
+          modifiée.
         </p>
-        <ul>
-          <li>Site web : <a href={BASE_URL}>{BASE_URL}</a></li>
-          <li>Contact : contact@devradar.fr (adresse projet)</li>
+      </header>
+
+      {/* Résumé */}
+      <section className="mb-12 bg-blue-50 border border-blue-200 rounded-lg p-6">
+        <p className="text-sm font-semibold text-blue-800 uppercase tracking-wide mb-3">
+          En résumé
+        </p>
+        <ul className="space-y-2 text-sm text-gray-700">
+          <li>
+            Analytics via <strong>Piwik PRO</strong>, hébergé en UE — activé uniquement après
+            votre consentement.
+          </li>
+          <li>
+            Le scanner RGPD analyse uniquement le <strong>HTML public</strong>, sans stocker de
+            données personnelles.
+          </li>
+          <li>
+            Vous disposez de <strong>7 droits RGPD</strong> exerçables à tout moment par email.
+          </li>
+          <li>
+            DevRadar applique le principe de <strong>Privacy-by-Design</strong> dès la conception.
+          </li>
         </ul>
+      </section>
 
-        <h2>2. Donnees collectees</h2>
+      {/* Sommaire */}
+      <nav className="mb-12 border border-gray-200 rounded-lg p-6" aria-label="Sommaire">
+        <p className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">
+          Sommaire
+        </p>
+        <ol className="space-y-1 text-sm text-blue-600">
+          {sections.map((section) => (
+            <li key={section.id}>
+              <a href={`#${section.id}`} className="hover:underline">
+                {section.title}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
 
-        <h3>2.1 Donnees de navigation (analytics)</h3>
-        <p>
-          Nous utilisons <strong>Piwik PRO</strong>, une solution d&apos;analytics respectueuse de la
-          vie privee, hebergee en Union Europeenne. Les donnees collectees incluent :
-        </p>
-        <ul>
-          <li>Pages visitees et parcours de navigation</li>
-          <li>Duree de visite et profondeur de scroll</li>
-          <li>Source de trafic (referrer)</li>
-          <li>Type d&apos;appareil et navigateur (sans fingerprinting)</li>
-          <li>Evenements d&apos;interaction (clics CTA, utilisation du scanner)</li>
-        </ul>
-        <p>
-          <strong>Base legale :</strong> Consentement (article 6.1.a du RGPD). Le tracking
-          n&apos;est active qu&apos;apres acceptation explicite via notre bandeau de consentement.
-        </p>
+      {/* Sections */}
+      {sections.map((section) => (
+        <section key={section.id} className="mb-10" aria-labelledby={section.id}>
+          <h2 id={section.id} className="text-2xl font-bold text-gray-900 mb-4">
+            {section.title}
+          </h2>
+          <div className="prose prose-sm text-gray-700">{section.content}</div>
+        </section>
+      ))}
 
-        <h3>2.2 Donnees du scanner RGPD</h3>
-        <p>
-          Lorsque vous utilisez notre scanner de conformite, nous traitons :
+      {/* Contact */}
+      <section className="bg-blue-50 rounded-lg p-8 text-center mt-12">
+        <h2 className="text-xl font-bold text-gray-900">Exercer vos droits</h2>
+        <p className="mt-2 text-gray-600 text-sm">
+          Pour toute question relative à vos données personnelles ou pour exercer vos droits RGPD,
+          contactez-nous par email.
         </p>
-        <ul>
-          <li>L&apos;URL du site soumis a l&apos;analyse</li>
-          <li>Les resultats du scan (outils detectes, score)</li>
-        </ul>
-        <p>
-          <strong>Base legale :</strong> Interet legitime (article 6.1.f du RGPD) — fournir le
-          service demande par l&apos;utilisateur.
-        </p>
-        <p>
-          <strong>Aucune donnee personnelle du site scanne n&apos;est stockee.</strong> Seul le code
-          HTML public est analyse de maniere ephemere.
-        </p>
-
-        <h3>2.3 Donnees de veille concurrentielle (scraping)</h3>
-        <p>
-          Notre module de veille concurrentielle collecte exclusivement des{" "}
-          <strong>donnees produit publiquement accessibles</strong> (tarifs, fonctionnalites)
-          sur les sites des outils analytics. Aucune donnee personnelle n&apos;est collectee via
-          le scraping.
-        </p>
-        <ul>
-          <li>Respect systematique du fichier robots.txt de chaque site cible</li>
-          <li>Rate limiting : minimum 2 secondes entre chaque requete</li>
-          <li>User-Agent identifie : DevRadarBot/1.0</li>
-          <li>Journalisation complete de chaque operation</li>
-          <li>Donnees minimisees : seules les informations produit sont extraites</li>
-        </ul>
-
-        <h2>3. Cookies et technologies de suivi</h2>
-        <h3>3.1 Cookies essentiels</h3>
-        <p>
-          Cookie de consentement (<code>devradar_consent</code>) : stocke votre choix
-          concernant les cookies. Duree : 12 mois. Pas de consentement requis
-          (necessaire au fonctionnement du site).
-        </p>
-        <h3>3.2 Cookies analytics (Piwik PRO)</h3>
-        <p>
-          Deposes uniquement apres votre consentement explicite. Permettent l&apos;analyse
-          d&apos;audience anonymisee. Duree : 13 mois maximum.
-        </p>
-        <h3>3.3 Cookies tiers</h3>
-        <p>
-          Ahrefs Analytics : script d&apos;analyse SEO, depose apres consentement.
-        </p>
-
-        <h2>4. Duree de conservation</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Donnee</th>
-              <th>Duree de conservation</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Donnees analytics Piwik PRO</td>
-              <td>25 mois (recommandation CNIL)</td>
-            </tr>
-            <tr>
-              <td>Cookie de consentement</td>
-              <td>12 mois</td>
-            </tr>
-            <tr>
-              <td>Resultats de scan</td>
-              <td>Non conserves (temps reel uniquement)</td>
-            </tr>
-            <tr>
-              <td>Logs de scraping</td>
-              <td>1000 dernieres operations en memoire, non persistes</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h2>5. Transferts de donnees</h2>
-        <p>
-          <strong>Piwik PRO</strong> heberge les donnees en Union Europeenne (Allemagne).
-          Aucun transfert de donnees hors UE n&apos;est effectue pour les donnees analytics.
-        </p>
-        <p>
-          Le site est heberge sur <strong>Railway</strong>. Les donnees de navigation
-          transitent via leurs serveurs.
-        </p>
-
-        <h2>6. Vos droits (RGPD)</h2>
-        <p>Conformement aux articles 15 a 22 du RGPD, vous disposez des droits suivants :</p>
-        <ul>
-          <li><strong>Droit d&apos;acces :</strong> obtenir une copie de vos donnees personnelles</li>
-          <li><strong>Droit de rectification :</strong> corriger des donnees inexactes</li>
-          <li><strong>Droit a l&apos;effacement :</strong> demander la suppression de vos donnees</li>
-          <li><strong>Droit a la limitation :</strong> restreindre le traitement</li>
-          <li><strong>Droit a la portabilite :</strong> recevoir vos donnees dans un format structure</li>
-          <li><strong>Droit d&apos;opposition :</strong> vous opposer au traitement</li>
-          <li><strong>Droit de retirer votre consentement :</strong> a tout moment, sans affecter la licite du traitement anterieur</li>
-        </ul>
-        <p>
-          Pour exercer vos droits, contactez-nous a : <strong>contact@devradar.fr</strong>
-        </p>
-        <p>
-          Vous pouvez egalement introduire une reclamation aupres de la{" "}
-          <strong>CNIL</strong> (Commission Nationale de l&apos;Informatique et des Libertes) :{" "}
-          <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">
-            www.cnil.fr
+        <div className="mt-4 flex flex-col sm:flex-row gap-3 justify-center">
+          <a
+            href="mailto:contact@devradar.fr"
+            className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Nous contacter
           </a>
-        </p>
-
-        <h2>7. Securite</h2>
-        <p>
-          Nous mettons en oeuvre les mesures techniques et organisationnelles appropriees pour
-          proteger vos donnees :
-        </p>
-        <ul>
-          <li>Connexion HTTPS obligatoire</li>
-          <li>Protection SSRF sur les endpoints de scan</li>
-          <li>Rate limiting sur toutes les API</li>
-          <li>Pas de base de donnees de donnees personnelles</li>
-          <li>Minimisation des donnees collectees</li>
-        </ul>
-
-        <h2>8. Privacy-by-Design</h2>
-        <p>
-          Conformement a l&apos;article 25 du RGPD, {SITE_NAME} integre la protection des donnees
-          des la conception :
-        </p>
-        <ul>
-          <li>Analytics respectueux de la vie privee (Piwik PRO, hebergement UE)</li>
-          <li>Consentement requis avant tout tracking</li>
-          <li>Aucune collecte de donnees personnelles via le scraping</li>
-          <li>Pas de stockage persistant des donnees de scan</li>
-          <li>Journalisation des operations de scraping pour audit</li>
-        </ul>
-
-        <h2>9. Modifications</h2>
-        <p>
-          Cette politique peut etre mise a jour. La date de derniere modification est indiquee
-          en haut du document. En cas de modification substantielle, nous vous en informerons
-          via un bandeau sur le site.
-        </p>
-      </article>
-    </div>
+          <a
+            href="https://www.cnil.fr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            Contacter la CNIL
+          </a>
+        </div>
+      </section>
+    </article>
   );
 }
