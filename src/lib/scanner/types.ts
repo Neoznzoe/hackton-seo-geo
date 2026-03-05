@@ -8,6 +8,21 @@ export interface DetectedTool {
   snippet: string;
 }
 
+export interface LegalPages {
+  mentionsLegales: boolean;
+  cgu: boolean;
+  cgv: boolean;
+  politiqueConfidentialite: boolean;
+  politiqueCookies: boolean;
+}
+
+export interface SubScore {
+  label: string;
+  score: number;
+  level: RiskLevel;
+  details: string[];
+}
+
 export interface Recommendation {
   title: string;
   description: string;
@@ -23,8 +38,15 @@ export interface ScanResult {
   pixels: DetectedTool[];
   consentBanners: DetectedTool[];
   tagManagers: DetectedTool[];
-  riskScore: number;
-  riskLevel: RiskLevel;
-  riskDetails: string[];
+  legalPages: LegalPages;
+  globalScore: number;
+  globalLevel: RiskLevel;
+  subScores: {
+    rgpd: SubScore;
+    consent: SubScore;
+    trackers: SubScore;
+    legal: SubScore;
+    bestPractices: SubScore;
+  };
   recommendations: Recommendation[];
 }

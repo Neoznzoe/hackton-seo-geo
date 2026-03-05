@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { detectTools } from "@/lib/scanner/detectors";
-import { calculateRiskScore } from "@/lib/scanner/scoring";
+import { detectTools, detectLegalPages } from "@/lib/scanner/detectors";
+import { calculateFullScore } from "@/lib/scanner/scoring";
 import { generateRecommendations } from "@/lib/scanner/recommendations";
 import { ScanResult } from "@/lib/scanner/types";
 
@@ -174,15 +174,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: message }, { status: 422 });
   }
 
-  // Detect tools
+  // Detect tools & legal pages
   const { analytics, pixels, consentBanners, tagManagers } = detectTools(html);
+  const legalPages = detectLegalPages(html);
 
-  // Calculate risk score
-  const { score, level, details } = calculateRiskScore(
+  // Calculate scores
+  const { globalScore, globalLevel, subScores } = calculateFullScore(
     analytics,
     pixels,
     consentBanners,
-    tagManagers
+    tagManagers,
+    legalPages
   );
 
   // Generate recommendations
@@ -191,7 +193,8 @@ export async function POST(request: NextRequest) {
     pixels,
     consentBanners,
     tagManagers,
-    level
+    legalPages,
+    globalLevel
   );
 
   const result: ScanResult = {
@@ -201,9 +204,10 @@ export async function POST(request: NextRequest) {
     pixels,
     consentBanners,
     tagManagers,
-    riskScore: score,
-    riskLevel: level,
-    riskDetails: details,
+    legalPages,
+    globalScore,
+    globalLevel,
+    subScores,
     recommendations,
   };
 

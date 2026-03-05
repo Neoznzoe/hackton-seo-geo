@@ -6,10 +6,12 @@ import { ScanResult } from "@/lib/scanner/types";
 import { trackEvent } from "@/lib/tracking";
 import ScannerHero from "./ScannerHero";
 import ScannerLoading from "./ScannerLoading";
-import RiskScoreCard from "./RiskScoreCard";
+import GlobalScoreCard from "./GlobalScoreCard";
+import SubScoresGrid from "./SubScoresGrid";
 import DetectedToolsCard from "./DetectedToolsCard";
 import ConsentBannerCard from "./ConsentBannerCard";
-import RecommendationSection from "./RecommendationSection";
+import ActionPlan from "./ActionPlan";
+import LegalPagesCard from "./LegalPagesCard";
 import ActionSection from "./ActionSection";
 
 type ScanState = "idle" | "loading" | "success" | "error";
@@ -53,7 +55,7 @@ export default function ScannerClient() {
 
       setResult(data as ScanResult);
       setState("success");
-      trackEvent("scanner", "scan_result", data.riskLevel, data.riskScore);
+      trackEvent("scanner", "scan_result", data.globalLevel, data.globalScore);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Une erreur est survenue.");
       setState("error");
@@ -88,43 +90,50 @@ export default function ScannerClient() {
       )}
 
       {state === "success" && result && (
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-10 space-y-6">
-          <p className="text-sm text-gray-600">
-            Analyse de <span className="font-semibold text-gray-900">{result.url}</span>{" "}
-            <span className="text-gray-400">—</span>{" "}
-            {new Date(result.scannedAt).toLocaleString("fr-FR")}
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+          {/* Timestamp */}
+          <p className="text-sm text-gray-500">
+            Analyse effectuee le {new Date(result.scannedAt).toLocaleString("fr-FR")}
           </p>
 
-          <RiskScoreCard
-            score={result.riskScore}
-            level={result.riskLevel}
-            details={result.riskDetails}
+          {/* 1. Score global */}
+          <GlobalScoreCard
+            score={result.globalScore}
+            level={result.globalLevel}
+            url={result.url}
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <DetectedToolsCard
-              tools={result.analytics}
-              title="Outils analytics"
-              emptyMessage="Aucun outil analytics detecte"
-            />
-            <DetectedToolsCard
-              tools={result.pixels}
-              title="Pixels de tracking"
-              emptyMessage="Aucun pixel de tracking detecte"
-            />
+          {/* 2. Sous-scores */}
+          <SubScoresGrid subScores={result.subScores} />
+
+          {/* 3. Detail des outils detectes */}
+          <div>
+            <h2 className="text-lg font-bold text-gray-900 mb-4">Outils detectes</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <DetectedToolsCard
+                tools={result.analytics}
+                title="Analytics"
+                emptyMessage="Aucun outil analytics detecte"
+              />
+              <DetectedToolsCard
+                tools={result.pixels}
+                title="Pixels de tracking"
+                emptyMessage="Aucun pixel detecte"
+              />
+              <ConsentBannerCard banners={result.consentBanners} />
+              <DetectedToolsCard
+                tools={result.tagManagers}
+                title="Tag managers"
+                emptyMessage="Aucun tag manager detecte"
+              />
+              <LegalPagesCard legalPages={result.legalPages} />
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <ConsentBannerCard banners={result.consentBanners} />
-            <DetectedToolsCard
-              tools={result.tagManagers}
-              title="Tag managers"
-              emptyMessage="Aucun tag manager detecte"
-            />
-          </div>
+          {/* 4. Plan d'action */}
+          <ActionPlan recommendations={result.recommendations} />
 
-          <RecommendationSection recommendations={result.recommendations} />
-
+          {/* 5. Aller plus loin */}
           <ActionSection />
         </div>
       )}

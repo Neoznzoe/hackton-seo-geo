@@ -1,17 +1,65 @@
-import { DetectedTool, Recommendation } from "./types";
+import { DetectedTool, LegalPages, Recommendation } from "./types";
 
 export function generateRecommendations(
   analytics: DetectedTool[],
   pixels: DetectedTool[],
   consentBanners: DetectedTool[],
   tagManagers: DetectedTool[],
+  legalPages: LegalPages,
   riskLevel: string
 ): Recommendation[] {
   const recommendations: Recommendation[] = [];
   const hasConsent = consentBanners.length > 0;
   const hasGtm = tagManagers.some((t) => t.id === "gtm");
 
-  // GA4 detected
+  // --- Legal pages ---
+
+  if (!legalPages.mentionsLegales) {
+    recommendations.push({
+      title: "Ajouter des mentions legales",
+      description:
+        "Les mentions legales sont obligatoires pour tout site web (loi LCEN). Elles doivent inclure l'identite de l'editeur, l'hebergeur, et le directeur de publication.",
+      link: "/ressources/rgpd-analytics",
+      linkLabel: "Guide conformite",
+      priority: "high",
+    });
+  }
+
+  if (!legalPages.politiqueConfidentialite) {
+    recommendations.push({
+      title: "Ajouter une politique de confidentialite",
+      description:
+        "Le RGPD (article 13) impose d'informer les utilisateurs sur le traitement de leurs donnees personnelles : finalites, base legale, duree de conservation, droits des personnes.",
+      link: "/ressources/rgpd-analytics",
+      linkLabel: "Guide RGPD",
+      priority: "high",
+    });
+  }
+
+  if (!legalPages.cgu) {
+    recommendations.push({
+      title: "Ajouter des conditions generales d'utilisation (CGU)",
+      description:
+        "Les CGU encadrent l'utilisation de votre site et protegent votre responsabilite. Elles sont fortement recommandees pour tout site web.",
+      link: "/ressources/rgpd-analytics",
+      linkLabel: "Guide conformite",
+      priority: "medium",
+    });
+  }
+
+  if (!legalPages.politiqueCookies && (pixels.length > 0 || analytics.some((t) => !t.cnilExempt))) {
+    recommendations.push({
+      title: "Ajouter une politique cookies",
+      description:
+        "Votre site utilise des outils non-exempts qui deposent des cookies. Une page dediee expliquant les cookies utilises et leur finalite est recommandee par la CNIL.",
+      link: "/ressources/rgpd-analytics",
+      linkLabel: "Guide cookies CNIL",
+      priority: "medium",
+    });
+  }
+
+  // --- Analytics ---
+
   if (analytics.some((t) => t.id === "ga4")) {
     recommendations.push({
       title: "Remplacer Google Analytics 4 par une alternative conforme",
@@ -31,7 +79,6 @@ export function generateRecommendations(
     });
   }
 
-  // Adobe detected
   if (analytics.some((t) => t.id === "adobe-analytics")) {
     recommendations.push({
       title: "Migrer d'Adobe Analytics vers Piwik PRO",
@@ -43,7 +90,8 @@ export function generateRecommendations(
     });
   }
 
-  // Pixels without consent
+  // --- Consent ---
+
   if (pixels.length > 0 && !hasConsent) {
     recommendations.push({
       title: "Ajouter un bandeau de consentement",
@@ -55,7 +103,6 @@ export function generateRecommendations(
     });
   }
 
-  // Non-exempt analytics without consent
   const nonExemptWithoutConsent =
     analytics.filter((t) => !t.cnilExempt).length > 0 && !hasConsent;
   if (nonExemptWithoutConsent && !recommendations.some((r) => r.title.includes("bandeau"))) {
@@ -69,7 +116,8 @@ export function generateRecommendations(
     });
   }
 
-  // GTM + consent but no visible analytics — scripts are loaded behind CMP
+  // --- No analytics ---
+
   if (analytics.length === 0 && hasGtm && hasConsent) {
     recommendations.push({
       title: "Configuration conforme detectee",
@@ -81,7 +129,6 @@ export function generateRecommendations(
     });
   }
 
-  // No analytics and no GTM at all
   if (analytics.length === 0 && !hasGtm) {
     recommendations.push({
       title: "Installer un outil analytics conforme",
@@ -91,17 +138,9 @@ export function generateRecommendations(
       linkLabel: "Decouvrir Plausible",
       priority: "medium",
     });
-    recommendations.push({
-      title: "Decouvrir Matomo pour une solution complete",
-      description:
-        "Matomo est une alternative open source et complete a Google Analytics, conforme RGPD et exemptee CNIL.",
-      link: "/outils/matomo",
-      linkLabel: "Decouvrir Matomo",
-      priority: "medium",
-    });
   }
 
-  // Already compliant
+  // --- Already compliant ---
   if (riskLevel === "faible" && analytics.length > 0) {
     recommendations.push({
       title: "Votre site est bien configure !",

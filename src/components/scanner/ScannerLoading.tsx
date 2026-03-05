@@ -8,6 +8,7 @@ const STEPS = [
   "Detection des outils analytics...",
   "Detection des pixels de tracking...",
   "Verification du bandeau de consentement...",
+  "Verification des pages legales...",
   "Calcul du score RGPD...",
 ];
 
