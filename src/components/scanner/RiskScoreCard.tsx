@@ -8,7 +8,8 @@ interface RiskScoreCardProps {
 
 const LEVEL_CONFIG = {
   faible: {
-    label: "Faible",
+    label: "Excellent",
+    subtitle: "Votre site semble conforme",
     color: "text-green-800",
     bg: "bg-green-50",
     border: "border-green-300",
@@ -17,7 +18,8 @@ const LEVEL_CONFIG = {
     badgeBg: "bg-green-100 text-green-800",
   },
   moyen: {
-    label: "Moyen",
+    label: "A ameliorer",
+    subtitle: "Des points d'attention ont ete detectes",
     color: "text-amber-800",
     bg: "bg-amber-50",
     border: "border-amber-300",
@@ -26,7 +28,8 @@ const LEVEL_CONFIG = {
     badgeBg: "bg-amber-100 text-amber-800",
   },
   eleve: {
-    label: "Eleve",
+    label: "Non conforme",
+    subtitle: "Des risques importants ont ete identifies",
     color: "text-red-800",
     bg: "bg-red-50",
     border: "border-red-300",
@@ -44,9 +47,9 @@ export default function RiskScoreCard({ score, level, details }: RiskScoreCardPr
   return (
     <div className={`${config.bg} ${config.border} border rounded-xl p-6 shadow-sm`}>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold text-gray-900">Score de risque RGPD</h2>
+        <h2 className="text-lg font-bold text-gray-900">Score de conformite RGPD</h2>
         <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${config.badgeBg}`}>
-          Risque {config.label}
+          {config.label}
         </span>
       </div>
       <div className="flex flex-col sm:flex-row items-center gap-6">
@@ -74,6 +77,7 @@ export default function RiskScoreCard({ score, level, details }: RiskScoreCardPr
 
         {/* Details */}
         <div className="flex-1">
+          <p className={`text-sm font-medium ${config.color} mb-3`}>{config.subtitle}</p>
           <ul className="space-y-2">
             {details.map((detail) => (
               <li key={detail} className="text-sm text-gray-800 flex items-start gap-2">

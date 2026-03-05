@@ -1,74 +1,65 @@
-import Link from "next/link";
 import { trackEvent } from "@/lib/tracking";
 
 export default function ActionSection() {
+  const links = [
+    {
+      href: "/comparer",
+      event: "comparer",
+      icon: "M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5",
+      iconBg: "bg-blue-100 text-blue-600",
+      title: "Comparer les outils",
+      desc: "Trouvez l'alternative ideale",
+    },
+    {
+      href: "/guide/choisir-outil-analytics",
+      event: "guide",
+      icon: "M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25",
+      iconBg: "bg-purple-100 text-purple-600",
+      title: "Guide de migration",
+      desc: "Etape par etape",
+    },
+    {
+      href: "/ressources/rgpd-analytics",
+      event: "rgpd",
+      icon: "M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z",
+      iconBg: "bg-green-100 text-green-600",
+      title: "RGPD & Analytics",
+      desc: "Tout savoir sur la conformite",
+    },
+    {
+      href: "/#outils",
+      event: "outils",
+      icon: "M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z",
+      iconBg: "bg-orange-100 text-orange-600",
+      title: "Tous les outils",
+      desc: "8 solutions analysees",
+    },
+  ];
+
   return (
     <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
       <h2 className="text-xl font-bold text-gray-900 mb-4">Aller plus loin</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Link
-          href="/comparer"
-          onClick={() => trackEvent("scanner", "cta_click", "comparer")}
-          className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
-        >
-          <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center shrink-0">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
-            </svg>
-          </div>
-          <div>
-            <p className="font-medium text-gray-900">Comparer les outils</p>
-            <p className="text-sm text-gray-500">Trouvez l&apos;alternative ideale</p>
-          </div>
-        </Link>
-
-        <Link
-          href="/guide/choisir-outil-analytics"
-          onClick={() => trackEvent("scanner", "cta_click", "guide")}
-          className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
-        >
-          <div className="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center shrink-0">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-            </svg>
-          </div>
-          <div>
-            <p className="font-medium text-gray-900">Guide de migration</p>
-            <p className="text-sm text-gray-500">Etape par etape</p>
-          </div>
-        </Link>
-
-        <Link
-          href="/ressources/rgpd-analytics"
-          onClick={() => trackEvent("scanner", "cta_click", "rgpd")}
-          className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
-        >
-          <div className="w-10 h-10 bg-green-100 text-green-600 rounded-lg flex items-center justify-center shrink-0">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-            </svg>
-          </div>
-          <div>
-            <p className="font-medium text-gray-900">RGPD & Analytics</p>
-            <p className="text-sm text-gray-500">Tout savoir sur la conformite</p>
-          </div>
-        </Link>
-
-        <Link
-          href="/#outils"
-          onClick={() => trackEvent("scanner", "cta_click", "outils")}
-          className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
-        >
-          <div className="w-10 h-10 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center shrink-0">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
-            </svg>
-          </div>
-          <div>
-            <p className="font-medium text-gray-900">Tous les outils</p>
-            <p className="text-sm text-gray-500">8 solutions analysees</p>
-          </div>
-        </Link>
+        {links.map((link) => (
+          <a
+            key={link.event}
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackEvent("scanner", "cta_click", link.event)}
+            className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
+          >
+            <div className={`w-10 h-10 ${link.iconBg} rounded-lg flex items-center justify-center shrink-0`}>
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d={link.icon} />
+              </svg>
+            </div>
+            <div>
+              <p className="font-medium text-gray-900">{link.title}</p>
+              <p className="text-sm text-gray-500">{link.desc}</p>
+            </div>
+          </a>
+        ))}
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { SITE_NAME, BASE_URL } from "@/lib/constants";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import ScannerClient from "@/components/scanner/ScannerClient";
+import FaqSection from "@/components/content/FaqSection";
 
 export const metadata: Metadata = {
   title: `Scanner RGPD Analytics — Analysez la conformite de votre site | ${SITE_NAME}`,
@@ -66,21 +67,7 @@ export default function ScannerPage() {
 
       {/* FAQ Section for SEO */}
       <section className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">
-          Questions frequentes
-        </h2>
-        <dl className="space-y-6">
-          {FAQ_ITEMS.map((item) => (
-            <div key={item.question}>
-              <dt className="font-semibold text-gray-900 mb-2">
-                {item.question}
-              </dt>
-              <dd className="text-gray-600 text-sm leading-relaxed">
-                {item.answer}
-              </dd>
-            </div>
-          ))}
-        </dl>
+        <FaqSection items={FAQ_ITEMS} />
       </section>
     </>
   );

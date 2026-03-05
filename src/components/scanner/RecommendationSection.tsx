@@ -39,6 +39,8 @@ export default function RecommendationSection({ recommendations }: Recommendatio
               <p className="text-sm text-gray-800 mb-3 leading-relaxed">{rec.description}</p>
               <Link
                 href={rec.link}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => trackEvent("scanner", "recommendation_click", rec.link)}
                 className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-700 hover:text-blue-900 transition-colors"
               >

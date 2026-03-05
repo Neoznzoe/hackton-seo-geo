@@ -98,8 +98,8 @@ export const DETECTION_PATTERNS: Pattern[] = [
     cnilExempt: true,
     patterns: [
       /umami\.js/i,
-      /data-website-id/i,
       /analytics\.umami\.is/i,
+      /umami\.cloud/i,
     ],
   },
   {
@@ -108,11 +108,10 @@ export const DETECTION_PATTERNS: Pattern[] = [
     category: "analytics",
     cnilExempt: false,
     patterns: [
-      /smarttag/i,
       /xtcore\.js/i,
-      /at-internet/i,
-      /piano\.io\/xts/i,
       /tag\.aticdn\.net/i,
+      /piano\.io\/xts/i,
+      /smarttag\.atinternet/i,
     ],
   },
 
