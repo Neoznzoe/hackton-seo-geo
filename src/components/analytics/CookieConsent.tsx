@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 const CONSENT_KEY = "devradar_consent";
 
@@ -52,7 +53,10 @@ export default function CookieConsent() {
             Nous utilisons Piwik Pro pour mesurer l&apos;audience de ce site.
             Ces cookies nous permettent d&apos;ameliorer votre experience.
             Conformement au RGPD et aux recommandations de la CNIL, vous pouvez
-            accepter ou refuser ces cookies.
+            accepter ou refuser ces cookies.{" "}
+            <Link href="/politique-cookies" className="underline hover:text-blue-600">
+              En savoir plus
+            </Link>
           </p>
         </div>
         <div className="flex gap-2 shrink-0">

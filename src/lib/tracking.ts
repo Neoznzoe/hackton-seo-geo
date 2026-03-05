@@ -151,6 +151,20 @@ export function trackEntryPoint(referrer: string) {
   sendEvent("user", "entry_source", source);
 }
 
+// --- Veille concurrentielle (scraping) ------------------------------------
+
+export function trackVeilleLaunch() {
+  sendEvent("veille", "scrape_launch", "competitive_intelligence");
+}
+
+export function trackVeilleResult(toolsFound: number, duration: number) {
+  sendEvent("veille", "scrape_result", `tools:${toolsFound}`, duration);
+}
+
+export function trackVeilleLogsView() {
+  sendEvent("veille", "view_logs", "scraping_logs");
+}
+
 // --- Consent management ---------------------------------------------------
 
 export function trackConsentChoice(choice: "accepted" | "refused") {

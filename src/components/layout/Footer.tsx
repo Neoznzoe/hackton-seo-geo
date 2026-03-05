@@ -94,8 +94,23 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-gray-700 pt-6 text-center text-xs text-gray-500">
-          <p>
+        {/* Legal */}
+        <div className="mt-8 border-t border-gray-700 pt-6">
+          <div className="flex flex-wrap justify-center gap-4 text-xs text-gray-400">
+            <Link href="/mentions-legales" className="hover:text-white transition-colors">
+              Mentions legales
+            </Link>
+            <Link href="/politique-confidentialite" className="hover:text-white transition-colors">
+              Politique de confidentialite
+            </Link>
+            <Link href="/politique-cookies" className="hover:text-white transition-colors">
+              Politique de cookies
+            </Link>
+            <Link href="/veille-concurrentielle" className="hover:text-white transition-colors">
+              Veille concurrentielle
+            </Link>
+          </div>
+          <p className="mt-4 text-center text-xs text-gray-500">
             &copy; {new Date().getFullYear()} {SITE_NAME}. Projet hackathon M2
             IW. Tous droits reserves.
           </p>
