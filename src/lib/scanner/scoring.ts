@@ -118,41 +118,40 @@ function scoreLegal(legalPages: LegalPages): SubScore {
   // Mentions légales = obligatoire (loi LCEN)
   if (legalPages.mentionsLegales) {
     score += 30;
-    details.push("Mentions légales : détectées");
   } else {
-    details.push("Mentions légales : non détectées (obligatoire, loi LCEN)");
+    details.push("Mentions légales manquantes (obligatoire, loi LCEN)");
   }
 
   // Politique de confidentialité = obligatoire (RGPD art. 13)
   if (legalPages.politiqueConfidentialite) {
     score += 30;
-    details.push("Politique de confidentialité : détectée");
   } else {
-    details.push("Politique de confidentialité : non détectée (obligatoire, RGPD art. 13)");
+    details.push("Politique de confidentialité manquante (obligatoire, RGPD art. 13)");
   }
 
   // CGU = fortement recommandé
   if (legalPages.cgu) {
     score += 15;
-    details.push("CGU : détectées");
   } else {
-    details.push("CGU : non détectées (fortement recommandé)");
+    details.push("CGU manquantes (fortement recommandé)");
   }
 
   // CGV = obligatoire pour e-commerce, recommandé sinon
   if (legalPages.cgv) {
     score += 15;
-    details.push("CGV : détectées");
   } else {
-    details.push("CGV : non détectées (obligatoire pour les sites e-commerce)");
+    details.push("CGV manquantes (obligatoire pour les sites e-commerce)");
   }
 
   // Politique cookies = recommandé si cookies utilisés
   if (legalPages.politiqueCookies) {
     score += 10;
-    details.push("Politique cookies : détectée");
   } else {
-    details.push("Politique cookies : non détectée (recommandé)");
+    details.push("Politique cookies manquante (recommandé)");
+  }
+
+  if (details.length === 0) {
+    details.push("Toutes les pages légales sont en place");
   }
 
   return { label: "Obligations légales", score, level: toLevel(score), details };

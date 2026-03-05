@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { detectTools, detectLegalPages } from "@/lib/scanner/detectors";
 import { calculateFullScore } from "@/lib/scanner/scoring";
 import { generateRecommendations } from "@/lib/scanner/recommendations";
-import { ScanResult } from "@/lib/scanner/types";
+import { ScanResult, ScanPlan, PLAN_LIMITS, DetectedTool, LegalPages } from "@/lib/scanner/types";
+import { discoverSitemap, selectPages } from "@/lib/scanner/sitemap";
 
 // In-memory rate limiting
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
@@ -25,7 +26,6 @@ function isPrivateUrl(url: string): boolean {
     const parsed = new URL(url);
     const hostname = parsed.hostname.toLowerCase();
 
-    // Block private/reserved IPs and localhost
     if (
       hostname === "localhost" ||
       hostname === "127.0.0.1" ||
@@ -46,7 +46,6 @@ function isPrivateUrl(url: string): boolean {
       return true;
     }
 
-    // Only allow http/https
     if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
       return true;
     }
@@ -55,6 +54,61 @@ function isPrivateUrl(url: string): boolean {
   } catch {
     return true;
   }
+}
+
+const PLAN_TIMEOUTS: Record<ScanPlan, number> = {
+  gratuit: 30_000,
+  rapide: 60_000,
+  complet: 90_000,
+};
+
+const fetchHeaders = {
+  "User-Agent":
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+  Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+  "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",
+  "Accept-Encoding": "identity",
+};
+
+async function fetchPageHtml(targetUrl: string, timeoutMs = 8000): Promise<string | null> {
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    const res = await fetch(targetUrl, {
+      signal: controller.signal,
+      headers: fetchHeaders,
+      redirect: "follow",
+    });
+    clearTimeout(timer);
+    if (!res.ok) return null;
+    let html = await res.text();
+    if (html.length > 2 * 1024 * 1024) {
+      html = html.slice(0, 2 * 1024 * 1024);
+    }
+    return html;
+  } catch {
+    return null;
+  }
+}
+
+function mergeTools(existing: DetectedTool[], newTools: DetectedTool[]): DetectedTool[] {
+  const merged = [...existing];
+  for (const tool of newTools) {
+    if (!merged.some((t) => t.id === tool.id)) {
+      merged.push(tool);
+    }
+  }
+  return merged;
+}
+
+function mergeLegalPages(a: LegalPages, b: LegalPages): LegalPages {
+  return {
+    mentionsLegales: a.mentionsLegales || b.mentionsLegales,
+    cgu: a.cgu || b.cgu,
+    cgv: a.cgv || b.cgv,
+    politiqueConfidentialite: a.politiqueConfidentialite || b.politiqueConfidentialite,
+    politiqueCookies: a.politiqueCookies || b.politiqueCookies,
+  };
 }
 
 export async function POST(request: NextRequest) {
@@ -72,7 +126,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Parse body
-  let body: { url?: string };
+  let body: { url?: string; plan?: string };
   try {
     body = await request.json();
   } catch {
@@ -83,6 +137,9 @@ export async function POST(request: NextRequest) {
   }
 
   const { url } = body;
+  const plan: ScanPlan = (["gratuit", "rapide", "complet"].includes(body.plan || "") ? body.plan : "gratuit") as ScanPlan;
+  const pageLimit = PLAN_LIMITS[plan];
+
   if (!url || typeof url !== "string") {
     return NextResponse.json(
       { error: "URL requise." },
@@ -104,45 +161,42 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Fetch HTML with timeout and retry
-  const fetchHeaders = {
-    "User-Agent":
-      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",
-    "Accept-Encoding": "identity",
-  };
+  // Global timeout for the entire scan
+  const globalTimeout = PLAN_TIMEOUTS[plan];
+  const scanStart = Date.now();
 
-  async function fetchWithTimeout(targetUrl: string): Promise<Response> {
+  // 1. Fetch homepage HTML first (validates the site is reachable)
+  let homepageHtml: string;
+  try {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 10_000);
+    let response: Response;
     try {
-      const res = await fetch(targetUrl, {
+      response = await fetch(normalizedUrl, {
         signal: controller.signal,
         headers: fetchHeaders,
         redirect: "follow",
       });
-      return res;
-    } finally {
-      clearTimeout(timer);
-    }
-  }
-
-  let html: string;
-  try {
-    let response: Response;
-    try {
-      response = await fetchWithTimeout(normalizedUrl);
     } catch {
-      // If https fails, try with www. prefix
       const parsed = new URL(normalizedUrl);
       if (!parsed.hostname.startsWith("www.")) {
         parsed.hostname = "www." + parsed.hostname;
-        response = await fetchWithTimeout(parsed.toString());
+        clearTimeout(timer);
+        const controller2 = new AbortController();
+        const timer2 = setTimeout(() => controller2.abort(), 10_000);
+        response = await fetch(parsed.toString(), {
+          signal: controller2.signal,
+          headers: fetchHeaders,
+          redirect: "follow",
+        });
+        clearTimeout(timer2);
+        normalizedUrl = parsed.toString();
       } else {
+        clearTimeout(timer);
         throw new Error("Connexion refusée par le serveur.");
       }
     }
+    clearTimeout(timer);
 
     if (!response.ok) {
       return NextResponse.json(
@@ -151,19 +205,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const contentLength = response.headers.get("content-length");
-    if (contentLength && parseInt(contentLength) > 2 * 1024 * 1024) {
-      return NextResponse.json(
-        { error: "La page est trop volumineuse (> 2 Mo)." },
-        { status: 422 }
-      );
-    }
-
-    html = await response.text();
-
-    // Truncate if too large
-    if (html.length > 2 * 1024 * 1024) {
-      html = html.slice(0, 2 * 1024 * 1024);
+    homepageHtml = await response.text();
+    if (homepageHtml.length > 2 * 1024 * 1024) {
+      homepageHtml = homepageHtml.slice(0, 2 * 1024 * 1024);
     }
   } catch (error) {
     const isTimeout = error instanceof Error && error.name === "AbortError";
@@ -174,42 +218,99 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: message }, { status: 422 });
   }
 
-  // Detect tools & legal pages
-  const { analytics, pixels, consentBanners, tagManagers } = detectTools(html);
-  const legalPages = detectLegalPages(html);
+  // 2. Discover sitemap
+  const sitemap = await discoverSitemap(normalizedUrl);
 
-  // Calculate scores
-  const { globalScore, globalLevel, subScores } = calculateFullScore(
-    analytics,
-    pixels,
-    consentBanners,
-    tagManagers,
-    legalPages
+  // 3. Select pages to scan
+  const pagesToScan = selectPages(sitemap.urls, pageLimit, normalizedUrl);
+
+  // 4. Analyze homepage (already fetched)
+  let allAnalytics: DetectedTool[] = [];
+  let allPixels: DetectedTool[] = [];
+  let allConsentBanners: DetectedTool[] = [];
+  let allTagManagers: DetectedTool[] = [];
+  let allLegalPages: LegalPages = {
+    mentionsLegales: false,
+    cgu: false,
+    cgv: false,
+    politiqueConfidentialite: false,
+    politiqueCookies: false,
+  };
+
+  // Process homepage
+  const homeDetection = detectTools(homepageHtml);
+  allAnalytics = mergeTools(allAnalytics, homeDetection.analytics);
+  allPixels = mergeTools(allPixels, homeDetection.pixels);
+  allConsentBanners = mergeTools(allConsentBanners, homeDetection.consentBanners);
+  allTagManagers = mergeTools(allTagManagers, homeDetection.tagManagers);
+  allLegalPages = mergeLegalPages(allLegalPages, detectLegalPages(homepageHtml));
+
+  // 5. Fetch and analyze additional pages in parallel
+  const additionalPages = pagesToScan.filter(
+    (u) => u.replace(/\/$/, "") !== normalizedUrl.replace(/\/$/, "")
   );
 
-  // Generate recommendations
+  let pagesScanned = 1; // homepage already scanned
+
+  if (additionalPages.length > 0) {
+    const remainingTime = globalTimeout - (Date.now() - scanStart);
+    const perPageTimeout = Math.min(8000, Math.max(3000, remainingTime / additionalPages.length));
+
+    const results = await Promise.allSettled(
+      additionalPages.map((pageUrl) => fetchPageHtml(pageUrl, perPageTimeout))
+    );
+
+    for (const result of results) {
+      if (result.status === "fulfilled" && result.value) {
+        pagesScanned++;
+        const html = result.value;
+        const detection = detectTools(html);
+        allAnalytics = mergeTools(allAnalytics, detection.analytics);
+        allPixels = mergeTools(allPixels, detection.pixels);
+        allConsentBanners = mergeTools(allConsentBanners, detection.consentBanners);
+        allTagManagers = mergeTools(allTagManagers, detection.tagManagers);
+        allLegalPages = mergeLegalPages(allLegalPages, detectLegalPages(html));
+      }
+    }
+  }
+
+  // 6. Calculate scores on aggregated data
+  const { globalScore, globalLevel, subScores } = calculateFullScore(
+    allAnalytics,
+    allPixels,
+    allConsentBanners,
+    allTagManagers,
+    allLegalPages
+  );
+
+  // 7. Generate recommendations
   const recommendations = generateRecommendations(
-    analytics,
-    pixels,
-    consentBanners,
-    tagManagers,
-    legalPages,
+    allAnalytics,
+    allPixels,
+    allConsentBanners,
+    allTagManagers,
+    allLegalPages,
     globalLevel
   );
 
-  const result: ScanResult = {
+  const scanResult: ScanResult = {
     url: normalizedUrl,
     scannedAt: new Date().toISOString(),
-    analytics,
-    pixels,
-    consentBanners,
-    tagManagers,
-    legalPages,
+    plan,
+    sitemapFound: sitemap.found,
+    sitemapUrl: sitemap.sitemapUrl,
+    pagesScanned,
+    totalPagesInSitemap: sitemap.urls.length,
+    analytics: allAnalytics,
+    pixels: allPixels,
+    consentBanners: allConsentBanners,
+    tagManagers: allTagManagers,
+    legalPages: allLegalPages,
     globalScore,
     globalLevel,
     subScores,
     recommendations,
   };
 
-  return NextResponse.json(result);
+  return NextResponse.json(scanResult);
 }

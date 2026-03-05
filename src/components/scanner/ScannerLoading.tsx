@@ -1,10 +1,17 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { ScanPlan, PLAN_LIMITS } from "@/lib/scanner/types";
+
+interface ScannerLoadingProps {
+  plan: ScanPlan;
+}
 
 const STEPS = [
   "Connexion au site...",
-  "Analyse du code source...",
+  "Analyse de la page d'accueil...",
+  "Recherche du sitemap...",
+  "Analyse des pages du site...",
   "Détection des outils analytics...",
   "Détection des pixels de tracking...",
   "Vérification du bandeau de consentement...",
@@ -12,19 +19,32 @@ const STEPS = [
   "Calcul du score RGPD...",
 ];
 
-export default function ScannerLoading() {
+export default function ScannerLoading({ plan }: ScannerLoadingProps) {
   const [currentStep, setCurrentStep] = useState(0);
+  const pageLimit = PLAN_LIMITS[plan];
 
   useEffect(() => {
+    // Slower progression for larger plans
+    const intervalMs = plan === "gratuit" ? 600 : plan === "rapide" ? 800 : 1000;
     const interval = setInterval(() => {
       setCurrentStep((prev) => (prev < STEPS.length - 1 ? prev + 1 : prev));
-    }, 700);
+    }, intervalMs);
     return () => clearInterval(interval);
-  }, []);
+  }, [plan]);
 
   return (
     <div className="mx-auto max-w-xl px-4 py-12">
       <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm">
+        {/* Plan info */}
+        <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
+          <span className="text-sm text-gray-500">
+            Plan <span className="font-semibold text-gray-900 capitalize">{plan}</span>
+          </span>
+          <span className="text-sm text-gray-500">
+            Jusqu&apos;à <span className="font-semibold text-blue-700">{pageLimit} pages</span>
+          </span>
+        </div>
+
         <div className="space-y-4">
           {STEPS.map((step, i) => (
             <div key={step} className="flex items-center gap-3">

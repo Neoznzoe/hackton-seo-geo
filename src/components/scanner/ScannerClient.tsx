@@ -2,10 +2,12 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-import { ScanResult } from "@/lib/scanner/types";
+import { ScanResult, ScanPlan } from "@/lib/scanner/types";
 import { trackEvent } from "@/lib/tracking";
 import ScannerHero from "./ScannerHero";
 import ScannerLoading from "./ScannerLoading";
+import PlanSelector from "./PlanSelector";
+import SitemapAlert from "./SitemapAlert";
 import GlobalScoreCard from "./GlobalScoreCard";
 import SubScoresGrid from "./SubScoresGrid";
 import DetectedToolsCard from "./DetectedToolsCard";
@@ -20,6 +22,7 @@ export default function ScannerClient() {
   const [state, setState] = useState<ScanState>("idle");
   const [result, setResult] = useState<ScanResult | null>(null);
   const [error, setError] = useState("");
+  const [plan, setPlan] = useState<ScanPlan>("gratuit");
   const searchParams = useSearchParams();
   const autoScanDone = useRef(false);
 
@@ -44,7 +47,7 @@ export default function ScannerClient() {
       const response = await fetch("/api/scan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url }),
+        body: JSON.stringify({ url, plan }),
       });
 
       const data = await response.json();
@@ -67,7 +70,14 @@ export default function ScannerClient() {
     <div>
       <ScannerHero onScan={handleScan} isLoading={state === "loading"} initialUrl={searchParams.get("url") || undefined} />
 
-      {state === "loading" && <ScannerLoading />}
+      {/* Plan selector - shown when idle or after results */}
+      {state !== "loading" && (
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 -mt-6 mb-6">
+          <PlanSelector selectedPlan={plan} onSelectPlan={setPlan} isLoading={false} />
+        </div>
+      )}
+
+      {state === "loading" && <ScannerLoading plan={plan} />}
 
       {state === "error" && (
         <div className="mx-auto max-w-3xl px-4 py-8">
@@ -92,16 +102,30 @@ export default function ScannerClient() {
 
       {state === "success" && result && (
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-          {/* Timestamp */}
-          <p className="text-sm text-gray-500">
-            Analyse effectuée le {new Date(result.scannedAt).toLocaleString("fr-FR")}
-          </p>
+          {/* Timestamp + pages info */}
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500">
+            <p>
+              Analyse effectuée le {new Date(result.scannedAt).toLocaleString("fr-FR")}
+            </p>
+            <span className="hidden sm:inline">·</span>
+            <p className="font-medium text-gray-700">
+              {result.pagesScanned} page{result.pagesScanned > 1 ? "s" : ""} analysée{result.pagesScanned > 1 ? "s" : ""}
+              {result.sitemapFound && result.totalPagesInSitemap > 0 && (
+                <span className="text-gray-400 font-normal"> / {result.totalPagesInSitemap} dans le sitemap</span>
+              )}
+            </p>
+          </div>
+
+          {/* Sitemap alert */}
+          <SitemapAlert sitemapFound={result.sitemapFound} />
 
           {/* 1. Score global */}
           <GlobalScoreCard
             score={result.globalScore}
             level={result.globalLevel}
             url={result.url}
+            pagesScanned={result.pagesScanned}
+            sitemapFound={result.sitemapFound}
           />
 
           {/* 2. Sous-scores */}

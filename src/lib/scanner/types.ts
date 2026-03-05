@@ -1,5 +1,13 @@
 export type RiskLevel = "faible" | "moyen" | "eleve";
 
+export type ScanPlan = "gratuit" | "rapide" | "complet";
+
+export const PLAN_LIMITS: Record<ScanPlan, number> = {
+  gratuit: 5,
+  rapide: 25,
+  complet: 50,
+};
+
 export interface DetectedTool {
   id: string;
   name: string;
@@ -34,6 +42,11 @@ export interface Recommendation {
 export interface ScanResult {
   url: string;
   scannedAt: string;
+  plan: ScanPlan;
+  sitemapFound: boolean;
+  sitemapUrl?: string;
+  pagesScanned: number;
+  totalPagesInSitemap: number;
   analytics: DetectedTool[];
   pixels: DetectedTool[];
   consentBanners: DetectedTool[];
