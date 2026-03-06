@@ -49,7 +49,7 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
               className={`block py-1 border-l-2 pl-3 transition-colors ${
                 activeId === item.id
                   ? "border-emerald-700 text-emerald-700 font-medium"
-                  : "border-gray-200 text-gray-500 hover:text-gray-900"
+                  : "border-gray-200 dark:border-gray-700 text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
               }`}
             >
               {item.label}

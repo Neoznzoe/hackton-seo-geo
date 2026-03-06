@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 import "./globals.css";
 import { SITE_NAME, BASE_URL, SITE_DESCRIPTION, SITE_LOCALE, SITE_LANGUAGE, SITE_COUNTRY } from "@/lib/constants";
@@ -15,9 +15,19 @@ import { ThemeProvider } from "@/lib/theme/ThemeProvider";
 import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
 import { WebSite } from "schema-dts";
 
-const inter = Inter({
-  subsets: ["latin"],
+const plusJakarta = localFont({
+  src: [
+    {
+      path: "../fonts/PlusJakartaSans-Variable.woff2",
+      style: "normal",
+    },
+    {
+      path: "../fonts/PlusJakartaSans-VariableItalic.woff2",
+      style: "italic",
+    },
+  ],
   display: "swap",
+  variable: "--font-plus-jakarta",
 });
 
 export const metadata: Metadata = {
@@ -84,7 +94,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={inter.className}>
+    <html lang="fr" className={plusJakarta.className}>
       <head>
         <Script
           src="https://analytics.ahrefs.com/analytics.js"

@@ -50,7 +50,7 @@ export function CompareLink({
   return (
     <a
       href={href}
-      className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow text-sm font-medium text-emerald-700 hover:text-emerald-900"
+      className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow text-sm font-medium text-emerald-700 dark:text-emerald-600 hover:text-emerald-900 dark:hover:text-emerald-400"
       onClick={() => trackClickCompare(toolName, otherToolName)}
     >
       {children}

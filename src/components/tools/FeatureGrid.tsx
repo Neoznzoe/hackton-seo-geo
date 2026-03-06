@@ -21,7 +21,7 @@ export default function FeatureGrid({ features }: FeatureGridProps) {
       {features.map((feature) => (
         <div
           key={l(feature.label)}
-          className="flex items-start gap-2 p-3 border border-gray-100 rounded-lg"
+          className="flex items-start gap-2 p-3 border border-gray-100 dark:border-gray-800 rounded-lg"
         >
           {feature.available ? (
             <svg
@@ -57,13 +57,13 @@ export default function FeatureGrid({ features }: FeatureGridProps) {
           <div>
             <span
               className={`text-sm font-medium ${
-                feature.available ? "text-gray-900" : "text-gray-400"
+                feature.available ? "text-gray-900 dark:text-gray-100" : "text-gray-400 dark:text-gray-500"
               }`}
             >
               {l(feature.label)}
             </span>
             {feature.detail && (
-              <span className="block text-xs text-gray-500">
+              <span className="block text-xs text-gray-500 dark:text-gray-400">
                 {l(feature.detail)}
               </span>
             )}

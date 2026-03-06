@@ -38,7 +38,7 @@ export default function FaqSection({
   return (
     <section aria-labelledby="faq-heading">
       <JsonLd data={{ "@context": "https://schema.org", ...faqJsonLd }} />
-      <h2 id="faq-heading" className="text-2xl font-bold text-gray-900 mb-6">
+      <h2 id="faq-heading" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
         {heading}
       </h2>
       <dl className="space-y-3">
@@ -47,12 +47,12 @@ export default function FaqSection({
           return (
             <div
               key={index}
-              className="border border-gray-200 rounded-lg overflow-hidden"
+              className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden"
             >
               <dt>
                 <button
                   type="button"
-                  className="faq-question w-full flex items-center justify-between p-5 text-left font-semibold text-gray-900 hover:bg-gray-50 transition-colors"
+                  className="faq-question w-full flex items-center justify-between p-5 text-left font-semibold text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                   onClick={() => {
                     if (!isOpen) trackFaqToggle(l(item.question));
                     setOpenIndex(isOpen ? null : index);
@@ -73,7 +73,7 @@ export default function FaqSection({
                 </button>
               </dt>
               {isOpen && (
-                <dd className="faq-answer px-5 pb-5 text-gray-600 text-sm leading-relaxed">
+                <dd className="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
                   {l(item.answer)}
                 </dd>
               )}

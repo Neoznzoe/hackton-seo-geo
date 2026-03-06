@@ -29,7 +29,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
     <>
       <JsonLd data={{ "@context": "https://schema.org", ...jsonLd }} />
       <nav aria-label="Fil d'Ariane" className="mb-6">
-        <ol className="flex flex-wrap items-center gap-1 text-sm text-gray-500">
+        <ol className="flex flex-wrap items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
           {allItems.map((item, index) => (
             <li key={index} className="flex items-center gap-1">
               {index > 0 && <span aria-hidden="true">/</span>}
@@ -41,7 +41,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
                   {item.label}
                 </Link>
               ) : (
-                <span className="text-gray-900 font-medium" aria-current="page">
+                <span className="text-gray-900 dark:text-gray-100 font-medium" aria-current="page">
                   {item.label}
                 </span>
               )}

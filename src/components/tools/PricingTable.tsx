@@ -18,21 +18,21 @@ export default function PricingTable({ tiers }: PricingTableProps) {
           className={`border rounded-lg p-6 ${
             tier.highlighted
               ? "border-emerald-700 ring-2 ring-emerald-100"
-              : "border-gray-200"
+              : "border-gray-200 dark:border-gray-700"
           }`}
         >
-          <h3 className="font-semibold text-gray-900 text-lg">{l(tier.name)}</h3>
+          <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-lg">{l(tier.name)}</h3>
           <p className="mt-2">
-            <span className="text-3xl font-bold text-gray-900">
+            <span className="text-3xl font-bold text-gray-900 dark:text-gray-100">
               {tier.price}
             </span>
             {tier.period && (
-              <span className="text-sm text-gray-500 ml-1">{l(tier.period)}</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400 ml-1">{l(tier.period)}</span>
             )}
           </p>
           <ul className="mt-4 space-y-2">
             {tier.features.map((feature, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+              <li key={i} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <svg
                   className="w-4 h-4 text-green-500 mt-0.5 shrink-0"
                   fill="none"

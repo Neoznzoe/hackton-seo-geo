@@ -17,7 +17,7 @@ export default function ProsCons({ pros, cons }: ProsConsProps) {
         <h3 className="font-semibold text-green-700 mb-3">Avantages</h3>
         <ul className="space-y-2">
           {pros.map((pro, i) => (
-            <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+            <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
               <svg
                 className="w-4 h-4 text-green-500 mt-0.5 shrink-0"
                 fill="none"
@@ -41,7 +41,7 @@ export default function ProsCons({ pros, cons }: ProsConsProps) {
         <h3 className="font-semibold text-red-700 mb-3">Inconvenients</h3>
         <ul className="space-y-2">
           {cons.map((con, i) => (
-            <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+            <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
               <svg
                 className="w-4 h-4 text-red-400 mt-0.5 shrink-0"
                 fill="none"

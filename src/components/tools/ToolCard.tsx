@@ -17,7 +17,7 @@ export default function ToolCard({ tool }: ToolCardProps) {
   );
 
   return (
-    <article className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-md transition-shadow flex flex-col">
+    <article className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-md transition-shadow flex flex-col">
       <div className="flex items-start gap-3 mb-3">
         <div className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-lg font-bold text-emerald-700 shrink-0">
           {tool.name[0]}
