@@ -104,6 +104,8 @@ export default function RootLayout({
           }}
         />
         <meta name="google-site-verification" content="OpBP-OpU253pvgSruj3o8hV4VM_c8I6i0EYVFtbt2F4" />
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM content summary" />
+        <link rel="alternate" type="text/plain" href="/llms-full.txt" title="LLM full content" />
       </head>
       <body className="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased min-h-screen flex flex-col transition-colors">
         <ThemeProvider>

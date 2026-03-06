@@ -34,5 +34,8 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: `${BASE_URL}/sitemap.xml`,
+    host: BASE_URL,
   };
 }
+
+// Note: llms.txt is served at /llms.txt and /llms-full.txt via Next.js route handlers
