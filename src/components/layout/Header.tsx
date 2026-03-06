@@ -48,7 +48,7 @@ export default function Header() {
             <button
               onClick={() => setLocale(locale === "fr" ? "en" : "fr")}
               className="ml-2 px-2.5 py-1.5 text-xs font-semibold rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              aria-label="Changer de langue"
+              aria-label={locale === "fr" ? "EN – Switch to English" : "FR – Passer en français"}
             >
               {locale === "fr" ? "EN" : "FR"}
             </button>

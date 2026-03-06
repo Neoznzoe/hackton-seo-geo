@@ -43,7 +43,7 @@ export default function ScannerHero({ onScan, isLoading, initialUrl }: ScannerHe
           <button
             type="submit"
             disabled={isLoading || !url.trim()}
-            className="px-8 py-3.5 bg-amber-600 text-white font-bold rounded-lg hover:bg-amber-500 transition-colors shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-base"
+            className="px-8 py-3.5 bg-amber-700 text-white font-bold rounded-lg hover:bg-amber-600 transition-colors shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-base"
           >
             {isLoading ? t("scanner.analyzing") : t("scanner.button")}
           </button>
