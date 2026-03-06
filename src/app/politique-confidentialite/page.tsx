@@ -36,12 +36,12 @@ export default function PolitiqueConfidentialitePage() {
             <li>
               <span className="font-medium">{locale === "fr" ? "Site web :" : "Website:"}</span>{" "}
               <a
-                href="https://devradar.up.railway.app/"
+                href="https://www.devradar.fr"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-emerald-700 hover:underline"
               >
-                https://devradar.up.railway.app/
+                https://www.devradar.fr
               </a>
             </li>
             <li>

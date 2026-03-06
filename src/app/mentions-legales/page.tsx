@@ -32,7 +32,7 @@ export default function MentionsLegalesPage() {
               <>
                 Le site{" "}
                 <a
-                  href="https://devradar.up.railway.app/"
+                  href="https://www.devradar.fr"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-emerald-700 hover:underline"
@@ -45,7 +45,7 @@ export default function MentionsLegalesPage() {
               <>
                 The website{" "}
                 <a
-                  href="https://devradar.up.railway.app/"
+                  href="https://www.devradar.fr"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-emerald-700 hover:underline"

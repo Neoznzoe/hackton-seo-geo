@@ -66,8 +66,8 @@ export default function CguPage() {
             <li><span className="font-medium">{locale === "fr" ? "Adresse :" : "Address:"}</span> 37 place Saint Bruno, 38000 Grenoble</li>
             <li>
               <span className="font-medium">{locale === "fr" ? "Email de contact :" : "Contact email:"}</span>{" "}
-              <a href="mailto:contact@devradar.up.railway.app" className="text-emerald-700 hover:underline">
-                contact@devradar.up.railway.app
+              <a href="mailto:contact@devradar.fr" className="text-emerald-700 hover:underline">
+                contact@devradar.fr
               </a>
             </li>
           </ul>
@@ -363,7 +363,7 @@ export default function CguPage() {
         </p>
         <div className="mt-4">
           <a
-            href="mailto:contact@devradar.up.railway.app"
+            href="mailto:contact@devradar.fr"
             className="inline-flex items-center justify-center px-6 py-3 bg-emerald-700 text-white font-medium rounded-lg hover:bg-emerald-800 transition-colors"
           >
             {locale === "fr" ? "Nous contacter" : "Contact Us"}

@@ -47,7 +47,16 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  
+  async redirects() {
+  return [
+    {
+      source: '/:path*',
+      has: [{ type: 'host', value: 'devradar.up.railway.app' }],
+      destination: 'https://www.devradar.fr/:path*',
+      permanent: true,
+    },
+  ]
+},
 };
 
 export default nextConfig;
