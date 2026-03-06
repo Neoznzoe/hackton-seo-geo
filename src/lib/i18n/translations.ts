@@ -103,17 +103,34 @@ export const translations = {
 
   // Plan selector
   "plan.free": { fr: "Gratuit", en: "Free" },
-  "plan.fast": { fr: "Rapide", en: "Fast" },
-  "plan.complete": { fr: "Complet", en: "Complete" },
+  "plan.essential": { fr: "Essentiel", en: "Essential" },
+  "plan.pro": { fr: "Pro", en: "Pro" },
+  "plan.expert": { fr: "Expert", en: "Expert" },
   "plan.popular": { fr: "Populaire", en: "Popular" },
   "plan.pagesMax": { fr: "pages max", en: "max pages" },
-  "plan.freeDesc": { fr: "Analyse rapide des pages principales", en: "Quick analysis of main pages" },
-  "plan.fastDesc": { fr: "Couverture étendue du site", en: "Extended site coverage" },
-  "plan.completeDesc": { fr: "Audit exhaustif de toutes les pages", en: "Exhaustive audit of all pages" },
+  "plan.pageMax": { fr: "page", en: "page" },
+  "plan.freeDesc": { fr: "Apercu rapide, donnees limitees", en: "Quick overview, limited data" },
+  "plan.essentialDesc": { fr: "Analyse complete de 5 pages", en: "Full analysis of 5 pages" },
+  "plan.proDesc": { fr: "Couverture etendue du site", en: "Extended site coverage" },
+  "plan.expertDesc": { fr: "Audit exhaustif de toutes les pages", en: "Exhaustive audit of all pages" },
   "plan.analyze": { fr: "Analyser", en: "Analyze" },
-  "plan.unlock": { fr: "Débloquer", en: "Unlock" },
-  "plan.upTo": { fr: "Jusqu'à", en: "Up to" },
+  "plan.unlock": { fr: "Debloquer", en: "Unlock" },
+  "plan.upTo": { fr: "Jusqu'a", en: "Up to" },
   "plan.pages": { fr: "pages", en: "pages" },
+  "plan.allPages": { fr: "Toutes les pages", en: "All pages" },
+  "plan.perScan": { fr: "/scan", en: "/scan" },
+
+  // Premium gate
+  "premium.unlock": { fr: "Debloquer cette section", en: "Unlock this section" },
+  "premium.upgradeDesc": {
+    fr: "Passez a un plan premium pour acceder aux details complets de l'analyse.",
+    en: "Upgrade to a premium plan to access full analysis details.",
+  },
+  "premium.choosePlan": { fr: "Choisir un plan", en: "Choose a plan" },
+
+  // PDF export
+  "export.pdf": { fr: "Exporter en PDF", en: "Export as PDF" },
+  "export.generating": { fr: "Generation...", en: "Generating..." },
 
   // ActionPlan priorities
   "scanner.urgent": { fr: "Urgent", en: "Urgent" },

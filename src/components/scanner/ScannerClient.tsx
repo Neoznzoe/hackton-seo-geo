@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import { ScanResult, ScanPlan } from "@/lib/scanner/types";
 import {
@@ -25,6 +25,8 @@ import ThirdPartyCard from "./ThirdPartyCard";
 import ConsentEffectivenessCard from "./ConsentEffectivenessCard";
 import ActionSection from "./ActionSection";
 import PageDetailsCard from "./PageDetailsCard";
+import PremiumGate from "./PremiumGate";
+import ExportPdfButton from "./ExportPdfButton";
 
 type ScanState = "idle" | "loading" | "success" | "error";
 
@@ -36,6 +38,9 @@ export default function ScannerClient() {
   const { t, locale } = useTranslation();
   const searchParams = useSearchParams();
   const autoScanDone = useRef(false);
+  const planRef = useRef<HTMLDivElement>(null);
+
+  const isFree = result?.plan === "gratuit";
 
   // Track scanner page open
   useEffect(() => {
@@ -51,6 +56,10 @@ export default function ScannerClient() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
+
+  const scrollToPlan = useCallback(() => {
+    planRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, []);
 
   async function handleScan(url: string) {
     setState("loading");
@@ -87,7 +96,7 @@ export default function ScannerClient() {
 
       {/* Plan selector - shown when idle or after results */}
       {state !== "loading" && (
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 -mt-6 mb-6">
+        <div ref={planRef} className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 -mt-6 mb-6">
           <PlanSelector selectedPlan={plan} onSelectPlan={setPlan} isLoading={false} />
         </div>
       )}
@@ -116,25 +125,28 @@ export default function ScannerClient() {
       )}
 
       {state === "success" && result && (
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-          {/* Timestamp + pages info */}
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500 dark:text-gray-400">
-            <p>
-              {t("scanner.analysisDate")} {new Date(result.scannedAt).toLocaleString(locale === "fr" ? "fr-FR" : "en-US")}
-            </p>
-            <span className="hidden sm:inline">·</span>
-            <p className="font-medium text-gray-700 dark:text-gray-300">
-              {result.pagesScanned} {result.pagesScanned > 1 ? t("scanner.pagesAnalyzedPlural") : t("scanner.pagesAnalyzed")}
-              {result.sitemapFound && result.totalPagesInSitemap > 0 && (
-                <span className="text-gray-400 dark:text-gray-500 font-normal"> / {result.totalPagesInSitemap} {t("scanner.inSitemap")}</span>
-              )}
-            </p>
+        <div id="scan-report" className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+          {/* Timestamp + pages info + export */}
+          <div className="flex flex-wrap items-center justify-between gap-y-2">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500 dark:text-gray-400">
+              <p>
+                {t("scanner.analysisDate")} {new Date(result.scannedAt).toLocaleString(locale === "fr" ? "fr-FR" : "en-US")}
+              </p>
+              <span className="hidden sm:inline">·</span>
+              <p className="font-medium text-gray-700 dark:text-gray-300">
+                {result.pagesScanned} {result.pagesScanned > 1 ? t("scanner.pagesAnalyzedPlural") : t("scanner.pagesAnalyzed")}
+                {result.sitemapFound && result.totalPagesInSitemap > 0 && (
+                  <span className="text-gray-400 dark:text-gray-500 font-normal"> / {result.totalPagesInSitemap} {t("scanner.inSitemap")}</span>
+                )}
+              </p>
+            </div>
+            <ExportPdfButton targetId="scan-report" filename={`devradar-${new URL(result.url).hostname}`} />
           </div>
 
           {/* Sitemap alert */}
           <SitemapAlert sitemapFound={result.sitemapFound} />
 
-          {/* 1. Score global */}
+          {/* 1. Score global — always visible */}
           <GlobalScoreCard
             score={result.globalScore}
             level={result.globalLevel}
@@ -144,61 +156,69 @@ export default function ScannerClient() {
             sitemapFound={result.sitemapFound}
           />
 
-          {/* 2. Sous-scores */}
+          {/* 2. Sous-scores — always visible (colors only for free, details stripped by API) */}
           <SubScoresGrid subScores={result.subScores} />
 
-          {/* 3. Détail des outils détectés */}
-          <div>
-            <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">{t("scanner.detectedTools")}</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <DetectedToolsCard
-                tools={result.analytics}
-                title="Analytics"
-                emptyMessage={t("scanner.noAnalytics")}
-              />
-              <DetectedToolsCard
-                tools={result.pixels}
-                title={t("scanner.trackingPixels")}
-                emptyMessage={t("scanner.noPixels")}
-              />
-              <ConsentBannerCard
-                banners={result.consentBanners}
-                needsConsent={
-                  result.analytics.some((t) => !t.cnilExempt) ||
-                  result.pixels.length > 0
-                }
-              />
-              <DetectedToolsCard
-                tools={result.tagManagers}
-                title={t("scanner.tagManagers")}
-                emptyMessage={t("scanner.noTagManager")}
-              />
-              <LegalPagesCard legalPages={result.legalPages} />
-            </div>
-          </div>
-
-          {/* 3b. Sécurité, ressources tierces, efficacité consentement */}
-          <div>
-            <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">{t("scanner.deepAnalysis")}</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <SecurityHeadersCard headers={result.securityHeaders} />
-              <ThirdPartyCard resources={result.thirdPartyResources} />
-              <ConsentEffectivenessCard
-                effectiveness={result.consentEffectiveness}
-                hasConsentBanner={result.consentBanners.length > 0}
-              />
-            </div>
-          </div>
-
-          {/* 3c. Détail par page */}
-          {result.pageDetails && result.pageDetails.length > 0 && (
+          {/* 3. Détail des outils détectés — gated for free */}
+          <PremiumGate locked={isFree} onUpgrade={scrollToPlan}>
             <div>
-              <PageDetailsCard pageDetails={result.pageDetails} pagesScanned={result.pagesScanned} />
+              <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">{t("scanner.detectedTools")}</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <DetectedToolsCard
+                  tools={result.analytics}
+                  title="Analytics"
+                  emptyMessage={t("scanner.noAnalytics")}
+                />
+                <DetectedToolsCard
+                  tools={result.pixels}
+                  title={t("scanner.trackingPixels")}
+                  emptyMessage={t("scanner.noPixels")}
+                />
+                <ConsentBannerCard
+                  banners={result.consentBanners}
+                  needsConsent={
+                    result.analytics.some((t) => !t.cnilExempt) ||
+                    result.pixels.length > 0
+                  }
+                />
+                <DetectedToolsCard
+                  tools={result.tagManagers}
+                  title={t("scanner.tagManagers")}
+                  emptyMessage={t("scanner.noTagManager")}
+                />
+                <LegalPagesCard legalPages={result.legalPages} />
+              </div>
             </div>
-          )}
+          </PremiumGate>
 
-          {/* 4. Plan d'action */}
-          <ActionPlan recommendations={result.recommendations} />
+          {/* 3b. Sécurité, ressources tierces, efficacité consentement — gated for free */}
+          <PremiumGate locked={isFree} onUpgrade={scrollToPlan}>
+            <div>
+              <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">{t("scanner.deepAnalysis")}</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <SecurityHeadersCard headers={result.securityHeaders} />
+                <ThirdPartyCard resources={result.thirdPartyResources} />
+                <ConsentEffectivenessCard
+                  effectiveness={result.consentEffectiveness}
+                  hasConsentBanner={result.consentBanners.length > 0}
+                />
+              </div>
+            </div>
+          </PremiumGate>
+
+          {/* 3c. Détail par page — gated for free */}
+          <PremiumGate locked={isFree} onUpgrade={scrollToPlan}>
+            {result.pageDetails && result.pageDetails.length > 0 && (
+              <div>
+                <PageDetailsCard pageDetails={result.pageDetails} pagesScanned={result.pagesScanned} />
+              </div>
+            )}
+          </PremiumGate>
+
+          {/* 4. Plan d'action — gated for free */}
+          <PremiumGate locked={isFree} onUpgrade={scrollToPlan}>
+            <ActionPlan recommendations={result.recommendations} />
+          </PremiumGate>
 
           {/* 5. Aller plus loin */}
           <ActionSection />

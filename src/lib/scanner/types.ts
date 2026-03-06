@@ -2,12 +2,13 @@ export type RiskLevel = "faible" | "moyen" | "eleve";
 
 export type LetterGrade = "A+" | "A" | "B" | "C" | "D" | "E";
 
-export type ScanPlan = "gratuit" | "rapide" | "complet";
+export type ScanPlan = "gratuit" | "essentiel" | "pro" | "expert";
 
 export const PLAN_LIMITS: Record<ScanPlan, number> = {
-  gratuit: 5,
-  rapide: 25,
-  complet: 50,
+  gratuit: 1,
+  essentiel: 5,
+  pro: 30,
+  expert: 200,
 };
 
 export interface DetectedTool {

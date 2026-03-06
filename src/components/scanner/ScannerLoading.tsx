@@ -27,14 +27,20 @@ export default function ScannerLoading({ plan }: ScannerLoadingProps) {
   const { t } = useTranslation();
 
   useEffect(() => {
-    const intervalMs = plan === "gratuit" ? 600 : plan === "rapide" ? 800 : 1000;
+    const intervalMs = plan === "gratuit" ? 600 : plan === "essentiel" ? 700 : plan === "pro" ? 800 : 1000;
     const interval = setInterval(() => {
       setCurrentStep((prev) => (prev < STEP_KEYS.length - 1 ? prev + 1 : prev));
     }, intervalMs);
     return () => clearInterval(interval);
   }, [plan]);
 
-  const planLabel = plan === "gratuit" ? t("plan.free") : plan === "rapide" ? t("plan.fast") : t("plan.complete");
+  const planLabels: Record<ScanPlan, string> = {
+    gratuit: t("plan.free"),
+    essentiel: t("plan.essential"),
+    pro: t("plan.pro"),
+    expert: t("plan.expert"),
+  };
+  const planLabel = planLabels[plan];
 
   return (
     <div className="mx-auto max-w-xl px-4 py-12">

@@ -75,9 +75,10 @@ function isPrivateUrl(url: string): boolean {
 }
 
 const PLAN_TIMEOUTS: Record<ScanPlan, number> = {
-  gratuit: 30_000,
-  rapide: 60_000,
-  complet: 90_000,
+  gratuit: 15_000,
+  essentiel: 30_000,
+  pro: 60_000,
+  expert: 90_000,
 };
 
 const fetchHeaders = {
@@ -211,7 +212,7 @@ export async function POST(request: NextRequest) {
   }
 
   const { url } = body;
-  const plan: ScanPlan = (["gratuit", "rapide", "complet"].includes(body.plan || "") ? body.plan : "gratuit") as ScanPlan;
+  const plan: ScanPlan = (["gratuit", "essentiel", "pro", "expert"].includes(body.plan || "") ? body.plan : "gratuit") as ScanPlan;
   const pageLimit = PLAN_LIMITS[plan];
 
   if (!url || typeof url !== "string") {
@@ -396,6 +397,42 @@ export async function POST(request: NextRequest) {
     thirdPartyResources,
     consentEffectiveness
   );
+
+  // For the free plan, strip detailed data — only keep score + sub-score levels
+  if (plan === "gratuit") {
+    const strippedSubScores = Object.fromEntries(
+      Object.entries(subScores).map(([key, sub]) => [
+        key,
+        { ...sub, details: [] as string[] },
+      ])
+    ) as unknown as typeof subScores;
+
+    const scanResult: ScanResult = {
+      url: normalizedUrl,
+      scannedAt: new Date().toISOString(),
+      plan,
+      sitemapFound: sitemap.found,
+      sitemapUrl: sitemap.sitemapUrl,
+      pagesScanned,
+      totalPagesInSitemap: sitemap.urls.length,
+      analytics: [],
+      pixels: [],
+      consentBanners: [],
+      tagManagers: [],
+      legalPages: allLegalPages,
+      securityHeaders,
+      thirdPartyResources: [],
+      consentEffectiveness: { scriptsBlocked: false, dataGdprSrc: false, typePlaintext: false, consentGating: false, details: [] },
+      globalScore,
+      globalLevel,
+      letterGrade,
+      subScores: strippedSubScores,
+      recommendations: [],
+      pageDetails: [],
+    };
+
+    return NextResponse.json(scanResult);
+  }
 
   const scanResult: ScanResult = {
     url: normalizedUrl,
