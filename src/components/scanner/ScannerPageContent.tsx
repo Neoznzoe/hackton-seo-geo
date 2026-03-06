@@ -50,8 +50,7 @@ export function ScannerBreadcrumb() {
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4">
       <Breadcrumb
         items={[
-          { label: t("scanner.breadcrumbHome"), href: "/" },
-          { label: t("scanner.breadcrumbScanner"), href: "/scanner" },
+          { label: t("scanner.breadcrumbScanner") },
         ]}
       />
     </div>
