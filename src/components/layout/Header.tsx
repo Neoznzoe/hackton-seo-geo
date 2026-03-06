@@ -26,8 +26,8 @@ export default function Header() {
         aria-label="Navigation principale"
       >
         <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 text-xl font-bold text-emerald-700 dark:text-emerald-600">
-            <Image src="/devradar.svg" alt="" width={28} height={28} className="dark:invert" />
+          <Link href="/" className="flex items-center gap-0 text-xl font-bold text-emerald-700 dark:text-emerald-600">
+            <Image src="/devradar.svg" alt="" width={40} height={40} className="dark:invert" />
             {SITE_NAME}
           </Link>
 
