@@ -32,6 +32,10 @@ const plusJakarta = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
+  icons: {
+    icon: "/devradar.svg",
+    apple: "/devradar.svg",
+  },
   title: {
     default: `${SITE_NAME} - Comparateur d'outils analytics web`,
     template: `%s | ${SITE_NAME}`,

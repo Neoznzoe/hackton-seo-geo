@@ -72,10 +72,10 @@ export default function ComparisonTable({ tools }: ComparisonTableProps) {
           </tr>
 
           {/* Conformite RGPD */}
-          <tr className="bg-gray-50/50 dark:bg-gray-800/50">
+          <tr className="bg-gray-50 dark:bg-gray-800">
             <th
               scope="row"
-              className="sticky left-0 bg-gray-50/50 dark:bg-gray-800/50 px-4 py-3 text-left font-medium text-gray-900 dark:text-gray-100 border-b border-gray-100 dark:border-gray-800"
+              className="sticky left-0 bg-gray-50 dark:bg-gray-800 px-4 py-3 text-left font-medium text-gray-900 dark:text-gray-100 border-b border-gray-100 dark:border-gray-800"
             >
               Conforme RGPD
             </th>
@@ -116,10 +116,10 @@ export default function ComparisonTable({ tools }: ComparisonTableProps) {
           </tr>
 
           {/* Localisation */}
-          <tr className="bg-gray-50/50 dark:bg-gray-800/50">
+          <tr className="bg-gray-50 dark:bg-gray-800">
             <th
               scope="row"
-              className="sticky left-0 bg-gray-50/50 dark:bg-gray-800/50 px-4 py-3 text-left font-medium text-gray-900 dark:text-gray-100 border-b border-gray-100 dark:border-gray-800"
+              className="sticky left-0 bg-gray-50 dark:bg-gray-800 px-4 py-3 text-left font-medium text-gray-900 dark:text-gray-100 border-b border-gray-100 dark:border-gray-800"
             >
               Localisation donnees
             </th>
@@ -135,11 +135,11 @@ export default function ComparisonTable({ tools }: ComparisonTableProps) {
 
           {/* Features */}
           {allFeatureLabels.map((label, i) => (
-            <tr key={label} className={i % 2 === 0 ? "" : "bg-gray-50/50 dark:bg-gray-800/50"}>
+            <tr key={label} className={i % 2 === 0 ? "" : "bg-gray-50 dark:bg-gray-800"}>
               <th
                 scope="row"
                 className={`sticky left-0 ${
-                  i % 2 === 0 ? "bg-white dark:bg-gray-900" : "bg-gray-50/50 dark:bg-gray-800/50"
+                  i % 2 === 0 ? "bg-white dark:bg-gray-900" : "bg-gray-50 dark:bg-gray-800"
                 } px-4 py-3 text-left font-medium text-gray-900 dark:text-gray-100 border-b border-gray-100 dark:border-gray-800`}
               >
                 {label}
