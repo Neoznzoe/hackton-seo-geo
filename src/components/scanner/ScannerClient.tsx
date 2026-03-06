@@ -159,65 +159,60 @@ export default function ScannerClient() {
           {/* 2. Sous-scores — always visible (colors only for free, details stripped by API) */}
           <SubScoresGrid subScores={result.subScores} />
 
-          {/* 3. Détail des outils détectés — gated for free */}
+          {/* 3-4. All detailed sections — single gate for free plan */}
           <PremiumGate locked={isFree} onUpgrade={scrollToPlan}>
-            <div>
-              <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">{t("scanner.detectedTools")}</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <DetectedToolsCard
-                  tools={result.analytics}
-                  title="Analytics"
-                  emptyMessage={t("scanner.noAnalytics")}
-                />
-                <DetectedToolsCard
-                  tools={result.pixels}
-                  title={t("scanner.trackingPixels")}
-                  emptyMessage={t("scanner.noPixels")}
-                />
-                <ConsentBannerCard
-                  banners={result.consentBanners}
-                  needsConsent={
-                    result.analytics.some((t) => !t.cnilExempt) ||
-                    result.pixels.length > 0
-                  }
-                />
-                <DetectedToolsCard
-                  tools={result.tagManagers}
-                  title={t("scanner.tagManagers")}
-                  emptyMessage={t("scanner.noTagManager")}
-                />
-                <LegalPagesCard legalPages={result.legalPages} />
-              </div>
-            </div>
-          </PremiumGate>
-
-          {/* 3b. Sécurité, ressources tierces, efficacité consentement — gated for free */}
-          <PremiumGate locked={isFree} onUpgrade={scrollToPlan}>
-            <div>
-              <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">{t("scanner.deepAnalysis")}</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <SecurityHeadersCard headers={result.securityHeaders} />
-                <ThirdPartyCard resources={result.thirdPartyResources} />
-                <ConsentEffectivenessCard
-                  effectiveness={result.consentEffectiveness}
-                  hasConsentBanner={result.consentBanners.length > 0}
-                />
-              </div>
-            </div>
-          </PremiumGate>
-
-          {/* 3c. Détail par page — gated for free */}
-          <PremiumGate locked={isFree} onUpgrade={scrollToPlan}>
-            {result.pageDetails && result.pageDetails.length > 0 && (
+            <div className="space-y-8">
+              {/* 3. Détail des outils détectés */}
               <div>
-                <PageDetailsCard pageDetails={result.pageDetails} pagesScanned={result.pagesScanned} />
+                <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">{t("scanner.detectedTools")}</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <DetectedToolsCard
+                    tools={result.analytics}
+                    title="Analytics"
+                    emptyMessage={t("scanner.noAnalytics")}
+                  />
+                  <DetectedToolsCard
+                    tools={result.pixels}
+                    title={t("scanner.trackingPixels")}
+                    emptyMessage={t("scanner.noPixels")}
+                  />
+                  <ConsentBannerCard
+                    banners={result.consentBanners}
+                    needsConsent={
+                      result.analytics.some((t) => !t.cnilExempt) ||
+                      result.pixels.length > 0
+                    }
+                  />
+                  <DetectedToolsCard
+                    tools={result.tagManagers}
+                    title={t("scanner.tagManagers")}
+                    emptyMessage={t("scanner.noTagManager")}
+                  />
+                  <LegalPagesCard legalPages={result.legalPages} />
+                </div>
               </div>
-            )}
-          </PremiumGate>
 
-          {/* 4. Plan d'action — gated for free */}
-          <PremiumGate locked={isFree} onUpgrade={scrollToPlan}>
-            <ActionPlan recommendations={result.recommendations} />
+              {/* 3b. Sécurité, ressources tierces, efficacité consentement */}
+              <div>
+                <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">{t("scanner.deepAnalysis")}</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <SecurityHeadersCard headers={result.securityHeaders} />
+                  <ThirdPartyCard resources={result.thirdPartyResources} />
+                  <ConsentEffectivenessCard
+                    effectiveness={result.consentEffectiveness}
+                    hasConsentBanner={result.consentBanners.length > 0}
+                  />
+                </div>
+              </div>
+
+              {/* 3c. Détail par page */}
+              {result.pageDetails && result.pageDetails.length > 0 && (
+                <PageDetailsCard pageDetails={result.pageDetails} pagesScanned={result.pagesScanned} />
+              )}
+
+              {/* 4. Plan d'action */}
+              <ActionPlan recommendations={result.recommendations} />
+            </div>
           </PremiumGate>
 
           {/* 5. Aller plus loin */}
