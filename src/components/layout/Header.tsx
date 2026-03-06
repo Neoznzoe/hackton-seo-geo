@@ -31,12 +31,12 @@ export default function Header() {
 
           {/* Desktop nav */}
           <div className="hidden md:flex md:items-center md:gap-4">
-            <ul className="flex items-center gap-6">
+            <ul className="flex items-center gap-1">
               {navigation.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-emerald-700 dark:hover:text-emerald-600 transition-colors"
+                    className="inline-block min-w-[80px] text-center px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-emerald-700 dark:hover:text-emerald-600 transition-colors"
                   >
                     {item.name}
                   </Link>
