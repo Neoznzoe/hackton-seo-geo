@@ -192,7 +192,9 @@ export default function ScannerClient() {
 
           {/* 3c. Détail par page */}
           {result.pageDetails && result.pageDetails.length > 0 && (
-            <PageDetailsCard pageDetails={result.pageDetails} pagesScanned={result.pagesScanned} />
+            <div>
+              <PageDetailsCard pageDetails={result.pageDetails} pagesScanned={result.pagesScanned} />
+            </div>
           )}
 
           {/* 4. Plan d'action */}

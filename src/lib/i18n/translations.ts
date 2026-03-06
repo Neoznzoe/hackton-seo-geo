@@ -273,6 +273,11 @@ export const translations = {
     en: "Consent banner missing",
   },
   "pageDetails.nonExempt": { fr: "non-exempt CNIL", en: "non-exempt CNIL" },
+  "pageDetails.filterAll": { fr: "Toutes", en: "All" },
+  "pageDetails.filterIssues": { fr: "Avec problemes", en: "With issues" },
+  "pageDetails.filterClean": { fr: "Sans probleme", en: "Clean" },
+  "pageDetails.pagesScanned": { fr: "pages analysees", en: "pages scanned" },
+  "pageDetails.homepage": { fr: "Page d'accueil", en: "Homepage" },
 
   // Theme
   "theme.light": { fr: "Clair", en: "Light" },

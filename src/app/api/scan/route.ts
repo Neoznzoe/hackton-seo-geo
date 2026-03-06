@@ -418,7 +418,7 @@ export async function POST(request: NextRequest) {
     letterGrade,
     subScores,
     recommendations,
-    pageDetails: allPageDetails.filter((p) => p.issues.length > 0 || p.toolsFound.length > 0),
+    pageDetails: allPageDetails,
   };
 
   return NextResponse.json(scanResult);
