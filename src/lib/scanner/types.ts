@@ -110,6 +110,7 @@ export interface ScanResult {
   };
   recommendations: Recommendation[];
   pageDetails: PageDetail[];
+  isEcommerce: boolean;
 }
 
 export function scoreToLetterGrade(score: number): LetterGrade {

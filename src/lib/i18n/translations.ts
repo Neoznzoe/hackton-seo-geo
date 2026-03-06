@@ -159,6 +159,7 @@ export const translations = {
   "legal.cguRequired": { fr: "Fortement recommandé", en: "Strongly recommended" },
   "legal.cgv": { fr: "CGV", en: "Terms of sale" },
   "legal.cgvRequired": { fr: "Obligatoire (e-commerce)", en: "Required (e-commerce)" },
+  "legal.cgvNotRequired": { fr: "Non requis (site non-marchand)", en: "Not required (non-commercial site)" },
   "legal.cookies": { fr: "Politique cookies", en: "Cookie policy" },
   "legal.cookiesRequired": { fr: "Recommandé", en: "Recommended" },
 

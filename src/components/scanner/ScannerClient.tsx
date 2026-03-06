@@ -188,7 +188,7 @@ export default function ScannerClient() {
                     title={t("scanner.tagManagers")}
                     emptyMessage={t("scanner.noTagManager")}
                   />
-                  <LegalPagesCard legalPages={result.legalPages} />
+                  <LegalPagesCard legalPages={result.legalPages} isEcommerce={result.isEcommerce} />
                 </div>
               </div>
 

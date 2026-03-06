@@ -429,6 +429,7 @@ export async function POST(request: NextRequest) {
       subScores: strippedSubScores,
       recommendations: [],
       pageDetails: [],
+      isEcommerce,
     };
 
     return NextResponse.json(scanResult);
@@ -456,6 +457,7 @@ export async function POST(request: NextRequest) {
     subScores,
     recommendations,
     pageDetails: allPageDetails,
+    isEcommerce,
   };
 
   return NextResponse.json(scanResult);
