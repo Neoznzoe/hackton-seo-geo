@@ -254,6 +254,26 @@ export const translations = {
     en: "The scanner only analyzes the visible HTML source code of the homepage. Some scripts may be loaded dynamically, via a tag manager, or on other pages of the site. The score provides a reliable indication but does not replace a complete GDPR audit.",
   },
 
+  // Page details
+  "pageDetails.title": { fr: "Détail par page", en: "Detail by page" },
+  "pageDetails.pagesWithIssues": { fr: "page avec des problèmes", en: "page with issues" },
+  "pageDetails.pagesWithIssuesPlural": { fr: "pages avec des problèmes", en: "pages with issues" },
+  "pageDetails.clean": { fr: "sans problème", en: "clean" },
+  "pageDetails.noIssues": {
+    fr: "Aucun problème détecté sur les pages analysées",
+    en: "No issues detected on analyzed pages",
+  },
+  "pageDetails.issue": { fr: "problème", en: "issue" },
+  "pageDetails.issues": { fr: "problèmes", en: "issues" },
+  "pageDetails.severityHigh": { fr: "Critique", en: "Critical" },
+  "pageDetails.severityMedium": { fr: "Moyen", en: "Medium" },
+  "pageDetails.severityLow": { fr: "Faible", en: "Low" },
+  "pageDetails.consentMissing": {
+    fr: "Bandeau de consentement manquant",
+    en: "Consent banner missing",
+  },
+  "pageDetails.nonExempt": { fr: "non-exempt CNIL", en: "non-exempt CNIL" },
+
   // Theme
   "theme.light": { fr: "Clair", en: "Light" },
   "theme.dark": { fr: "Sombre", en: "Dark" },

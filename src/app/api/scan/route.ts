@@ -18,6 +18,8 @@ import {
   SecurityHeaders,
   ThirdPartyResource,
   ConsentEffectiveness,
+  PageDetail,
+  PageIssue,
 } from "@/lib/scanner/types";
 import { discoverSitemap, selectPages } from "@/lib/scanner/sitemap";
 
@@ -125,6 +127,62 @@ function mergeLegalPages(a: LegalPages, b: LegalPages): LegalPages {
     politiqueConfidentialite: a.politiqueConfidentialite || b.politiqueConfidentialite,
     politiqueCookies: a.politiqueCookies || b.politiqueCookies,
   };
+}
+
+function buildPageDetail(
+  pageUrl: string,
+  baseUrl: string,
+  detection: { analytics: DetectedTool[]; pixels: DetectedTool[]; consentBanners: DetectedTool[]; tagManagers: DetectedTool[] },
+  legal: LegalPages,
+  thirdParty: ThirdPartyResource[],
+): PageDetail {
+  const path = (() => {
+    try {
+      const u = new URL(pageUrl);
+      return u.pathname || "/";
+    } catch {
+      return pageUrl;
+    }
+  })();
+
+  const issues: PageIssue[] = [];
+  const toolsFound: string[] = [];
+
+  // Non-exempt analytics = high severity
+  for (const tool of detection.analytics) {
+    toolsFound.push(tool.name);
+    if (!tool.cnilExempt) {
+      issues.push({ type: "analytics", label: `${tool.name} (__non_exempt__)`, severity: "high" });
+    }
+  }
+
+  // Tracking pixels = high severity
+  for (const tool of detection.pixels) {
+    toolsFound.push(tool.name);
+    issues.push({ type: "pixel", label: tool.name, severity: "high" });
+  }
+
+  // No consent banner but non-exempt tools present
+  if (
+    detection.consentBanners.length === 0 &&
+    (detection.analytics.some((t) => !t.cnilExempt) || detection.pixels.length > 0)
+  ) {
+    issues.push({ type: "consent", label: "__consent_missing__", severity: "high" });
+  }
+
+  // Tag managers
+  for (const tool of detection.tagManagers) {
+    toolsFound.push(tool.name);
+  }
+
+  // Third-party resources with GDPR risk
+  for (const res of thirdParty) {
+    if (res.gdprRisk) {
+      issues.push({ type: "third-party", label: `${res.name} (${res.domain})`, severity: "medium" });
+    }
+  }
+
+  return { url: pageUrl, path, issues, toolsFound };
 }
 
 export async function POST(request: NextRequest) {
@@ -267,6 +325,11 @@ export async function POST(request: NextRequest) {
   allTagManagers = mergeTools(allTagManagers, homeDetection.tagManagers);
   allLegalPages = mergeLegalPages(allLegalPages, detectLegalPages(homepageHtml));
 
+  const homeThirdParty = detectThirdPartyResources(homepageHtml);
+  const allPageDetails: PageDetail[] = [
+    buildPageDetail(normalizedUrl, normalizedUrl, homeDetection, detectLegalPages(homepageHtml), homeThirdParty),
+  ];
+
   // 5. Fetch and analyze additional pages in parallel
   const additionalPages = pagesToScan.filter(
     (u) => u.replace(/\/$/, "") !== normalizedUrl.replace(/\/$/, "")
@@ -282,7 +345,8 @@ export async function POST(request: NextRequest) {
       additionalPages.map((pageUrl) => fetchPageHtml(pageUrl, perPageTimeout))
     );
 
-    for (const result of results) {
+    for (let i = 0; i < results.length; i++) {
+      const result = results[i];
       if (result.status === "fulfilled" && result.value) {
         pagesScanned++;
         const html = result.value;
@@ -291,7 +355,12 @@ export async function POST(request: NextRequest) {
         allPixels = mergeTools(allPixels, detection.pixels);
         allConsentBanners = mergeTools(allConsentBanners, detection.consentBanners);
         allTagManagers = mergeTools(allTagManagers, detection.tagManagers);
-        allLegalPages = mergeLegalPages(allLegalPages, detectLegalPages(html));
+        const pageLegal = detectLegalPages(html);
+        allLegalPages = mergeLegalPages(allLegalPages, pageLegal);
+        const pageThirdParty = detectThirdPartyResources(html);
+        allPageDetails.push(
+          buildPageDetail(additionalPages[i], normalizedUrl, detection, pageLegal, pageThirdParty),
+        );
       }
     }
   }
@@ -349,6 +418,7 @@ export async function POST(request: NextRequest) {
     letterGrade,
     subScores,
     recommendations,
+    pageDetails: allPageDetails.filter((p) => p.issues.length > 0 || p.toolsFound.length > 0),
   };
 
   return NextResponse.json(scanResult);

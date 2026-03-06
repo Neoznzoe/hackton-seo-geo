@@ -24,6 +24,7 @@ import SecurityHeadersCard from "./SecurityHeadersCard";
 import ThirdPartyCard from "./ThirdPartyCard";
 import ConsentEffectivenessCard from "./ConsentEffectivenessCard";
 import ActionSection from "./ActionSection";
+import PageDetailsCard from "./PageDetailsCard";
 
 type ScanState = "idle" | "loading" | "success" | "error";
 
@@ -188,6 +189,11 @@ export default function ScannerClient() {
               />
             </div>
           </div>
+
+          {/* 3c. Détail par page */}
+          {result.pageDetails && result.pageDetails.length > 0 && (
+            <PageDetailsCard pageDetails={result.pageDetails} pagesScanned={result.pagesScanned} />
+          )}
 
           {/* 4. Plan d'action */}
           <ActionPlan recommendations={result.recommendations} />

@@ -66,6 +66,19 @@ export interface Recommendation {
   priority: "high" | "medium" | "low";
 }
 
+export interface PageIssue {
+  type: "analytics" | "pixel" | "consent" | "tag-manager" | "legal-missing" | "third-party";
+  label: string;
+  severity: "high" | "medium" | "low";
+}
+
+export interface PageDetail {
+  url: string;
+  path: string;
+  issues: PageIssue[];
+  toolsFound: string[];
+}
+
 export interface ScanResult {
   url: string;
   scannedAt: string;
@@ -95,6 +108,7 @@ export interface ScanResult {
     thirdParty: SubScore;
   };
   recommendations: Recommendation[];
+  pageDetails: PageDetail[];
 }
 
 export function scoreToLetterGrade(score: number): LetterGrade {
