@@ -1,4 +1,7 @@
+"use client";
+
 import { ConsentEffectiveness } from "@/lib/scanner/types";
+import { useTranslation } from "@/lib/i18n/LanguageProvider";
 
 interface ConsentEffectivenessCardProps {
   effectiveness: ConsentEffectiveness;
@@ -6,6 +9,8 @@ interface ConsentEffectivenessCardProps {
 }
 
 export default function ConsentEffectivenessCard({ effectiveness, hasConsentBanner }: ConsentEffectivenessCardProps) {
+  const { t } = useTranslation();
+
   if (!hasConsentBanner) return null;
 
   return (
@@ -20,11 +25,11 @@ export default function ConsentEffectivenessCard({ effectiveness, hasConsentBann
           </svg>
         </div>
         <div>
-          <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">Efficacité du consentement</h3>
+          <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">{t("consentEff.title")}</h3>
           <p className={`text-xs ${effectiveness.scriptsBlocked ? "text-green-600" : "text-amber-600"}`}>
             {effectiveness.scriptsBlocked
-              ? "Scripts bloqués avant consentement"
-              : "Aucun blocage détecté"}
+              ? t("consentEff.blocked")
+              : t("consentEff.notBlocked")}
           </p>
         </div>
       </div>
@@ -41,10 +46,7 @@ export default function ConsentEffectivenessCard({ effectiveness, hasConsentBann
       {!effectiveness.scriptsBlocked && (
         <div className="mt-3 bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-700 rounded-lg p-3">
           <p className="text-xs text-amber-800">
-            Le bandeau est présent mais les scripts semblent chargés avant le consentement.
-            Utilisez <code className="bg-amber-100 px-1 rounded">type=&quot;text/plain&quot;</code> ou
-            des attributs <code className="bg-amber-100 px-1 rounded">data-consent</code> pour bloquer
-            les scripts avant acceptation.
+            {t("consentEff.warning")}
           </p>
         </div>
       )}

@@ -2,6 +2,8 @@
 
 import { ScanPlan } from "@/lib/scanner/types";
 import { trackScanPlanSelect } from "@/lib/tracking";
+import { useTranslation } from "@/lib/i18n/LanguageProvider";
+import { TranslationKey } from "@/lib/i18n/translations";
 
 interface PlanSelectorProps {
   selectedPlan: ScanPlan;
@@ -9,34 +11,36 @@ interface PlanSelectorProps {
   isLoading: boolean;
 }
 
-const PLANS: { id: ScanPlan; name: string; pages: number; price: string; description: string; cta: string }[] = [
+const PLANS: { id: ScanPlan; nameKey: TranslationKey; pages: number; price: string; descKey: TranslationKey; ctaKey: TranslationKey }[] = [
   {
     id: "gratuit",
-    name: "Gratuit",
+    nameKey: "plan.free",
     pages: 5,
-    price: "0 €",
-    description: "Analyse rapide des pages principales",
-    cta: "Analyser",
+    price: "0 \u20ac",
+    descKey: "plan.freeDesc",
+    ctaKey: "plan.analyze",
   },
   {
     id: "rapide",
-    name: "Rapide",
+    nameKey: "plan.fast",
     pages: 25,
-    price: "9 €",
-    description: "Couverture étendue du site",
-    cta: "Débloquer",
+    price: "9 \u20ac",
+    descKey: "plan.fastDesc",
+    ctaKey: "plan.unlock",
   },
   {
     id: "complet",
-    name: "Complet",
+    nameKey: "plan.complete",
     pages: 50,
-    price: "19 €",
-    description: "Audit exhaustif de toutes les pages",
-    cta: "Débloquer",
+    price: "19 \u20ac",
+    descKey: "plan.completeDesc",
+    ctaKey: "plan.unlock",
   },
 ];
 
 export default function PlanSelector({ selectedPlan, onSelectPlan, isLoading }: PlanSelectorProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-2xl mx-auto">
       {PLANS.map((plan) => {
@@ -54,13 +58,13 @@ export default function PlanSelector({ selectedPlan, onSelectPlan, isLoading }: 
           >
             {plan.id === "rapide" && (
               <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-blue-600 text-white text-[10px] font-bold rounded-full uppercase tracking-wide">
-                Populaire
+                {t("plan.popular")}
               </span>
             )}
-            <span className="text-sm font-bold text-gray-900 dark:text-gray-100">{plan.name}</span>
+            <span className="text-sm font-bold text-gray-900 dark:text-gray-100">{t(plan.nameKey)}</span>
             <span className="text-2xl font-bold text-blue-700 mt-1">{plan.pages}</span>
-            <span className="text-xs text-gray-500 dark:text-gray-400">pages max</span>
-            <span className="text-xs text-gray-400 dark:text-gray-500 mt-1 text-center">{plan.description}</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">{t("plan.pagesMax")}</span>
+            <span className="text-xs text-gray-400 dark:text-gray-500 mt-1 text-center">{t(plan.descKey)}</span>
             <span className={`mt-2 text-xs font-semibold px-3 py-1 rounded-full ${
               plan.id === "gratuit"
                 ? "bg-green-100 dark:bg-green-950 text-green-700"

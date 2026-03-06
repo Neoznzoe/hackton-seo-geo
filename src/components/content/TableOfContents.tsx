@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslation } from "@/lib/i18n/LanguageProvider";
 
 interface TocItem {
   id: string;
@@ -13,6 +14,7 @@ interface TableOfContentsProps {
 
 export default function TableOfContents({ items }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>("");
+  const { t } = useTranslation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -35,9 +37,9 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
   }, [items]);
 
   return (
-    <nav aria-label="Table des matieres" className="hidden lg:block sticky top-24">
+    <nav aria-label={t("toc.title")} className="hidden lg:block sticky top-24">
       <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
-        Sommaire
+        {t("toc.title")}
       </p>
       <ul className="space-y-2 text-sm">
         {items.map((item) => (

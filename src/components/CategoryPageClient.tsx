@@ -14,13 +14,13 @@ interface Props {
 
 export default function CategoryPageClient({ category, categoryTools }: Props) {
   const { l } = useLocalized();
-  const { locale } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
       <Breadcrumb
         items={[
-          { label: locale === "fr" ? "Catégories" : "Categories", href: "/#categories" },
+          { label: t("category.breadcrumb"), href: "/#categories" },
           { label: l(category.name) },
         ]}
       />
@@ -36,9 +36,9 @@ export default function CategoryPageClient({ category, categoryTools }: Props) {
 
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-          {categoryTools.length} {locale === "fr"
-            ? `outil${categoryTools.length > 1 ? "s" : ""} dans cette catégorie`
-            : `tool${categoryTools.length > 1 ? "s" : ""} in this category`}
+          {categoryTools.length} {categoryTools.length > 1
+            ? t("category.toolsInCategoryPlural")
+            : t("category.toolsInCategory")}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {categoryTools.map((tool) => (
@@ -50,7 +50,7 @@ export default function CategoryPageClient({ category, categoryTools }: Props) {
       {categoryTools.length > 1 && (
         <section className="mb-12">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-            {locale === "fr" ? "Comparatif" : "Comparison"} {l(category.name)}
+            {t("category.comparison")} {l(category.name)}
           </h2>
           <ComparisonTable tools={categoryTools} />
         </section>

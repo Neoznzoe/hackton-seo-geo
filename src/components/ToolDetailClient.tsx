@@ -2,6 +2,7 @@
 
 import { AnalyticsTool } from "@/lib/types";
 import { useLocalized } from "@/lib/i18n/useLocalized";
+import { useTranslation } from "@/lib/i18n/LanguageProvider";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import SummaryBox from "@/components/content/SummaryBox";
 import TableOfContents from "@/components/content/TableOfContents";
@@ -25,18 +26,19 @@ interface ToolDetailClientProps {
   vsPairs: VsPair[];
 }
 
-const tocItems = [
-  { id: "presentation", label: "Presentation" },
-  { id: "tarifs", label: "Tarifs" },
-  { id: "fonctionnalites", label: "Fonctionnalites" },
-  { id: "conformite", label: "Conformite RGPD" },
-  { id: "avantages-inconvenients", label: "Avantages / Inconvenients" },
-  { id: "faq-heading", label: "FAQ" },
-  { id: "comparaisons", label: "Comparer" },
-];
-
 export default function ToolDetailClient({ tool, vsPairs }: ToolDetailClientProps) {
   const { l } = useLocalized();
+  const { t } = useTranslation();
+
+  const tocItems = [
+    { id: "presentation", label: t("toc.presentation") },
+    { id: "tarifs", label: t("toc.pricing") },
+    { id: "fonctionnalites", label: t("toc.features") },
+    { id: "conformite", label: t("toc.compliance") },
+    { id: "avantages-inconvenients", label: t("toc.prosCons") },
+    { id: "faq-heading", label: t("toc.faq") },
+    { id: "comparaisons", label: t("toc.compare") },
+  ];
 
   const lowestPrice = tool.pricing.find(
     (p) => p.price === "0 \u20ac" || p.price.match(/^\d/)
@@ -62,10 +64,10 @@ export default function ToolDetailClient({ tool, vsPairs }: ToolDetailClientProp
 
   const hasFree = tool.pricing.some((p) => p.price === "0 \u20ac");
   const summaryPoints = [
-    `${tool.name} est ${l(tool.shortDescription).toLowerCase()}`,
-    `RGPD : ${tool.compliance.gdprCompliant ? "conforme" : "non conforme"}${tool.compliance.cnilExempt ? ", exempte de consentement CNIL" : ""}${tool.compliance.cookieless ? ", sans cookies" : ""}.`,
-    `Donnees hebergees : ${l(tool.compliance.dataLocation)}.`,
-    hasFree ? `Offre gratuite disponible.` : `A partir de ${tool.pricing[0]?.price}${tool.pricing[0]?.period ? l(tool.pricing[0].period) : ""}.`,
+    `${tool.name} ${l(tool.shortDescription).toLowerCase()}`,
+    `${t("tool.summary.gdpr")} : ${tool.compliance.gdprCompliant ? t("tool.summary.compliant") : t("tool.summary.nonCompliant")}${tool.compliance.cnilExempt ? `, ${t("tool.summary.cnilExempt")}` : ""}${tool.compliance.cookieless ? `, ${t("tool.summary.cookieless")}` : ""}.`,
+    `${t("tool.summary.dataHosted")} : ${l(tool.compliance.dataLocation)}.`,
+    hasFree ? t("tool.summary.freeTier") : `${t("tool.summary.startingAt")} ${tool.pricing[0]?.price}${tool.pricing[0]?.period ? l(tool.pricing[0].period) : ""}.`,
   ];
 
   return (
@@ -73,7 +75,7 @@ export default function ToolDetailClient({ tool, vsPairs }: ToolDetailClientProp
       <article>
         <Breadcrumb
           items={[
-            { label: "Outils", href: "/#outils" },
+            { label: t("tool.breadcrumb"), href: "/#outils" },
             { label: tool.name },
           ]}
         />
@@ -105,7 +107,7 @@ export default function ToolDetailClient({ tool, vsPairs }: ToolDetailClientProp
         {/* Presentation */}
         <section className="mb-12" aria-labelledby="presentation">
           <h2 id="presentation" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-            Presentation de {tool.name}
+            {t("tool.presentation")} {tool.name}
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{l(tool.description)}</p>
           <p className="mt-4">
@@ -124,7 +126,7 @@ export default function ToolDetailClient({ tool, vsPairs }: ToolDetailClientProp
         {/* Tarifs */}
         <section className="mb-12" aria-labelledby="tarifs">
           <h2 id="tarifs" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-            Tarifs de {tool.name}
+            {t("tool.pricing")} {tool.name}
           </h2>
           <PricingTable tiers={tool.pricing} />
         </section>
@@ -135,7 +137,7 @@ export default function ToolDetailClient({ tool, vsPairs }: ToolDetailClientProp
             id="fonctionnalites"
             className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6"
           >
-            Fonctionnalites
+            {t("tool.features")}
           </h2>
           <FeatureGrid features={tool.features} />
         </section>
@@ -143,7 +145,7 @@ export default function ToolDetailClient({ tool, vsPairs }: ToolDetailClientProp
         {/* Conformite */}
         <section className="mb-12" aria-labelledby="conformite">
           <h2 id="conformite" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-            Conformite RGPD et vie privee
+            {t("tool.compliance")}
           </h2>
           <ComplianceDetails compliance={tool.compliance} />
         </section>
@@ -154,7 +156,7 @@ export default function ToolDetailClient({ tool, vsPairs }: ToolDetailClientProp
             id="avantages-inconvenients"
             className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6"
           >
-            Avantages et inconvenients
+            {t("tool.prosCons")}
           </h2>
           <ProsCons pros={tool.pros} cons={tool.cons} />
         </section>
@@ -163,14 +165,14 @@ export default function ToolDetailClient({ tool, vsPairs }: ToolDetailClientProp
         <section className="mb-12">
           <FaqSection
             items={tool.faq}
-            heading={`Questions frequentes sur ${tool.name}`}
+            heading={`${t("tool.faqAbout")} ${tool.name}`}
           />
         </section>
 
         {/* Contextual VS CTAs */}
         <section className="mb-12" id="comparaisons" aria-labelledby="comparaisons-heading">
           <h2 id="comparaisons-heading" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-            Comparez {tool.name} avec les alternatives
+            {t("tool.compareWith").replace("{name}", tool.name)}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {vsPairs.slice(0, 6).map((pair) => {

@@ -1,19 +1,24 @@
+"use client";
+
 import { SecurityHeaders } from "@/lib/scanner/types";
+import { useTranslation } from "@/lib/i18n/LanguageProvider";
+import { TranslationKey } from "@/lib/i18n/translations";
 
 interface SecurityHeadersCardProps {
   headers: SecurityHeaders;
 }
 
-const HEADERS_INFO: { key: keyof SecurityHeaders; label: string; detail: string }[] = [
-  { key: "https", label: "HTTPS", detail: "Chiffrement en transit" },
-  { key: "hsts", label: "HSTS", detail: "Force HTTPS" },
-  { key: "contentSecurityPolicy", label: "Content-Security-Policy", detail: "Protection XSS" },
-  { key: "xFrameOptions", label: "X-Frame-Options", detail: "Protection clickjacking" },
-  { key: "xContentTypeOptions", label: "X-Content-Type-Options", detail: "Protection MIME sniffing" },
-  { key: "referrerPolicy", label: "Referrer-Policy", detail: "Contrôle des fuites de données" },
+const HEADERS_INFO: { key: keyof SecurityHeaders; label: string; detailKey: TranslationKey }[] = [
+  { key: "https", label: "HTTPS", detailKey: "security.https" },
+  { key: "hsts", label: "HSTS", detailKey: "security.hsts" },
+  { key: "contentSecurityPolicy", label: "Content-Security-Policy", detailKey: "security.csp" },
+  { key: "xFrameOptions", label: "X-Frame-Options", detailKey: "security.xframe" },
+  { key: "xContentTypeOptions", label: "X-Content-Type-Options", detailKey: "security.xcontent" },
+  { key: "referrerPolicy", label: "Referrer-Policy", detailKey: "security.referrer" },
 ];
 
 export default function SecurityHeadersCard({ headers }: SecurityHeadersCardProps) {
+  const { t } = useTranslation();
   const presentCount = Object.values(headers).filter(Boolean).length;
 
   return (
@@ -25,13 +30,13 @@ export default function SecurityHeadersCard({ headers }: SecurityHeadersCardProp
           </svg>
         </div>
         <div>
-          <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">En-têtes de sécurité</h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400">{presentCount}/6 headers présents</p>
+          <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">{t("security.title")}</h3>
+          <p className="text-xs text-gray-500 dark:text-gray-400">{presentCount}/6 {t("security.headersPresent")}</p>
         </div>
       </div>
 
       <div className="space-y-2">
-        {HEADERS_INFO.map(({ key, label, detail }) => {
+        {HEADERS_INFO.map(({ key, label, detailKey }) => {
           const present = headers[key];
           return (
             <div key={key} className="flex items-center gap-2.5">
@@ -48,7 +53,7 @@ export default function SecurityHeadersCard({ headers }: SecurityHeadersCardProp
                 <span className={`text-xs font-medium ${present ? "text-gray-900 dark:text-gray-100" : "text-gray-500 dark:text-gray-400"}`}>
                   {label}
                 </span>
-                <span className="text-xs text-gray-400 dark:text-gray-500 ml-1.5">{detail}</span>
+                <span className="text-xs text-gray-400 dark:text-gray-500 ml-1.5">{t(detailKey)}</span>
               </div>
             </div>
           );

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { SubScore, RiskLevel } from "@/lib/scanner/types";
+import { useTranslation } from "@/lib/i18n/LanguageProvider";
 
 interface SubScoresGridProps {
   subScores: {
@@ -31,25 +32,36 @@ const LEVEL_COLORS: Record<RiskLevel, { bar: string; text: string; bg: string }>
 
 const NEGATIVE_KEYWORDS = [
   "manquant", "manquante", "manquantes",
+  "missing",
   "sans consentement", "sans gestion",
+  "without consent", "no consent",
   "non exempté", "non-exempté", "non-conforme",
+  "non-exempt", "non-compliant",
   "Très peu", "en clair",
+  "very few", "in plain",
   "simultanés", "optimisable",
+  "simultaneous", "optimizable",
   "transfert de données", "collecte de données",
+  "data transfer", "data collection",
   "Transfert d'", "transfère",
   "dépose", "déposent",
+  "sets cookie", "drops cookie",
   "risque d", "risque de",
-  "quasi-complètes",
+  "risk of",
+  "quasi-complètes", "almost complete",
   "Aucun mécanisme", "Aucun blocage",
+  "No mechanism", "No blocking",
 ];
 
 function isNegativeDetail(detail: string): boolean {
-  return NEGATIVE_KEYWORDS.some((kw) => detail.includes(kw));
+  const lower = detail.toLowerCase();
+  return NEGATIVE_KEYWORDS.some((kw) => lower.includes(kw.toLowerCase()));
 }
 
 function SubScoreCard({ id, sub }: { id: string; sub: SubScore }) {
   const [open, setOpen] = useState(false);
   const colors = LEVEL_COLORS[sub.level];
+  const { t } = useTranslation();
 
   return (
     <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-5 shadow-sm">
@@ -78,7 +90,7 @@ function SubScoreCard({ id, sub }: { id: string; sub: SubScore }) {
         onClick={() => setOpen(!open)}
         className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 flex items-center gap-1"
       >
-        {open ? "Masquer" : "Voir"} le détail
+        {open ? t("scanner.hideDetail") : t("scanner.showDetail")}
         <svg
           className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`}
           fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"
@@ -113,9 +125,11 @@ function SubScoreCard({ id, sub }: { id: string; sub: SubScore }) {
 }
 
 export default function SubScoresGrid({ subScores }: SubScoresGridProps) {
+  const { t } = useTranslation();
+
   return (
     <div>
-      <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Détail par catégorie</h2>
+      <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">{t("scanner.detailByCategory")}</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <SubScoreCard id="rgpd" sub={subScores.rgpd} />
         <SubScoreCard id="consent" sub={subScores.consent} />

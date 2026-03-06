@@ -1,19 +1,23 @@
+"use client";
+
 import { ThirdPartyResource } from "@/lib/scanner/types";
+import { useTranslation } from "@/lib/i18n/LanguageProvider";
 
 interface ThirdPartyCardProps {
   resources: ThirdPartyResource[];
 }
 
-const TYPE_LABELS: Record<ThirdPartyResource["type"], string> = {
-  font: "Police",
-  iframe: "Embed",
-  cdn: "CDN",
-  captcha: "Captcha",
-};
-
 export default function ThirdPartyCard({ resources }: ThirdPartyCardProps) {
+  const { t } = useTranslation();
   const risky = resources.filter((r) => r.gdprRisk);
   const safe = resources.filter((r) => !r.gdprRisk);
+
+  const typeLabels: Record<ThirdPartyResource["type"], string> = {
+    font: t("thirdParty.font"),
+    iframe: t("thirdParty.embed"),
+    cdn: t("thirdParty.cdn"),
+    captcha: t("thirdParty.captcha"),
+  };
 
   return (
     <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-5 shadow-sm">
@@ -24,17 +28,17 @@ export default function ThirdPartyCard({ resources }: ThirdPartyCardProps) {
           </svg>
         </div>
         <div>
-          <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">Ressources tierces</h3>
+          <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">{t("thirdParty.title")}</h3>
           <p className="text-xs text-gray-500 dark:text-gray-400">
             {resources.length === 0
-              ? "Aucune ressource tierce détectée"
-              : `${resources.length} détectée${resources.length > 1 ? "s" : ""}, ${risky.length} à risque`}
+              ? t("thirdParty.none")
+              : `${resources.length} ${resources.length > 1 ? t("thirdParty.detectedPlural") : t("thirdParty.detected")}, ${risky.length} ${t("thirdParty.atRisk")}`}
           </p>
         </div>
       </div>
 
       {resources.length === 0 ? (
-        <p className="text-xs text-gray-400 dark:text-gray-500">Aucune ressource tierce externe identifiée.</p>
+        <p className="text-xs text-gray-400 dark:text-gray-500">{t("thirdParty.noExternal")}</p>
       ) : (
         <div className="space-y-2.5">
           {risky.map((r) => (
@@ -44,7 +48,7 @@ export default function ThirdPartyCard({ resources }: ThirdPartyCardProps) {
               </svg>
               <div className="min-w-0">
                 <p className="text-xs font-semibold text-red-800">
-                  {r.name} <span className="font-normal text-red-500">({TYPE_LABELS[r.type]})</span>
+                  {r.name} <span className="font-normal text-red-500">({typeLabels[r.type]})</span>
                 </p>
                 <p className="text-xs text-red-600 mt-0.5">{r.detail.split(".")[0]}.</p>
               </div>
@@ -57,9 +61,9 @@ export default function ThirdPartyCard({ resources }: ThirdPartyCardProps) {
               </svg>
               <div className="min-w-0">
                 <p className="text-xs font-semibold text-green-800">
-                  {r.name} <span className="font-normal text-green-500">({TYPE_LABELS[r.type]})</span>
+                  {r.name} <span className="font-normal text-green-500">({typeLabels[r.type]})</span>
                 </p>
-                <p className="text-xs text-green-600 mt-0.5">Faible risque RGPD</p>
+                <p className="text-xs text-green-600 mt-0.5">{t("thirdParty.lowRisk")}</p>
               </div>
             </div>
           ))}

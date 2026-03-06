@@ -32,7 +32,7 @@ export default function ScannerClient() {
   const [result, setResult] = useState<ScanResult | null>(null);
   const [error, setError] = useState("");
   const [plan, setPlan] = useState<ScanPlan>("gratuit");
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const searchParams = useSearchParams();
   const autoScanDone = useRef(false);
 
@@ -68,14 +68,14 @@ export default function ScannerClient() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Une erreur est survenue.");
+        throw new Error(data.error || t("scanner.errorOccurred"));
       }
 
       setResult(data as ScanResult);
       setState("success");
       trackScanResult(data.globalLevel, data.globalScore);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Une erreur est survenue.");
+      setError(err instanceof Error ? err.message : t("scanner.errorOccurred"));
       setState("error");
     }
   }
@@ -119,7 +119,7 @@ export default function ScannerClient() {
           {/* Timestamp + pages info */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500 dark:text-gray-400">
             <p>
-              {t("scanner.analysisDate")} {new Date(result.scannedAt).toLocaleString("fr-FR")}
+              {t("scanner.analysisDate")} {new Date(result.scannedAt).toLocaleString(locale === "fr" ? "fr-FR" : "en-US")}
             </p>
             <span className="hidden sm:inline">·</span>
             <p className="font-medium text-gray-700 dark:text-gray-300">

@@ -1,50 +1,55 @@
+"use client";
+
 import Link from "next/link";
 import { Recommendation } from "@/lib/scanner/types";
 import { trackScanRecommendationClick } from "@/lib/tracking";
+import { useTranslation } from "@/lib/i18n/LanguageProvider";
 
 interface ActionPlanProps {
   recommendations: Recommendation[];
 }
 
-const PRIORITY_CONFIG = {
-  high: {
-    label: "Urgent",
-    dotColor: "bg-red-500",
-    borderColor: "border-l-red-500",
-  },
-  medium: {
-    label: "Recommandé",
-    dotColor: "bg-amber-500",
-    borderColor: "border-l-amber-500",
-  },
-  low: {
-    label: "Optionnel",
-    dotColor: "bg-green-500",
-    borderColor: "border-l-green-500",
-  },
-};
-
 export default function ActionPlan({ recommendations }: ActionPlanProps) {
+  const { t } = useTranslation();
+
   if (recommendations.length === 0) return null;
 
   const highCount = recommendations.filter((r) => r.priority === "high").length;
   const mediumCount = recommendations.filter((r) => r.priority === "medium").length;
 
+  const priorityConfig = {
+    high: {
+      label: t("scanner.urgent"),
+      dotColor: "bg-red-500",
+      borderColor: "border-l-red-500",
+    },
+    medium: {
+      label: t("scanner.recommended"),
+      dotColor: "bg-amber-500",
+      borderColor: "border-l-amber-500",
+    },
+    low: {
+      label: t("scanner.optional"),
+      dotColor: "bg-green-500",
+      borderColor: "border-l-green-500",
+    },
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">Plan d&apos;action</h2>
+        <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">{t("scanner.actionPlan")}</h2>
         <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
           {highCount > 0 && (
             <span className="flex items-center gap-1">
               <span className="w-2 h-2 rounded-full bg-red-500" />
-              {highCount} urgent{highCount > 1 ? "s" : ""}
+              {highCount} {t("scanner.urgent").toLowerCase()}{highCount > 1 ? "s" : ""}
             </span>
           )}
           {mediumCount > 0 && (
             <span className="flex items-center gap-1">
               <span className="w-2 h-2 rounded-full bg-amber-500" />
-              {mediumCount} recommandé{mediumCount > 1 ? "s" : ""}
+              {mediumCount} {t("scanner.recommended").toLowerCase()}{mediumCount > 1 ? "s" : ""}
             </span>
           )}
         </div>
@@ -52,14 +57,13 @@ export default function ActionPlan({ recommendations }: ActionPlanProps) {
 
       <div className="space-y-3">
         {recommendations.map((rec, i) => {
-          const config = PRIORITY_CONFIG[rec.priority];
+          const config = priorityConfig[rec.priority];
           return (
             <div
               key={rec.title}
               className={`bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 ${config.borderColor} border-l-4 rounded-lg p-4 shadow-sm`}
             >
               <div className="flex items-start gap-3">
-                {/* Step number */}
                 <div className={`w-7 h-7 ${config.dotColor} text-white rounded-full flex items-center justify-center shrink-0 text-xs font-bold`}>
                   {i + 1}
                 </div>

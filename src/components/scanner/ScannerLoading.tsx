@@ -2,35 +2,39 @@
 
 import { useState, useEffect } from "react";
 import { ScanPlan, PLAN_LIMITS } from "@/lib/scanner/types";
+import { useTranslation } from "@/lib/i18n/LanguageProvider";
+import { TranslationKey } from "@/lib/i18n/translations";
 
 interface ScannerLoadingProps {
   plan: ScanPlan;
 }
 
-const STEPS = [
-  "Connexion au site...",
-  "Analyse de la page d'accueil...",
-  "Recherche du sitemap...",
-  "Analyse des pages du site...",
-  "Détection des outils analytics...",
-  "Détection des pixels de tracking...",
-  "Vérification du bandeau de consentement...",
-  "Vérification des pages légales...",
-  "Calcul du score RGPD...",
+const STEP_KEYS: TranslationKey[] = [
+  "scanner.step.connecting",
+  "scanner.step.homepage",
+  "scanner.step.sitemap",
+  "scanner.step.pages",
+  "scanner.step.analytics",
+  "scanner.step.pixels",
+  "scanner.step.consent",
+  "scanner.step.legal",
+  "scanner.step.score",
 ];
 
 export default function ScannerLoading({ plan }: ScannerLoadingProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const pageLimit = PLAN_LIMITS[plan];
+  const { t } = useTranslation();
 
   useEffect(() => {
-    // Slower progression for larger plans
     const intervalMs = plan === "gratuit" ? 600 : plan === "rapide" ? 800 : 1000;
     const interval = setInterval(() => {
-      setCurrentStep((prev) => (prev < STEPS.length - 1 ? prev + 1 : prev));
+      setCurrentStep((prev) => (prev < STEP_KEYS.length - 1 ? prev + 1 : prev));
     }, intervalMs);
     return () => clearInterval(interval);
   }, [plan]);
+
+  const planLabel = plan === "gratuit" ? t("plan.free") : plan === "rapide" ? t("plan.fast") : t("plan.complete");
 
   return (
     <div className="mx-auto max-w-xl px-4 py-12">
@@ -38,16 +42,16 @@ export default function ScannerLoading({ plan }: ScannerLoadingProps) {
         {/* Plan info */}
         <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100 dark:border-gray-800">
           <span className="text-sm text-gray-500 dark:text-gray-400">
-            Plan <span className="font-semibold text-gray-900 dark:text-gray-100 capitalize">{plan}</span>
+            Plan <span className="font-semibold text-gray-900 dark:text-gray-100">{planLabel}</span>
           </span>
           <span className="text-sm text-gray-500 dark:text-gray-400">
-            Jusqu&apos;à <span className="font-semibold text-blue-700">{pageLimit} pages</span>
+            {t("plan.upTo")} <span className="font-semibold text-blue-700">{pageLimit} {t("plan.pages")}</span>
           </span>
         </div>
 
         <div className="space-y-4">
-          {STEPS.map((step, i) => (
-            <div key={step} className="flex items-center gap-3">
+          {STEP_KEYS.map((key, i) => (
+            <div key={key} className="flex items-center gap-3">
               {i < currentStep ? (
                 <svg className="w-5 h-5 text-green-600 shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
@@ -58,7 +62,7 @@ export default function ScannerLoading({ plan }: ScannerLoadingProps) {
                 <div className="w-5 h-5 shrink-0 rounded-full border-2 border-gray-300 dark:border-gray-600" />
               )}
               <span className={`text-sm ${i < currentStep ? "text-gray-900 dark:text-gray-100 font-medium" : i === currentStep ? "text-blue-700 font-medium" : "text-gray-400 dark:text-gray-500"}`}>
-                {step}
+                {t(key)}
               </span>
             </div>
           ))}
