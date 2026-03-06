@@ -14,8 +14,8 @@ export default function VsSummaryBox({ tool1, tool2 }: VsSummaryBoxProps) {
   const t2Free = tool2.pricing.some((p) => p.price === "0 €");
 
   return (
-    <aside className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
-      <p className="text-sm font-semibold text-blue-800 uppercase tracking-wide mb-3">
+    <aside className="bg-emerald-50 border border-emerald-200 rounded-lg p-6 mb-8">
+      <p className="text-sm font-semibold text-emerald-900 uppercase tracking-wide mb-3">
         En resume
       </p>
       <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">

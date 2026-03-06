@@ -19,7 +19,7 @@ export default function ToolCard({ tool }: ToolCardProps) {
   return (
     <article className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-md transition-shadow flex flex-col">
       <div className="flex items-start gap-3 mb-3">
-        <div className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-lg font-bold text-blue-600 shrink-0">
+        <div className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-lg font-bold text-emerald-700 shrink-0">
           {tool.name[0]}
         </div>
         <div className="flex-1">
@@ -39,7 +39,7 @@ export default function ToolCard({ tool }: ToolCardProps) {
               </span>
             )}
             {tool.compliance.gdprCompliant && (
-              <span className="inline-block text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">
+              <span className="inline-block text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
                 RGPD
               </span>
             )}
@@ -51,7 +51,7 @@ export default function ToolCard({ tool }: ToolCardProps) {
       </p>
       <Link
         href={`/outils/${tool.slug}`}
-        className="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors"
+        className="text-sm font-medium text-emerald-700 hover:text-emerald-900 transition-colors"
         onClick={() => trackContentInteraction("tool", "click", tool.slug)}
       >
         Voir le detail &rarr;

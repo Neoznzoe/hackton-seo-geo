@@ -27,7 +27,7 @@ export default function ToolPageTracker({
         href={websiteUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-blue-600 hover:text-blue-800 font-medium text-sm"
+        className="text-emerald-700 hover:text-emerald-900 font-medium text-sm"
         onClick={() => trackExternalLink(toolName, websiteUrl)}
       >
         Visiter le site officiel &rarr;
@@ -50,7 +50,7 @@ export function CompareLink({
   return (
     <a
       href={href}
-      className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow text-sm font-medium text-blue-600 hover:text-blue-800"
+      className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow text-sm font-medium text-emerald-700 hover:text-emerald-900"
       onClick={() => trackClickCompare(toolName, otherToolName)}
     >
       {children}

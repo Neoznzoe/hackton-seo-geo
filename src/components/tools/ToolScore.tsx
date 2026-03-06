@@ -37,7 +37,7 @@ function calculateScore(tool: AnalyticsTool): number {
 
 function getScoreColor(score: number): string {
   if (score >= 80) return "bg-green-100 text-green-800 border-green-200";
-  if (score >= 60) return "bg-blue-100 text-blue-800 border-blue-200";
+  if (score >= 60) return "bg-emerald-100 text-emerald-900 border-emerald-200";
   if (score >= 40) return "bg-yellow-100 text-yellow-800 border-yellow-200";
   return "bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-700";
 }

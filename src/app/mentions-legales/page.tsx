@@ -35,7 +35,7 @@ export default function MentionsLegalesPage() {
                   href="https://devradar.up.railway.app/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
+                  className="text-emerald-700 hover:underline"
                 >
                   DevRadar
                 </a>{" "}
@@ -48,7 +48,7 @@ export default function MentionsLegalesPage() {
                   href="https://devradar.up.railway.app/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
+                  className="text-emerald-700 hover:underline"
                 >
                   DevRadar
                 </a>{" "}
@@ -63,7 +63,7 @@ export default function MentionsLegalesPage() {
             </li>
             <li>
               <span className="font-medium">Contact :</span>{" "}
-              <a href="mailto:contact@devradar.fr" className="text-blue-600 hover:underline">
+              <a href="mailto:contact@devradar.fr" className="text-emerald-700 hover:underline">
                 contact@devradar.fr
               </a>
             </li>
@@ -92,7 +92,7 @@ export default function MentionsLegalesPage() {
               href="https://railway.app"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
+              className="text-emerald-700 hover:underline"
             >
               railway.app
             </a>
@@ -156,7 +156,7 @@ export default function MentionsLegalesPage() {
                 Vous disposez d&apos;un droit d&apos;acces, de rectification, d&apos;effacement, de
                 limitation, de portabilite et d&apos;opposition sur vos donnees personnelles. Pour exercer
                 ces droits :{" "}
-                <a href="mailto:contact@devradar.fr" className="text-blue-600 hover:underline">
+                <a href="mailto:contact@devradar.fr" className="text-emerald-700 hover:underline">
                   contact@devradar.fr
                 </a>
               </>
@@ -164,7 +164,7 @@ export default function MentionsLegalesPage() {
               <>
                 You have the right to access, rectify, erase, restrict, port, and object to the
                 processing of your personal data. To exercise these rights:{" "}
-                <a href="mailto:contact@devradar.fr" className="text-blue-600 hover:underline">
+                <a href="mailto:contact@devradar.fr" className="text-emerald-700 hover:underline">
                   contact@devradar.fr
                 </a>
               </>
@@ -277,8 +277,8 @@ export default function MentionsLegalesPage() {
       </header>
 
       {/* Resume */}
-      <section className="mb-12 bg-blue-50 border border-blue-200 rounded-lg p-6">
-        <p className="text-sm font-semibold text-blue-800 uppercase tracking-wide mb-3">
+      <section className="mb-12 bg-emerald-50 border border-emerald-200 rounded-lg p-6">
+        <p className="text-sm font-semibold text-emerald-900 uppercase tracking-wide mb-3">
           {locale === "fr" ? "En resume" : "Summary"}
         </p>
         <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
@@ -310,7 +310,7 @@ export default function MentionsLegalesPage() {
         <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-3">
           {locale === "fr" ? "Sommaire" : "Table of Contents"}
         </p>
-        <ol className="space-y-1 text-sm text-blue-600">
+        <ol className="space-y-1 text-sm text-emerald-700">
           {sections.map((section) => (
             <li key={section.id}>
               <a href={`#${section.id}`} className="hover:underline">
@@ -332,7 +332,7 @@ export default function MentionsLegalesPage() {
       ))}
 
       {/* Contact */}
-      <section className="bg-blue-50 rounded-lg p-8 text-center mt-12">
+      <section className="bg-emerald-50 rounded-lg p-8 text-center mt-12">
         <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
           {locale === "fr" ? "Une question legale ?" : "Have a legal question?"}
         </h2>
@@ -344,7 +344,7 @@ export default function MentionsLegalesPage() {
         <div className="mt-4">
           <a
             href="mailto:contact@devradar.fr"
-            className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center justify-center px-6 py-3 bg-emerald-700 text-white font-medium rounded-lg hover:bg-emerald-800 transition-colors"
           >
             {locale === "fr" ? "Nous contacter" : "Contact Us"}
           </a>

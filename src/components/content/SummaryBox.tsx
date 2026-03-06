@@ -11,8 +11,8 @@ export default function SummaryBox({ points, conclusion }: SummaryBoxProps) {
   const { t } = useTranslation();
 
   return (
-    <aside className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
-      <p className="text-sm font-semibold text-blue-800 uppercase tracking-wide mb-3">
+    <aside className="bg-emerald-50 border border-emerald-200 rounded-lg p-6 mb-8">
+      <p className="text-sm font-semibold text-emerald-900 uppercase tracking-wide mb-3">
         {t("summary.title")}
       </p>
       <ul className="space-y-2 text-sm text-gray-700">
@@ -21,7 +21,7 @@ export default function SummaryBox({ points, conclusion }: SummaryBoxProps) {
         ))}
       </ul>
       {conclusion && (
-        <p className="mt-4 text-sm text-gray-800 font-medium border-t border-blue-200 pt-3">
+        <p className="mt-4 text-sm text-gray-800 font-medium border-t border-emerald-200 pt-3">
           {conclusion}
         </p>
       )}

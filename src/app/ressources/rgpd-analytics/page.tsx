@@ -91,8 +91,8 @@ export default function RgpdAnalyticsPage() {
       </header>
 
       {/* Introduction */}
-      <section className="mb-12 bg-blue-50 border border-blue-200 rounded-lg p-6">
-        <p className="text-sm font-semibold text-blue-800 uppercase tracking-wide mb-3">
+      <section className="mb-12 bg-emerald-50 border border-emerald-200 rounded-lg p-6">
+        <p className="text-sm font-semibold text-emerald-900 uppercase tracking-wide mb-3">
           {locale === "fr" ? "En resume" : "Summary"}
         </p>
         <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
@@ -183,7 +183,7 @@ export default function RgpdAnalyticsPage() {
               {tools.map((tool) => (
                 <tr key={tool.slug}>
                   <td className="p-3 border border-gray-200 dark:border-gray-700">
-                    <Link href={`/outils/${tool.slug}`} className="text-blue-600 hover:text-blue-800 font-medium">
+                    <Link href={`/outils/${tool.slug}`} className="text-emerald-700 hover:text-emerald-900 font-medium">
                       {tool.name}
                     </Link>
                   </td>
@@ -263,7 +263,7 @@ export default function RgpdAnalyticsPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-blue-50 rounded-lg p-8 text-center">
+      <section className="bg-emerald-50 rounded-lg p-8 text-center">
         <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
           {locale === "fr"
             ? "Trouvez un outil analytics conforme RGPD"
@@ -277,7 +277,7 @@ export default function RgpdAnalyticsPage() {
         <div className="mt-4 flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href="/comparer"
-            className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center justify-center px-6 py-3 bg-emerald-700 text-white font-medium rounded-lg hover:bg-emerald-800 transition-colors"
           >
             {locale === "fr" ? "Voir le comparatif" : "View Comparison"}
           </Link>

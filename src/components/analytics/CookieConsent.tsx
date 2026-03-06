@@ -54,7 +54,7 @@ export default function CookieConsent() {
             Ces cookies nous permettent d&apos;ameliorer votre experience.
             Conformement au RGPD et aux recommandations de la CNIL, vous pouvez
             accepter ou refuser ces cookies.{" "}
-            <Link href="/politique-cookies" className="underline hover:text-blue-600">
+            <Link href="/politique-cookies" className="underline hover:text-emerald-700">
               En savoir plus
             </Link>
           </p>
@@ -68,7 +68,7 @@ export default function CookieConsent() {
           </button>
           <button
             onClick={handleAccept}
-            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 text-sm font-medium text-white bg-emerald-700 rounded-lg hover:bg-emerald-800 transition-colors"
           >
             Accepter
           </button>

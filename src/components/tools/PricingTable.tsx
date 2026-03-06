@@ -17,7 +17,7 @@ export default function PricingTable({ tiers }: PricingTableProps) {
           key={l(tier.name)}
           className={`border rounded-lg p-6 ${
             tier.highlighted
-              ? "border-blue-500 ring-2 ring-blue-100"
+              ? "border-emerald-700 ring-2 ring-emerald-100"
               : "border-gray-200"
           }`}
         >

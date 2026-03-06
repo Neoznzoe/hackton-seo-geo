@@ -81,7 +81,7 @@ export default function ActionPlan({ recommendations }: ActionPlanProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackScanRecommendationClick(rec.link)}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 hover:text-blue-900 transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800 hover:text-emerald-950 transition-colors"
                   >
                     {rec.linkLabel}
                     <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">

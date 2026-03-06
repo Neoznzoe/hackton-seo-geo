@@ -48,7 +48,7 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
               href={`#${item.id}`}
               className={`block py-1 border-l-2 pl-3 transition-colors ${
                 activeId === item.id
-                  ? "border-blue-600 text-blue-600 font-medium"
+                  ? "border-emerald-700 text-emerald-700 font-medium"
                   : "border-gray-200 text-gray-500 hover:text-gray-900"
               }`}
             >

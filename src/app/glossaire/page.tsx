@@ -63,7 +63,7 @@ export default function GlossairePage() {
                     <Link
                       key={toolSlug}
                       href={`/outils/${toolSlug}`}
-                      className="inline-block text-xs bg-blue-50 dark:bg-blue-950 text-blue-700 px-2 py-1 rounded-full hover:bg-blue-100 transition-colors"
+                      className="inline-block text-xs bg-emerald-50 dark:bg-emerald-950 text-emerald-800 px-2 py-1 rounded-full hover:bg-emerald-100 transition-colors"
                     >
                       {tool.name}
                     </Link>

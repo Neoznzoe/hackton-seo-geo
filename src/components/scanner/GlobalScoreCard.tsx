@@ -15,7 +15,7 @@ interface GlobalScoreCardProps {
 const GRADE_COLORS: Record<LetterGrade, string> = {
   "A+": "text-green-600 bg-green-100 border-green-300",
   "A": "text-green-600 bg-green-100 border-green-300",
-  "B": "text-blue-600 bg-blue-100 border-blue-300",
+  "B": "text-teal-600 bg-teal-100 border-teal-300",
   "C": "text-amber-600 bg-amber-100 border-amber-300",
   "D": "text-orange-600 bg-orange-100 border-orange-300",
   "E": "text-red-600 bg-red-100 border-red-300",

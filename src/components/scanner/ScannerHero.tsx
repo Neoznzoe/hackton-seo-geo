@@ -21,12 +21,12 @@ export default function ScannerHero({ onScan, isLoading, initialUrl }: ScannerHe
   }
 
   return (
-    <section className="bg-gradient-to-br from-blue-700 to-indigo-900 text-white py-16 sm:py-20">
+    <section className="bg-gradient-to-br from-emerald-800 to-emerald-950 text-white py-16 sm:py-20">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
         <h1 className="text-3xl sm:text-4xl font-bold mb-4">
           {t("scanner.title")}
         </h1>
-        <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-lg text-emerald-100 mb-8 max-w-2xl mx-auto leading-relaxed">
           {t("scanner.subtitle")}
         </p>
 
@@ -49,7 +49,7 @@ export default function ScannerHero({ onScan, isLoading, initialUrl }: ScannerHe
           </button>
         </form>
 
-        <p className="text-sm text-blue-200 mt-5">
+        <p className="text-sm text-emerald-200 mt-5">
           {t("scanner.free")}
         </p>
       </div>

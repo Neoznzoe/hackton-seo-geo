@@ -17,7 +17,7 @@ export default function ScrollToTop() {
     <button
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className="fixed bottom-6 right-6 z-40 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors"
+      className="fixed bottom-6 right-6 z-40 bg-emerald-700 text-white p-3 rounded-full shadow-lg hover:bg-emerald-800 transition-colors"
       aria-label="Retour en haut de page"
     >
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" aria-hidden="true">

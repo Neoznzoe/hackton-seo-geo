@@ -45,7 +45,7 @@ export default function ScannerLoading({ plan }: ScannerLoadingProps) {
             Plan <span className="font-semibold text-gray-900 dark:text-gray-100">{planLabel}</span>
           </span>
           <span className="text-sm text-gray-500 dark:text-gray-400">
-            {t("plan.upTo")} <span className="font-semibold text-blue-700">{pageLimit} {t("plan.pages")}</span>
+            {t("plan.upTo")} <span className="font-semibold text-emerald-800">{pageLimit} {t("plan.pages")}</span>
           </span>
         </div>
 
@@ -57,11 +57,11 @@ export default function ScannerLoading({ plan }: ScannerLoadingProps) {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
               ) : i === currentStep ? (
-                <div className="w-5 h-5 shrink-0 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+                <div className="w-5 h-5 shrink-0 border-2 border-emerald-700 border-t-transparent rounded-full animate-spin" />
               ) : (
                 <div className="w-5 h-5 shrink-0 rounded-full border-2 border-gray-300 dark:border-gray-600" />
               )}
-              <span className={`text-sm ${i < currentStep ? "text-gray-900 dark:text-gray-100 font-medium" : i === currentStep ? "text-blue-700 font-medium" : "text-gray-400 dark:text-gray-500"}`}>
+              <span className={`text-sm ${i < currentStep ? "text-gray-900 dark:text-gray-100 font-medium" : i === currentStep ? "text-emerald-800 font-medium" : "text-gray-400 dark:text-gray-500"}`}>
                 {t(key)}
               </span>
             </div>

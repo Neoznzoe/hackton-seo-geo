@@ -39,11 +39,11 @@ export default function VeillePage() {
       </div>
 
       {/* Transparency banner */}
-      <div className="mt-6 rounded-lg bg-blue-50 border border-blue-200 p-4">
-        <h2 className="text-sm font-semibold text-blue-800">
+      <div className="mt-6 rounded-lg bg-emerald-50 border border-emerald-200 p-4">
+        <h2 className="text-sm font-semibold text-emerald-900">
           Scraping ethique et transparent
         </h2>
-        <ul className="mt-2 text-sm text-blue-700 space-y-1">
+        <ul className="mt-2 text-sm text-emerald-800 space-y-1">
           <li>Respect du fichier robots.txt de chaque site cible</li>
           <li>Rate limiting : 1 requete toutes les 2 secondes par domaine</li>
           <li>User-Agent identifie : DevRadarBot/1.0</li>

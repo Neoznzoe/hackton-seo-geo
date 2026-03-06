@@ -39,7 +39,7 @@ export default function ComparisonTable({ tools }: ComparisonTableProps) {
               >
                 <Link
                   href={`/outils/${tool.slug}`}
-                  className="hover:text-blue-600 transition-colors"
+                  className="hover:text-emerald-700 transition-colors"
                 >
                   {tool.name}
                 </Link>

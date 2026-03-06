@@ -120,9 +120,9 @@ export default function HomePage() {
       <JsonLd data={{ "@context": "https://schema.org", ...itemListJsonLd }} />
 
       {/* Hero -- Scanner as primary action */}
-      <section className="bg-gradient-to-br from-blue-700 to-indigo-900 text-white py-16 sm:py-24">
+      <section className="bg-gradient-to-br from-emerald-800 to-emerald-950 text-white py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 mb-6 bg-white/15 rounded-full text-sm font-medium text-blue-100">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 mb-6 bg-white/15 rounded-full text-sm font-medium text-emerald-100">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
             </svg>
@@ -133,7 +133,7 @@ export default function HomePage() {
               ? "Votre site est-il conforme RGPD ?"
               : "Is your website GDPR compliant?"}
           </h1>
-          <p className="mt-4 text-lg text-blue-100 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-emerald-100 max-w-2xl mx-auto">
             {locale === "fr"
               ? "Scannez votre site en quelques secondes : detection des trackers, pixels, bandeaux cookies et pages legales. Score de conformite instantane avec recommandations personnalisees."
               : "Scan your website in seconds: tracker detection, pixels, cookie banners, and legal pages. Instant compliance score with personalized recommendations."}
@@ -143,7 +143,7 @@ export default function HomePage() {
             <HomeScannerCta />
           </div>
 
-          <p className="text-sm text-blue-200 mt-4">
+          <p className="text-sm text-emerald-200 mt-4">
             {locale === "fr"
               ? "Analyse multi-pages automatique via sitemap. Jusqu\u2019a 50 pages scannees."
               : "Automatic multi-page analysis via sitemap. Up to 50 pages scanned."}
@@ -217,14 +217,14 @@ export default function HomePage() {
       </section>
 
       {/* Bottom CTA -- rappel scanner */}
-      <section className="py-14 bg-gradient-to-br from-blue-700 to-indigo-900 text-white">
+      <section className="py-14 bg-gradient-to-br from-emerald-800 to-emerald-950 text-white">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl sm:text-3xl font-bold mb-3">
             {locale === "fr"
               ? "Pret a verifier votre conformite ?"
               : "Ready to check your compliance?"}
           </h2>
-          <p className="text-blue-100 mb-8">
+          <p className="text-emerald-100 mb-8">
             {locale === "fr"
               ? "Lancez un scan gratuit maintenant et recevez votre score RGPD en quelques secondes."
               : "Launch a free scan now and get your GDPR score in seconds."}

@@ -74,7 +74,7 @@ export default function Footer() {
             </p>
             <ul className="mt-3 space-y-2">
               <li>
-                <Link href="/scanner" className="text-sm hover:text-white transition-colors font-medium text-blue-300">
+                <Link href="/scanner" className="text-sm hover:text-white transition-colors font-medium text-emerald-300">
                   {t("footer.freeScanner")}
                 </Link>
               </li>

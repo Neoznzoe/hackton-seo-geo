@@ -343,7 +343,7 @@ export default function PolitiqueCookiesPage() {
           <ul className="list-none space-y-1 text-sm text-gray-700 dark:text-gray-300">
             <li>
               <span className="font-medium">Contact :</span>{" "}
-              <a href="mailto:contact@devradar.fr" className="text-blue-600 hover:underline">
+              <a href="mailto:contact@devradar.fr" className="text-emerald-700 hover:underline">
                 contact@devradar.fr
               </a>
             </li>
@@ -354,7 +354,7 @@ export default function PolitiqueCookiesPage() {
                 href="https://www.cnil.fr"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
+                className="text-emerald-700 hover:underline"
               >
                 www.cnil.fr
               </a>
@@ -412,16 +412,16 @@ export default function PolitiqueCookiesPage() {
       </header>
 
       {/* Resume */}
-      <section className="mb-12 bg-blue-50 border border-blue-200 rounded-lg p-6">
-        <p className="text-sm font-semibold text-blue-800 uppercase tracking-wide mb-3">
+      <section className="mb-12 bg-emerald-50 border border-emerald-200 rounded-lg p-6">
+        <p className="text-sm font-semibold text-emerald-900 uppercase tracking-wide mb-3">
           {locale === "fr" ? "En resume" : "Summary"}
         </p>
         <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
           <li>
             {locale === "fr" ? (
-              <>Seul le cookie <code className="bg-white dark:bg-gray-900 border border-blue-100 px-1 rounded text-xs">devradar_consent</code> est depose <strong>sans votre accord</strong>.</>
+              <>Seul le cookie <code className="bg-white dark:bg-gray-900 border border-emerald-100 px-1 rounded text-xs">devradar_consent</code> est depose <strong>sans votre accord</strong>.</>
             ) : (
-              <>Only the <code className="bg-white dark:bg-gray-900 border border-blue-100 px-1 rounded text-xs">devradar_consent</code> cookie is placed <strong>without your consent</strong>.</>
+              <>Only the <code className="bg-white dark:bg-gray-900 border border-emerald-100 px-1 rounded text-xs">devradar_consent</code> cookie is placed <strong>without your consent</strong>.</>
             )}
           </li>
           <li>
@@ -447,7 +447,7 @@ export default function PolitiqueCookiesPage() {
         <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-3">
           {locale === "fr" ? "Sommaire" : "Table of Contents"}
         </p>
-        <ol className="space-y-1 text-sm text-blue-600">
+        <ol className="space-y-1 text-sm text-emerald-700">
           {sections.map((section) => (
             <li key={section.id}>
               <a href={`#${section.id}`} className="hover:underline">
@@ -469,7 +469,7 @@ export default function PolitiqueCookiesPage() {
       ))}
 
       {/* Contact */}
-      <section className="bg-blue-50 rounded-lg p-8 text-center mt-12">
+      <section className="bg-emerald-50 rounded-lg p-8 text-center mt-12">
         <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
           {locale === "fr" ? "Gerer vos preferences cookies" : "Manage Your Cookie Preferences"}
         </h2>
@@ -481,7 +481,7 @@ export default function PolitiqueCookiesPage() {
         <div className="mt-4 flex flex-col sm:flex-row gap-3 justify-center">
           <a
             href="mailto:contact@devradar.fr"
-            className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center justify-center px-6 py-3 bg-emerald-700 text-white font-medium rounded-lg hover:bg-emerald-800 transition-colors"
           >
             {locale === "fr" ? "Nous contacter" : "Contact Us"}
           </a>

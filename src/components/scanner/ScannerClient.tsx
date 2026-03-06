@@ -106,7 +106,7 @@ export default function ScannerClient() {
             <p className="text-red-700 dark:text-red-300 text-sm mb-4">{error}</p>
             <button
               onClick={() => setState("idle")}
-              className="px-5 py-2.5 bg-white dark:bg-gray-800 text-blue-700 dark:text-blue-400 font-medium rounded-lg border border-blue-200 dark:border-blue-800 hover:bg-blue-50 transition-colors text-sm"
+              className="px-5 py-2.5 bg-white dark:bg-gray-800 text-emerald-800 dark:text-emerald-600 font-medium rounded-lg border border-emerald-200 dark:border-emerald-900 hover:bg-emerald-50 transition-colors text-sm"
             >
               {t("scanner.retry")}
             </button>

@@ -33,7 +33,7 @@ export default function VeilleClient() {
       <button
         onClick={handleScrape}
         disabled={loading}
-        className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="px-6 py-3 bg-emerald-700 text-white font-semibold rounded-lg hover:bg-emerald-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         {loading ? "Collecte en cours..." : "Lancer la veille concurrentielle"}
       </button>
@@ -46,7 +46,7 @@ export default function VeilleClient() {
 
       {loading && (
         <div className="mt-6 flex items-center gap-3 text-gray-500 dark:text-gray-400">
-          <div className="animate-spin h-5 w-5 border-2 border-blue-600 border-t-transparent rounded-full" />
+          <div className="animate-spin h-5 w-5 border-2 border-emerald-700 border-t-transparent rounded-full" />
           <span>Scraping en cours... Respect du rate limiting entre chaque source.</span>
         </div>
       )}
@@ -146,7 +146,7 @@ export default function VeilleClient() {
           <div>
             <button
               onClick={() => setShowLogs(!showLogs)}
-              className="text-sm font-medium text-blue-600 hover:text-blue-800"
+              className="text-sm font-medium text-emerald-700 hover:text-emerald-900"
             >
               {showLogs ? "Masquer" : "Afficher"} le journal de scraping ({result.logs.length} operations)
             </button>

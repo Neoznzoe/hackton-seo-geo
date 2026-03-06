@@ -25,7 +25,7 @@ export default function Header() {
         aria-label="Navigation principale"
       >
         <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="text-xl font-bold text-blue-600 dark:text-blue-400">
+          <Link href="/" className="text-xl font-bold text-emerald-700 dark:text-emerald-600">
             {SITE_NAME}
           </Link>
 
@@ -36,7 +36,7 @@ export default function Header() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-emerald-700 dark:hover:text-emerald-600 transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -72,7 +72,7 @@ export default function Header() {
 
             <Link
               href="/scanner"
-              className="ml-1 px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
+              className="ml-1 px-4 py-2 bg-emerald-700 text-white text-sm font-semibold rounded-lg hover:bg-emerald-800 transition-colors shadow-sm"
             >
               {t("nav.scan")}
             </Link>
@@ -124,7 +124,7 @@ export default function Header() {
           <div className="md:hidden pb-4 space-y-2">
             <Link
               href="/scanner"
-              className="block w-full text-center py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+              className="block w-full text-center py-2.5 bg-emerald-700 text-white text-sm font-semibold rounded-lg hover:bg-emerald-800 transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               {t("nav.scan")}
@@ -134,7 +134,7 @@ export default function Header() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="block py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    className="block py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-emerald-700 dark:hover:text-emerald-600"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}

@@ -183,9 +183,9 @@ export default function GuidePage() {
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               <strong>{locale === "fr" ? "Recommande :" : "Recommended:"}</strong>{" "}
-              <Link href="/outils/plausible" className="text-blue-600 hover:text-blue-800">Plausible</Link>{" "}
+              <Link href="/outils/plausible" className="text-emerald-700 hover:text-emerald-900">Plausible</Link>{" "}
               {locale === "fr" ? "ou" : "or"}{" "}
-              <Link href="/outils/umami" className="text-blue-600 hover:text-blue-800">Umami</Link>.{" "}
+              <Link href="/outils/umami" className="text-emerald-700 hover:text-emerald-900">Umami</Link>.{" "}
               {locale === "fr"
                 ? "Legers, simples, conformes RGPD. Umami est gratuit en auto-hebergement."
                 : "Lightweight, simple, GDPR-compliant. Umami is free when self-hosted."}
@@ -197,9 +197,9 @@ export default function GuidePage() {
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               <strong>{locale === "fr" ? "Recommande :" : "Recommended:"}</strong>{" "}
-              <Link href="/outils/matomo" className="text-blue-600 hover:text-blue-800">Matomo</Link>{" "}
+              <Link href="/outils/matomo" className="text-emerald-700 hover:text-emerald-900">Matomo</Link>{" "}
               {locale === "fr" ? "ou" : "or"}{" "}
-              <Link href="/outils/piwik-pro" className="text-blue-600 hover:text-blue-800">Piwik PRO</Link>.{" "}
+              <Link href="/outils/piwik-pro" className="text-emerald-700 hover:text-emerald-900">Piwik PRO</Link>.{" "}
               {locale === "fr"
                 ? "Suivi e-commerce complet, entonnoirs de conversion, conformes RGPD."
                 : "Complete e-commerce tracking, conversion funnels, GDPR-compliant."}
@@ -211,9 +211,9 @@ export default function GuidePage() {
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               <strong>{locale === "fr" ? "Recommande :" : "Recommended:"}</strong>{" "}
-              <Link href="/outils/adobe-analytics" className="text-blue-600 hover:text-blue-800">Adobe Analytics</Link>{" "}
+              <Link href="/outils/adobe-analytics" className="text-emerald-700 hover:text-emerald-900">Adobe Analytics</Link>{" "}
               {locale === "fr" ? "ou" : "or"}{" "}
-              <Link href="/outils/google-analytics-4" className="text-blue-600 hover:text-blue-800">GA4 360</Link>.{" "}
+              <Link href="/outils/google-analytics-4" className="text-emerald-700 hover:text-emerald-900">GA4 360</Link>.{" "}
               {locale === "fr"
                 ? "Fonctionnalites avancees, IA predictive, support dedie, SLA garanti."
                 : "Advanced features, predictive AI, dedicated support, guaranteed SLA."}
@@ -228,7 +228,7 @@ export default function GuidePage() {
               {freeTools.map((t, i) => (
                 <span key={t.slug}>
                   {i > 0 && ", "}
-                  <Link href={`/outils/${t.slug}`} className="text-blue-600 hover:text-blue-800">{t.name}</Link>
+                  <Link href={`/outils/${t.slug}`} className="text-emerald-700 hover:text-emerald-900">{t.name}</Link>
                 </span>
               ))}
               .{" "}
@@ -249,7 +249,7 @@ export default function GuidePage() {
           <li>
             <strong>{locale === "fr" ? "Choisissez votre alternative" : "Choose your alternative"}</strong> :{" "}
             {locale === "fr" ? "utilisez notre" : "use our"}{" "}
-            <Link href="/comparer" className="text-blue-600 hover:text-blue-800">
+            <Link href="/comparer" className="text-emerald-700 hover:text-emerald-900">
               {locale === "fr" ? "comparatif" : "comparison"}
             </Link>{" "}
             {locale === "fr"
@@ -288,7 +288,7 @@ export default function GuidePage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-blue-50 dark:bg-blue-950 rounded-lg p-8 text-center">
+      <section className="bg-emerald-50 dark:bg-emerald-950 rounded-lg p-8 text-center">
         <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
           {locale === "fr" ? "Pret a comparer ?" : "Ready to compare?"}
         </h2>
@@ -299,7 +299,7 @@ export default function GuidePage() {
         </p>
         <Link
           href="/comparer"
-          className="inline-flex items-center justify-center mt-4 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+          className="inline-flex items-center justify-center mt-4 px-6 py-3 bg-emerald-700 text-white font-medium rounded-lg hover:bg-emerald-800 transition-colors"
         >
           {locale === "fr" ? "Voir le comparatif complet" : "View the full comparison"}
         </Link>

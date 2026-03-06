@@ -52,17 +52,17 @@ export default function PlanSelector({ selectedPlan, onSelectPlan, isLoading }: 
             disabled={isLoading}
             className={`relative flex flex-col items-center p-4 rounded-xl border-2 transition-all text-left ${
               isSelected
-                ? "border-blue-600 bg-blue-50 dark:bg-blue-950 shadow-md"
+                ? "border-emerald-700 bg-emerald-50 dark:bg-emerald-950 shadow-md"
                 : "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-sm"
             } ${isLoading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
           >
             {plan.id === "rapide" && (
-              <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-blue-600 text-white text-[10px] font-bold rounded-full uppercase tracking-wide">
+              <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-emerald-700 text-white text-[10px] font-bold rounded-full uppercase tracking-wide">
                 {t("plan.popular")}
               </span>
             )}
             <span className="text-sm font-bold text-gray-900 dark:text-gray-100">{t(plan.nameKey)}</span>
-            <span className="text-2xl font-bold text-blue-700 mt-1">{plan.pages}</span>
+            <span className="text-2xl font-bold text-emerald-800 mt-1">{plan.pages}</span>
             <span className="text-xs text-gray-500 dark:text-gray-400">{t("plan.pagesMax")}</span>
             <span className="text-xs text-gray-400 dark:text-gray-500 mt-1 text-center">{t(plan.descKey)}</span>
             <span className={`mt-2 text-xs font-semibold px-3 py-1 rounded-full ${

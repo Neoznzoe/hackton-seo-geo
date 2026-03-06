@@ -87,7 +87,7 @@ export default function ToolDetailClient({ tool, vsPairs }: ToolDetailClientProp
         {/* Header */}
         <header className="mb-8">
           <div className="flex items-start gap-4">
-            <div className="w-14 h-14 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center text-2xl font-bold text-blue-600 shrink-0">
+            <div className="w-14 h-14 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center text-2xl font-bold text-emerald-700 shrink-0">
               {tool.name[0]}
             </div>
             <div>
