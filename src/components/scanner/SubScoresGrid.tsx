@@ -85,21 +85,23 @@ function SubScoreCard({ id, sub }: { id: string; sub: SubScore }) {
         />
       </div>
 
-      {/* Toggle details */}
-      <button
-        onClick={() => setOpen(!open)}
-        className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 flex items-center gap-1"
-      >
-        {open ? t("scanner.hideDetail") : t("scanner.showDetail")}
-        <svg
-          className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`}
-          fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"
+      {/* Toggle details — hidden when details are empty (free plan) */}
+      {sub.details.length > 0 && (
+        <button
+          onClick={() => setOpen(!open)}
+          className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 flex items-center gap-1"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
+          {open ? t("scanner.hideDetail") : t("scanner.showDetail")}
+          <svg
+            className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`}
+            fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+      )}
 
-      {open && (
+      {open && sub.details.length > 0 && (
         <ul className="mt-3 space-y-1.5 border-t border-gray-100 dark:border-gray-800 pt-3">
           {sub.details.map((d) => {
             const negative = isNegativeDetail(d);

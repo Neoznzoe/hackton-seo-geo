@@ -7,8 +7,9 @@ interface DetectedToolsCardProps {
 }
 
 export default function DetectedToolsCard({ tools, title, emptyMessage }: DetectedToolsCardProps) {
+  const allGood = tools.length > 0 && tools.every((t) => t.cnilExempt);
   return (
-    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
+    <div className={`border rounded-xl p-6 shadow-sm ${allGood ? "bg-green-50 dark:bg-green-950 border-green-300 dark:border-green-700" : "bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700"}`}>
       <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-3">{title}</h3>
       {tools.length === 0 ? (
         <p className="text-sm text-gray-500 dark:text-gray-400 italic">{emptyMessage}</p>
