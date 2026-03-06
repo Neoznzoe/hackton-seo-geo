@@ -72,7 +72,7 @@ export default function Header() {
 
             <Link
               href="/scanner"
-              className="ml-1 px-4 py-2 bg-emerald-700 text-white text-sm font-semibold rounded-lg hover:bg-emerald-800 transition-colors shadow-sm"
+              className="ml-1 px-4 py-2 min-w-[160px] text-center bg-emerald-700 text-white text-sm font-semibold rounded-lg hover:bg-emerald-800 transition-colors shadow-sm"
             >
               {t("nav.scan")}
             </Link>
