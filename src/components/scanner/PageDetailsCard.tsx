@@ -9,7 +9,7 @@ interface PageDetailsCardProps {
   pagesScanned: number;
 }
 
-type Filter = "all" | "issues" | "clean";
+type Filter = "issues" | "clean";
 
 const SEVERITY_STYLES = {
   high: "bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-300",
@@ -30,21 +30,16 @@ function translateLabel(label: string, t: (key: "pageDetails.consentMissing" | "
 
 export default function PageDetailsCard({ pageDetails, pagesScanned }: PageDetailsCardProps) {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState<Filter>("all");
+  const [filter, setFilter] = useState<Filter>("issues");
 
   const pagesWithIssues = pageDetails.filter((p) => p.issues.length > 0);
   const pagesClean = pageDetails.filter((p) => p.issues.length === 0);
 
-  const filtered = filter === "all"
-    ? pageDetails
-    : filter === "issues"
-      ? pagesWithIssues
-      : pagesClean;
+  const filtered = filter === "issues" ? pagesWithIssues : pagesClean;
 
   if (pageDetails.length === 0) return null;
 
-  const filters: { key: Filter; labelKey: "pageDetails.filterAll" | "pageDetails.filterIssues" | "pageDetails.filterClean"; count: number }[] = [
-    { key: "all", labelKey: "pageDetails.filterAll", count: pageDetails.length },
+  const filters: { key: Filter; labelKey: "pageDetails.filterIssues" | "pageDetails.filterClean"; count: number }[] = [
     { key: "issues", labelKey: "pageDetails.filterIssues", count: pagesWithIssues.length },
     { key: "clean", labelKey: "pageDetails.filterClean", count: pagesClean.length },
   ];
@@ -75,9 +70,7 @@ export default function PageDetailsCard({ pageDetails, pagesScanned }: PageDetai
               filter === f.key
                 ? f.key === "issues" && f.count > 0
                   ? "text-red-600 dark:text-red-400"
-                  : f.key === "clean"
-                    ? "text-green-600 dark:text-green-400"
-                    : "text-gray-500 dark:text-gray-400"
+                  : "text-green-600 dark:text-green-400"
                 : "text-gray-400 dark:text-gray-500"
             }`}>
               {f.count}
