@@ -31,7 +31,7 @@ export default function HomeScannerCta() {
       />
       <button
         type="submit"
-        className="px-8 py-3.5 bg-amber-500 text-white font-bold rounded-lg hover:bg-amber-400 transition-colors text-base shadow-lg hover:shadow-xl"
+        className="px-8 py-3.5 bg-amber-600 text-white font-bold rounded-lg hover:bg-amber-500 transition-colors text-base shadow-lg hover:shadow-xl"
       >
         Analyser gratuitement
       </button>

@@ -123,7 +123,7 @@ export default function Footer() {
               {t("footer.competitive")}
             </Link>
           </div>
-          <p className="mt-4 text-center text-xs text-gray-500">
+          <p className="mt-4 text-center text-xs text-gray-400">
             &copy; {new Date().getFullYear()} {SITE_NAME}. {t("footer.project")} {t("footer.rights")}
           </p>
         </div>

@@ -97,10 +97,11 @@ export default function RootLayout({
     <html lang="fr" className={plusJakarta.className}>
       <head>
         <Script
-          src="https://analytics.ahrefs.com/analytics.js"
-          data-key="vYRjRajg31erbUZSCpLk9w"
+          id="ahrefs-analytics"
           strategy="afterInteractive"
-          async
+          dangerouslySetInnerHTML={{
+            __html: `try{var s=document.createElement("script");s.src="https://analytics.ahrefs.com/analytics.js";s.dataset.key="vYRjRajg31erbUZSCpLk9w";s.async=true;s.onerror=function(){};document.head.appendChild(s)}catch(e){}`
+          }}
         />
         <meta name="google-site-verification" content="OpBP-OpU253pvgSruj3o8hV4VM_c8I6i0EYVFtbt2F4" />
       </head>

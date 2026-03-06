@@ -38,7 +38,7 @@ export default function PremiumGate({ children, locked, onUpgrade }: PremiumGate
           </p>
           <button
             onClick={onUpgrade}
-            className="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg transition-colors text-sm shadow-sm"
+            className="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg transition-colors text-sm shadow-sm"
           >
             {t("premium.choosePlan")}
           </button>
