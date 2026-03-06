@@ -140,7 +140,7 @@ export default function ScannerClient() {
                 )}
               </p>
             </div>
-            <ExportPdfButton targetId="scan-report" filename={`devradar-${new URL(result.url).hostname}`} />
+            {!isFree && <ExportPdfButton scanResult={result} />}
           </div>
 
           {/* Sitemap alert */}
