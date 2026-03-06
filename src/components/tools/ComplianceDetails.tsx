@@ -1,9 +1,14 @@
+"use client";
+
+import { useLocalized } from "@/lib/i18n/useLocalized";
+import { LocalizedString } from "@/lib/i18n/localize";
+
 interface ComplianceData {
   gdprCompliant: boolean;
   cnilExempt: boolean;
   cookieless: boolean;
-  dataLocation: string;
-  details: string;
+  dataLocation: LocalizedString;
+  details: LocalizedString;
 }
 
 interface ComplianceDetailsProps {
@@ -11,6 +16,7 @@ interface ComplianceDetailsProps {
 }
 
 export default function ComplianceDetails({ compliance }: ComplianceDetailsProps) {
+  const { l } = useLocalized();
   const badges = [
     {
       label: "Conforme RGPD",
@@ -53,10 +59,10 @@ export default function ComplianceDetails({ compliance }: ComplianceDetailsProps
       </div>
       <p className="text-sm text-gray-600 dark:text-gray-400">
         <strong className="text-gray-900 dark:text-gray-100">Localisation des donnees :</strong>{" "}
-        {compliance.dataLocation}
+        {l(compliance.dataLocation)}
       </p>
       <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-        {compliance.details}
+        {l(compliance.details)}
       </p>
     </div>
   );

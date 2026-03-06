@@ -5,6 +5,7 @@ import { FaqItem } from "@/lib/types";
 import JsonLd from "@/components/seo/JsonLd";
 import { trackFaqToggle } from "@/lib/tracking";
 import { FAQPage } from "schema-dts";
+import { useLocalized } from "@/lib/i18n/useLocalized";
 
 interface FaqSectionProps {
   items: FaqItem[];
@@ -15,16 +16,17 @@ export default function FaqSection({
   items,
   heading = "Questions frequentes",
 }: FaqSectionProps) {
+  const { l } = useLocalized();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const faqJsonLd: FAQPage = {
     "@type": "FAQPage",
     mainEntity: items.map((item) => ({
       "@type": "Question",
-      name: item.question,
+      name: l(item.question),
       acceptedAnswer: {
         "@type": "Answer",
-        text: item.answer,
+        text: l(item.answer),
       },
     })),
     speakable: {
@@ -52,12 +54,12 @@ export default function FaqSection({
                   type="button"
                   className="faq-question w-full flex items-center justify-between p-5 text-left font-semibold text-gray-900 hover:bg-gray-50 transition-colors"
                   onClick={() => {
-                    if (!isOpen) trackFaqToggle(item.question);
+                    if (!isOpen) trackFaqToggle(l(item.question));
                     setOpenIndex(isOpen ? null : index);
                   }}
                   aria-expanded={isOpen}
                 >
-                  <span>{item.question}</span>
+                  <span>{l(item.question)}</span>
                   <svg
                     className={`w-5 h-5 text-gray-500 transition-transform shrink-0 ml-2 ${isOpen ? "rotate-180" : ""}`}
                     fill="none"
@@ -72,7 +74,7 @@ export default function FaqSection({
               </dt>
               {isOpen && (
                 <dd className="faq-answer px-5 pb-5 text-gray-600 text-sm leading-relaxed">
-                  {item.answer}
+                  {l(item.answer)}
                 </dd>
               )}
             </div>

@@ -1,3 +1,5 @@
+import { LocalizedString } from "@/lib/i18n/localize";
+
 export type CategorySlug =
   | "privacy-first"
   | "open-source"
@@ -7,51 +9,51 @@ export type CategorySlug =
   | "hebergement-local";
 
 export interface PricingTier {
-  name: string;
+  name: LocalizedString;
   price: string;
-  period?: string;
-  features: string[];
-  cta?: string;
+  period?: LocalizedString;
+  features: LocalizedString[];
+  cta?: LocalizedString;
   highlighted?: boolean;
 }
 
 export interface FaqItem {
-  question: string;
-  answer: string;
+  question: LocalizedString;
+  answer: LocalizedString;
 }
 
 export interface AnalyticsTool {
   slug: string;
   name: string;
-  shortDescription: string;
-  description: string;
+  shortDescription: LocalizedString;
+  description: LocalizedString;
   logoUrl: string;
   websiteUrl: string;
   categories: CategorySlug[];
   pricing: PricingTier[];
   features: {
-    label: string;
+    label: LocalizedString;
     available: boolean;
-    detail?: string;
+    detail?: LocalizedString;
   }[];
   compliance: {
     gdprCompliant: boolean;
     cnilExempt: boolean;
     cookieless: boolean;
-    dataLocation: string;
-    details: string;
+    dataLocation: LocalizedString;
+    details: LocalizedString;
   };
-  pros: string[];
-  cons: string[];
+  pros: LocalizedString[];
+  cons: LocalizedString[];
   faq: FaqItem[];
 }
 
 export interface Category {
   slug: CategorySlug;
-  name: string;
-  description: string;
-  metaTitle: string;
-  metaDescription: string;
+  name: LocalizedString;
+  description: LocalizedString;
+  metaTitle: LocalizedString;
+  metaDescription: LocalizedString;
 }
 
 export interface ToolComparison {
@@ -60,16 +62,16 @@ export interface ToolComparison {
   slug: string;
   faq: FaqItem[];
   verdict: {
-    startup: string;
-    enterprise: string;
-    privacy: string;
-    budget: string;
+    startup: LocalizedString;
+    enterprise: LocalizedString;
+    privacy: LocalizedString;
+    budget: LocalizedString;
   };
 }
 
 export interface GlossaryTerm {
-  term: string;
+  term: LocalizedString;
   slug: string;
-  definition: string;
+  definition: LocalizedString;
   relatedTools?: string[];
 }

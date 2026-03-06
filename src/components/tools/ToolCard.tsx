@@ -4,12 +4,14 @@ import Link from "next/link";
 import { AnalyticsTool } from "@/lib/types";
 import ToolScore from "@/components/tools/ToolScore";
 import { trackContentInteraction } from "@/lib/tracking";
+import { useLocalized } from "@/lib/i18n/useLocalized";
 
 interface ToolCardProps {
   tool: AnalyticsTool;
 }
 
 export default function ToolCard({ tool }: ToolCardProps) {
+  const { l } = useLocalized();
   const hasFree = tool.pricing.some(
     (p) => p.price === "0 €" || p.price.toLowerCase().includes("gratuit")
   );
@@ -45,7 +47,7 @@ export default function ToolCard({ tool }: ToolCardProps) {
         </div>
       </div>
       <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-1">
-        {tool.shortDescription}
+        {l(tool.shortDescription)}
       </p>
       <Link
         href={`/outils/${tool.slug}`}

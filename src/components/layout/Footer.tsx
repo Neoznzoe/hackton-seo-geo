@@ -5,9 +5,10 @@ import { SITE_NAME } from "@/lib/constants";
 import { tools } from "@/data/tools";
 import { categories } from "@/data/categories";
 import { useTranslation } from "@/lib/i18n/LanguageProvider";
+import { localize } from "@/lib/i18n/localize";
 
 export default function Footer() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   return (
     <footer className="bg-gray-900 dark:bg-gray-950 text-gray-300 mt-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
@@ -51,7 +52,7 @@ export default function Footer() {
                     href={`/categorie/${cat.slug}`}
                     className="text-sm hover:text-white transition-colors"
                   >
-                    {cat.name}
+                    {localize(cat.name, locale)}
                   </Link>
                 </li>
               ))}

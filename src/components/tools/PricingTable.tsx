@@ -1,28 +1,33 @@
+"use client";
+
 import { PricingTier } from "@/lib/types";
+import { useLocalized } from "@/lib/i18n/useLocalized";
 
 interface PricingTableProps {
   tiers: PricingTier[];
 }
 
 export default function PricingTable({ tiers }: PricingTableProps) {
+  const { l } = useLocalized();
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
       {tiers.map((tier) => (
         <div
-          key={tier.name}
+          key={l(tier.name)}
           className={`border rounded-lg p-6 ${
             tier.highlighted
               ? "border-blue-500 ring-2 ring-blue-100"
               : "border-gray-200"
           }`}
         >
-          <h3 className="font-semibold text-gray-900 text-lg">{tier.name}</h3>
+          <h3 className="font-semibold text-gray-900 text-lg">{l(tier.name)}</h3>
           <p className="mt-2">
             <span className="text-3xl font-bold text-gray-900">
               {tier.price}
             </span>
             {tier.period && (
-              <span className="text-sm text-gray-500 ml-1">{tier.period}</span>
+              <span className="text-sm text-gray-500 ml-1">{l(tier.period)}</span>
             )}
           </p>
           <ul className="mt-4 space-y-2">
@@ -42,7 +47,7 @@ export default function PricingTable({ tiers }: PricingTableProps) {
                     d="M4.5 12.75l6 6 9-13.5"
                   />
                 </svg>
-                {feature}
+                {l(feature)}
               </li>
             ))}
           </ul>

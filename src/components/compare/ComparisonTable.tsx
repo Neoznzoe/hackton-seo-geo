@@ -1,11 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import { AnalyticsTool } from "@/lib/types";
+import { useLocalized } from "@/lib/i18n/useLocalized";
 
 interface ComparisonTableProps {
   tools: AnalyticsTool[];
 }
 
 export default function ComparisonTable({ tools }: ComparisonTableProps) {
+  const { l } = useLocalized();
   const allFeatureLabels = [
     "Suivi evenementiel",
     "Analyse en temps reel",
@@ -60,7 +64,7 @@ export default function ComparisonTable({ tools }: ComparisonTableProps) {
                 {tool.pricing[0]?.price}
                 {tool.pricing[0]?.period && (
                   <span className="block text-xs text-gray-500 dark:text-gray-400">
-                    {tool.pricing[0].period}
+                    {l(tool.pricing[0].period!)}
                   </span>
                 )}
               </td>
@@ -124,7 +128,7 @@ export default function ComparisonTable({ tools }: ComparisonTableProps) {
                 key={tool.slug}
                 className="px-4 py-3 text-center text-xs text-gray-600 dark:text-gray-400 border-b border-gray-100 dark:border-gray-800"
               >
-                {tool.compliance.dataLocation}
+                {l(tool.compliance.dataLocation)}
               </td>
             ))}
           </tr>
@@ -141,7 +145,7 @@ export default function ComparisonTable({ tools }: ComparisonTableProps) {
                 {label}
               </th>
               {tools.map((tool) => {
-                const feature = tool.features.find((f) => f.label === label);
+                const feature = tool.features.find((f) => l(f.label) === label);
                 return (
                   <td
                     key={tool.slug}

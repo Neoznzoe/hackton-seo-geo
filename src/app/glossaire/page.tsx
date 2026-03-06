@@ -1,49 +1,45 @@
-import { Metadata } from "next";
+"use client";
+
 import Link from "next/link";
 import { glossaryTerms } from "@/data/glossary";
 import { getToolBySlug } from "@/data/tools";
-import { SITE_NAME, BASE_URL, CURRENT_YEAR } from "@/lib/constants";
+import { BASE_URL } from "@/lib/constants";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import JsonLd from "@/components/seo/JsonLd";
 import { DefinedTermSet } from "schema-dts";
-
-export const metadata: Metadata = {
-  title: `Glossaire analytics et RGPD ${CURRENT_YEAR}`,
-  description: `Definitions des termes essentiels de l'analytics web et du RGPD : cookies, consentement, CNIL, tracking, attribution, heatmap et plus encore.`,
-  alternates: { canonical: "/glossaire" },
-  openGraph: {
-    title: `Glossaire analytics et RGPD ${CURRENT_YEAR} | ${SITE_NAME}`,
-    description: `Definitions des termes essentiels de l'analytics web et du RGPD.`,
-    type: "website",
-  },
-};
-
-const glossaryJsonLd: DefinedTermSet = {
-  "@type": "DefinedTermSet",
-  name: "Glossaire analytics et RGPD",
-  url: `${BASE_URL}/glossaire`,
-  inLanguage: "fr",
-  hasDefinedTerm: glossaryTerms.map((term) => ({
-    "@type": "DefinedTerm" as const,
-    name: term.term,
-    description: term.definition,
-  })),
-};
+import { useLocalized } from "@/lib/i18n/useLocalized";
 
 export default function GlossairePage() {
+  const { locale, l } = useLocalized();
+
+  const glossaryJsonLd: DefinedTermSet = {
+    "@type": "DefinedTermSet",
+    name: locale === "fr" ? "Glossaire analytics et RGPD" : "Analytics and GDPR glossary",
+    url: `${BASE_URL}/glossaire`,
+    inLanguage: locale,
+    hasDefinedTerm: glossaryTerms.map((term) => ({
+      "@type": "DefinedTerm" as const,
+      name: l(term.term),
+      description: l(term.definition),
+    })),
+  };
+
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
       <JsonLd data={{ "@context": "https://schema.org", ...glossaryJsonLd }} />
 
-      <Breadcrumb items={[{ label: "Glossaire" }]} />
+      <Breadcrumb items={[{ label: locale === "fr" ? "Glossaire" : "Glossary" }]} />
 
       <header className="mb-10">
         <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100">
-          Glossaire analytics et RGPD
+          {locale === "fr"
+            ? "Glossaire analytics et RGPD"
+            : "Analytics and GDPR glossary"}
         </h1>
         <p className="mt-3 text-lg text-gray-600 dark:text-gray-400">
-          {glossaryTerms.length} definitions pour comprendre l&apos;analytics web,
-          la protection des donnees et la conformite RGPD.
+          {locale === "fr"
+            ? `${glossaryTerms.length} definitions pour comprendre l\u2019analytics web, la protection des donnees et la conformite RGPD.`
+            : `${glossaryTerms.length} definitions to understand web analytics, data protection, and GDPR compliance.`}
         </p>
       </header>
 
@@ -54,9 +50,9 @@ export default function GlossairePage() {
             id={term.slug}
             className="border border-gray-200 dark:border-gray-700 rounded-lg p-5"
           >
-            <dt className="text-lg font-semibold text-gray-900 dark:text-gray-100">{term.term}</dt>
+            <dt className="text-lg font-semibold text-gray-900 dark:text-gray-100">{l(term.term)}</dt>
             <dd className="mt-2 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-              {term.definition}
+              {l(term.definition)}
             </dd>
             {term.relatedTools && term.relatedTools.length > 0 && (
               <dd className="mt-3 flex flex-wrap gap-2">

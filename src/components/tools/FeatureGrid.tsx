@@ -1,7 +1,12 @@
+"use client";
+
+import { useLocalized } from "@/lib/i18n/useLocalized";
+import { LocalizedString } from "@/lib/i18n/localize";
+
 interface Feature {
-  label: string;
+  label: LocalizedString;
   available: boolean;
-  detail?: string;
+  detail?: LocalizedString;
 }
 
 interface FeatureGridProps {
@@ -9,11 +14,13 @@ interface FeatureGridProps {
 }
 
 export default function FeatureGrid({ features }: FeatureGridProps) {
+  const { l } = useLocalized();
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
       {features.map((feature) => (
         <div
-          key={feature.label}
+          key={l(feature.label)}
           className="flex items-start gap-2 p-3 border border-gray-100 rounded-lg"
         >
           {feature.available ? (
@@ -53,11 +60,11 @@ export default function FeatureGrid({ features }: FeatureGridProps) {
                 feature.available ? "text-gray-900" : "text-gray-400"
               }`}
             >
-              {feature.label}
+              {l(feature.label)}
             </span>
             {feature.detail && (
               <span className="block text-xs text-gray-500">
-                {feature.detail}
+                {l(feature.detail)}
               </span>
             )}
           </div>

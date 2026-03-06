@@ -1,9 +1,16 @@
+"use client";
+
+import { useLocalized } from "@/lib/i18n/useLocalized";
+import { LocalizedString } from "@/lib/i18n/localize";
+
 interface ProsConsProps {
-  pros: string[];
-  cons: string[];
+  pros: LocalizedString[];
+  cons: LocalizedString[];
 }
 
 export default function ProsCons({ pros, cons }: ProsConsProps) {
+  const { l } = useLocalized();
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
       <div>
@@ -25,7 +32,7 @@ export default function ProsCons({ pros, cons }: ProsConsProps) {
                   d="M12 4.5v15m7.5-7.5h-15"
                 />
               </svg>
-              {pro}
+              {l(pro)}
             </li>
           ))}
         </ul>
@@ -49,7 +56,7 @@ export default function ProsCons({ pros, cons }: ProsConsProps) {
                   d="M19.5 12h-15"
                 />
               </svg>
-              {con}
+              {l(con)}
             </li>
           ))}
         </ul>

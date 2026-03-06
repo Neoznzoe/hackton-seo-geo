@@ -1,23 +1,14 @@
-import { Metadata } from "next";
+"use client";
+
 import { SITE_NAME, BASE_URL, CURRENT_YEAR } from "@/lib/constants";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import JsonLd from "@/components/seo/JsonLd";
 import { Article } from "schema-dts";
-
-export const metadata: Metadata = {
-  title: `Conditions Générales d'Utilisation – DevRadar`,
-  description: `Conditions Générales d'Utilisation du site DevRadar. Accès au service, responsabilité, propriété intellectuelle, données personnelles et droit applicable.`,
-  alternates: { canonical: "/cgu" },
-  openGraph: {
-    title: `Conditions Générales d'Utilisation | DevRadar`,
-    description: `CGU du site DevRadar – veille technologique pour développeurs.`,
-    type: "article",
-  },
-};
+import { useTranslation } from "@/lib/i18n/LanguageProvider";
 
 const articleJsonLd: Article = {
   "@type": "Article",
-  headline: `Conditions Générales d'Utilisation – DevRadar`,
+  headline: `Conditions Generales d'Utilisation - DevRadar`,
   description: `CGU du site DevRadar.`,
   url: `${BASE_URL}/cgu`,
   inLanguage: "fr",
@@ -27,232 +18,316 @@ const articleJsonLd: Article = {
   publisher: { "@type": "Organization", name: SITE_NAME },
 };
 
-const sections = [
-  {
-    id: "objet",
-    title: "1. Objet",
-    content: (
-      <p>
-        Les présentes Conditions Générales d&apos;Utilisation (ci-après « CGU ») ont pour objet de
-        définir les modalités d&apos;accès et d&apos;utilisation du site <strong>DevRadar</strong>{" "}
-        (ci-après « le Site »).
-        <br /><br />
-        Le Site propose un service de veille technologique permettant de consulter des articles et
-        contenus relatifs au développement logiciel et aux technologies informatiques, collectés
-        automatiquement depuis différentes sources publiques sur Internet.
-        <br /><br />
-        Toute utilisation du Site implique l&apos;acceptation pleine et entière des présentes CGU.
-      </p>
-    ),
-  },
-  {
-    id: "editeur",
-    title: "2. Éditeur du site",
-    content: (
-      <div className="space-y-4">
-        <p>Le site DevRadar est édité par :</p>
-        <ul className="list-none space-y-1 text-sm">
-          <li><span className="font-medium">Nom / Raison sociale :</span> Victor BESSON</li>
-          <li><span className="font-medium">Statut juridique :</span> Auto entrepreneur</li>
-          <li><span className="font-medium">Adresse :</span> 37 place Saint Bruno, 38000 Grenoble</li>
-          <li>
-            <span className="font-medium">Email de contact :</span>{" "}
-            <a href="mailto:contact@devradar.up.railway.app" className="text-blue-600 hover:underline">
-              contact@devradar.up.railway.app
-            </a>
-          </li>
-        </ul>
-        <p className="font-medium mt-4">Hébergement :</p>
-        <ul className="list-none space-y-1 text-sm">
-          <li><span className="font-medium">Hébergeur :</span> Railway</li>
-          <li>
-            <span className="font-medium">Site :</span>{" "}
-            <a href="https://railway.app" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-              https://railway.app
-            </a>
-          </li>
-        </ul>
-      </div>
-    ),
-  },
-  {
-    id: "acces",
-    title: "3. Accès au site",
-    content: (
-      <p>
-        Le Site est accessible gratuitement à tout utilisateur disposant d&apos;un accès à Internet.
-        Tous les frais liés à l&apos;accès au Site (matériel informatique, connexion Internet, etc.)
-        sont à la charge de l&apos;utilisateur.
-        <br /><br />
-        L&apos;éditeur se réserve le droit d&apos;interrompre, suspendre ou modifier l&apos;accès à
-        tout ou partie du Site à tout moment, notamment pour maintenance ou mise à jour.
-      </p>
-    ),
-  },
-  {
-    id: "service",
-    title: "4. Description du service",
-    content: (
-      <div>
-        <p className="mb-3">Le Site met à disposition :</p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
-          <li>une agrégation automatisée d&apos;articles et contenus liés au développement logiciel</li>
-          <li>un classement par technologies ou thématiques</li>
-          <li>des liens vers les sources originales des contenus</li>
-        </ul>
-        <p className="mt-3">
-          Les articles affichés peuvent provenir de sources tierces. Le Site ne revendique pas la
-          propriété de ces contenus et renvoie systématiquement vers leur publication originale.
-        </p>
-      </div>
-    ),
-  },
-  {
-    id: "responsabilite",
-    title: "5. Responsabilité",
-    content: (
-      <div>
-        <p className="mb-3">L&apos;éditeur s&apos;efforce de fournir des informations fiables. Toutefois :</p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300 mb-4">
-          <li>les contenus agrégés proviennent de sources externes</li>
-          <li>leur exactitude, exhaustivité ou mise à jour ne peut être garantie</li>
-        </ul>
-        <p className="mb-3">En conséquence, l&apos;éditeur ne pourra être tenu responsable :</p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
-          <li>d&apos;erreurs ou d&apos;informations inexactes provenant de sources tierces</li>
-          <li>d&apos;un dommage résultant de l&apos;utilisation des informations présentes sur le Site</li>
-          <li>d&apos;une indisponibilité temporaire du service</li>
-        </ul>
-      </div>
-    ),
-  },
-  {
-    id: "propriete-intellectuelle",
-    title: "6. Propriété intellectuelle",
-    content: (
-      <div>
-        <p className="mb-3">Les éléments suivants sont protégés par le droit de la propriété intellectuelle :</p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300 mb-4">
-          <li>le design du site</li>
-          <li>le code source</li>
-          <li>la structure et l&apos;organisation du service</li>
-        </ul>
-        <p>
-          Toute reproduction, modification ou distribution sans autorisation préalable est interdite.
-          Les articles, logos ou marques appartenant à des tiers restent la propriété de leurs auteurs respectifs.
-        </p>
-      </div>
-    ),
-  },
-  {
-    id: "utilisation",
-    title: "7. Utilisation du service",
-    content: (
-      <div>
-        <p className="mb-3">L&apos;utilisateur s&apos;engage à :</p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300 mb-4">
-          <li>ne pas utiliser le Site à des fins illégales</li>
-          <li>ne pas perturber le fonctionnement du service</li>
-          <li>ne pas tenter d&apos;accéder de manière frauduleuse aux systèmes du Site</li>
-        </ul>
-        <p>
-          L&apos;éditeur se réserve le droit de bloquer l&apos;accès à tout utilisateur ne respectant
-          pas ces règles.
-        </p>
-      </div>
-    ),
-  },
-  {
-    id: "liens-externes",
-    title: "8. Liens externes",
-    content: (
-      <div>
-        <p className="mb-3">Le Site peut contenir des liens vers des sites tiers.</p>
-        <p className="mb-3">L&apos;éditeur ne contrôle pas ces sites et ne peut être tenu responsable :</p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
-          <li>du contenu qu&apos;ils publient</li>
-          <li>de leur politique de confidentialité</li>
-          <li>de leurs pratiques commerciales</li>
-        </ul>
-      </div>
-    ),
-  },
-  {
-    id: "donnees-personnelles",
-    title: "9. Données personnelles",
-    content: (
-      <p>
-        Le Site peut collecter certaines données techniques (logs, statistiques, cookies) afin
-        d&apos;améliorer l&apos;expérience utilisateur.
-        <br /><br />
-        Ces données sont traitées conformément à la réglementation applicable en matière de protection
-        des données personnelles (notamment le RGPD).
-        <br /><br />
-        Pour plus d&apos;informations, l&apos;utilisateur peut consulter la Politique de confidentialité
-        du Site.
-      </p>
-    ),
-  },
-  {
-    id: "modification",
-    title: "10. Modification des CGU",
-    content: (
-      <p>
-        L&apos;éditeur se réserve le droit de modifier les présentes CGU à tout moment.
-        La version applicable est celle publiée sur le Site à la date de consultation.
-      </p>
-    ),
-  },
-  {
-    id: "droit-applicable",
-    title: "11. Droit applicable",
-    content: (
-      <p>
-        Les présentes CGU sont régies par le droit français.
-        En cas de litige, et à défaut de résolution amiable, les tribunaux compétents seront ceux
-        du ressort de l&apos;éditeur du Site.
-      </p>
-    ),
-  },
-];
-
 export default function CguPage() {
+  const { locale } = useTranslation();
+
+  const sections = [
+    {
+      id: "objet",
+      title: locale === "fr" ? "1. Objet" : "1. Purpose",
+      content: (
+        <p>
+          {locale === "fr" ? (
+            <>
+              Les presentes Conditions Generales d&apos;Utilisation (ci-apres &laquo; CGU &raquo;) ont pour objet de
+              definir les modalites d&apos;acces et d&apos;utilisation du site <strong>DevRadar</strong>{" "}
+              (ci-apres &laquo; le Site &raquo;).
+              <br /><br />
+              Le Site propose un service de veille technologique permettant de consulter des articles et
+              contenus relatifs au developpement logiciel et aux technologies informatiques, collectes
+              automatiquement depuis differentes sources publiques sur Internet.
+              <br /><br />
+              Toute utilisation du Site implique l&apos;acceptation pleine et entiere des presentes CGU.
+            </>
+          ) : (
+            <>
+              These Terms of Use (hereinafter &quot;Terms&quot;) define the conditions for accessing and using
+              the <strong>DevRadar</strong> website (hereinafter &quot;the Website&quot;).
+              <br /><br />
+              The Website provides a technology watch service that allows users to browse articles and
+              content related to software development and information technology, automatically collected
+              from various public sources on the Internet.
+              <br /><br />
+              Any use of the Website implies full and unconditional acceptance of these Terms.
+            </>
+          )}
+        </p>
+      ),
+    },
+    {
+      id: "editeur",
+      title: locale === "fr" ? "2. Editeur du site" : "2. Website Publisher",
+      content: (
+        <div className="space-y-4">
+          <p>{locale === "fr" ? "Le site DevRadar est edite par :" : "The DevRadar website is published by:"}</p>
+          <ul className="list-none space-y-1 text-sm">
+            <li><span className="font-medium">{locale === "fr" ? "Nom / Raison sociale :" : "Name / Company:"}</span> Victor BESSON</li>
+            <li><span className="font-medium">{locale === "fr" ? "Statut juridique :" : "Legal status:"}</span> {locale === "fr" ? "Auto entrepreneur" : "Sole proprietor"}</li>
+            <li><span className="font-medium">{locale === "fr" ? "Adresse :" : "Address:"}</span> 37 place Saint Bruno, 38000 Grenoble</li>
+            <li>
+              <span className="font-medium">{locale === "fr" ? "Email de contact :" : "Contact email:"}</span>{" "}
+              <a href="mailto:contact@devradar.up.railway.app" className="text-blue-600 hover:underline">
+                contact@devradar.up.railway.app
+              </a>
+            </li>
+          </ul>
+          <p className="font-medium mt-4">{locale === "fr" ? "Hebergement :" : "Hosting:"}</p>
+          <ul className="list-none space-y-1 text-sm">
+            <li><span className="font-medium">{locale === "fr" ? "Hebergeur :" : "Host:"}</span> Railway</li>
+            <li>
+              <span className="font-medium">Site :</span>{" "}
+              <a href="https://railway.app" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                https://railway.app
+              </a>
+            </li>
+          </ul>
+        </div>
+      ),
+    },
+    {
+      id: "acces",
+      title: locale === "fr" ? "3. Acces au site" : "3. Website Access",
+      content: (
+        <p>
+          {locale === "fr" ? (
+            <>
+              Le Site est accessible gratuitement a tout utilisateur disposant d&apos;un acces a Internet.
+              Tous les frais lies a l&apos;acces au Site (materiel informatique, connexion Internet, etc.)
+              sont a la charge de l&apos;utilisateur.
+              <br /><br />
+              L&apos;editeur se reserve le droit d&apos;interrompre, suspendre ou modifier l&apos;acces a
+              tout ou partie du Site a tout moment, notamment pour maintenance ou mise a jour.
+            </>
+          ) : (
+            <>
+              The Website is freely accessible to any user with Internet access.
+              All costs related to accessing the Website (hardware, Internet connection, etc.)
+              are borne by the user.
+              <br /><br />
+              The publisher reserves the right to interrupt, suspend, or modify access to
+              all or part of the Website at any time, particularly for maintenance or updates.
+            </>
+          )}
+        </p>
+      ),
+    },
+    {
+      id: "service",
+      title: locale === "fr" ? "4. Description du service" : "4. Service Description",
+      content: (
+        <div>
+          <p className="mb-3">{locale === "fr" ? "Le Site met a disposition :" : "The Website provides:"}</p>
+          <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
+            <li>{locale === "fr" ? "une agregation automatisee d'articles et contenus lies au developpement logiciel" : "automated aggregation of articles and content related to software development"}</li>
+            <li>{locale === "fr" ? "un classement par technologies ou thematiques" : "categorization by technologies or topics"}</li>
+            <li>{locale === "fr" ? "des liens vers les sources originales des contenus" : "links to the original content sources"}</li>
+          </ul>
+          <p className="mt-3">
+            {locale === "fr"
+              ? "Les articles affiches peuvent provenir de sources tierces. Le Site ne revendique pas la propriete de ces contenus et renvoie systematiquement vers leur publication originale."
+              : "The displayed articles may come from third-party sources. The Website does not claim ownership of this content and systematically links back to the original publication."}
+          </p>
+        </div>
+      ),
+    },
+    {
+      id: "responsabilite",
+      title: locale === "fr" ? "5. Responsabilite" : "5. Liability",
+      content: (
+        <div>
+          <p className="mb-3">
+            {locale === "fr"
+              ? "L'editeur s'efforce de fournir des informations fiables. Toutefois :"
+              : "The publisher endeavors to provide reliable information. However:"}
+          </p>
+          <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300 mb-4">
+            <li>{locale === "fr" ? "les contenus agreges proviennent de sources externes" : "the aggregated content comes from external sources"}</li>
+            <li>{locale === "fr" ? "leur exactitude, exhaustivite ou mise a jour ne peut etre garantie" : "their accuracy, completeness, or timeliness cannot be guaranteed"}</li>
+          </ul>
+          <p className="mb-3">
+            {locale === "fr"
+              ? "En consequence, l'editeur ne pourra etre tenu responsable :"
+              : "Consequently, the publisher shall not be held liable for:"}
+          </p>
+          <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
+            <li>{locale === "fr" ? "d'erreurs ou d'informations inexactes provenant de sources tierces" : "errors or inaccurate information from third-party sources"}</li>
+            <li>{locale === "fr" ? "d'un dommage resultant de l'utilisation des informations presentes sur le Site" : "damages resulting from the use of information on the Website"}</li>
+            <li>{locale === "fr" ? "d'une indisponibilite temporaire du service" : "temporary unavailability of the service"}</li>
+          </ul>
+        </div>
+      ),
+    },
+    {
+      id: "propriete-intellectuelle",
+      title: locale === "fr" ? "6. Propriete intellectuelle" : "6. Intellectual Property",
+      content: (
+        <div>
+          <p className="mb-3">
+            {locale === "fr"
+              ? "Les elements suivants sont proteges par le droit de la propriete intellectuelle :"
+              : "The following elements are protected by intellectual property law:"}
+          </p>
+          <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300 mb-4">
+            <li>{locale === "fr" ? "le design du site" : "the website design"}</li>
+            <li>{locale === "fr" ? "le code source" : "the source code"}</li>
+            <li>{locale === "fr" ? "la structure et l'organisation du service" : "the structure and organization of the service"}</li>
+          </ul>
+          <p>
+            {locale === "fr"
+              ? "Toute reproduction, modification ou distribution sans autorisation prealable est interdite. Les articles, logos ou marques appartenant a des tiers restent la propriete de leurs auteurs respectifs."
+              : "Any reproduction, modification, or distribution without prior authorization is prohibited. Articles, logos, or trademarks belonging to third parties remain the property of their respective owners."}
+          </p>
+        </div>
+      ),
+    },
+    {
+      id: "utilisation",
+      title: locale === "fr" ? "7. Utilisation du service" : "7. Use of the Service",
+      content: (
+        <div>
+          <p className="mb-3">{locale === "fr" ? "L'utilisateur s'engage a :" : "The user agrees to:"}</p>
+          <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300 mb-4">
+            <li>{locale === "fr" ? "ne pas utiliser le Site a des fins illegales" : "not use the Website for illegal purposes"}</li>
+            <li>{locale === "fr" ? "ne pas perturber le fonctionnement du service" : "not disrupt the operation of the service"}</li>
+            <li>{locale === "fr" ? "ne pas tenter d'acceder de maniere frauduleuse aux systemes du Site" : "not attempt to fraudulently access the Website's systems"}</li>
+          </ul>
+          <p>
+            {locale === "fr"
+              ? "L'editeur se reserve le droit de bloquer l'acces a tout utilisateur ne respectant pas ces regles."
+              : "The publisher reserves the right to block access to any user who does not comply with these rules."}
+          </p>
+        </div>
+      ),
+    },
+    {
+      id: "liens-externes",
+      title: locale === "fr" ? "8. Liens externes" : "8. External Links",
+      content: (
+        <div>
+          <p className="mb-3">{locale === "fr" ? "Le Site peut contenir des liens vers des sites tiers." : "The Website may contain links to third-party websites."}</p>
+          <p className="mb-3">
+            {locale === "fr"
+              ? "L'editeur ne controle pas ces sites et ne peut etre tenu responsable :"
+              : "The publisher does not control these websites and cannot be held liable for:"}
+          </p>
+          <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
+            <li>{locale === "fr" ? "du contenu qu'ils publient" : "the content they publish"}</li>
+            <li>{locale === "fr" ? "de leur politique de confidentialite" : "their privacy policies"}</li>
+            <li>{locale === "fr" ? "de leurs pratiques commerciales" : "their business practices"}</li>
+          </ul>
+        </div>
+      ),
+    },
+    {
+      id: "donnees-personnelles",
+      title: locale === "fr" ? "9. Donnees personnelles" : "9. Personal Data",
+      content: (
+        <p>
+          {locale === "fr" ? (
+            <>
+              Le Site peut collecter certaines donnees techniques (logs, statistiques, cookies) afin
+              d&apos;ameliorer l&apos;experience utilisateur.
+              <br /><br />
+              Ces donnees sont traitees conformement a la reglementation applicable en matiere de protection
+              des donnees personnelles (notamment le RGPD).
+              <br /><br />
+              Pour plus d&apos;informations, l&apos;utilisateur peut consulter la Politique de confidentialite
+              du Site.
+            </>
+          ) : (
+            <>
+              The Website may collect certain technical data (logs, statistics, cookies) in order to
+              improve the user experience.
+              <br /><br />
+              This data is processed in accordance with applicable personal data protection regulations
+              (in particular the GDPR).
+              <br /><br />
+              For more information, the user may consult the Website&apos;s Privacy Policy.
+            </>
+          )}
+        </p>
+      ),
+    },
+    {
+      id: "modification",
+      title: locale === "fr" ? "10. Modification des CGU" : "10. Changes to the Terms",
+      content: (
+        <p>
+          {locale === "fr"
+            ? "L'editeur se reserve le droit de modifier les presentes CGU a tout moment. La version applicable est celle publiee sur le Site a la date de consultation."
+            : "The publisher reserves the right to modify these Terms at any time. The applicable version is the one published on the Website at the time of access."}
+        </p>
+      ),
+    },
+    {
+      id: "droit-applicable",
+      title: locale === "fr" ? "11. Droit applicable" : "11. Applicable Law",
+      content: (
+        <p>
+          {locale === "fr"
+            ? "Les presentes CGU sont regies par le droit francais. En cas de litige, et a defaut de resolution amiable, les tribunaux competents seront ceux du ressort de l'editeur du Site."
+            : "These Terms are governed by French law. In the event of a dispute, and failing amicable resolution, the competent courts shall be those of the publisher's jurisdiction."}
+        </p>
+      ),
+    },
+  ];
+
   return (
     <article className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
       <JsonLd data={{ "@context": "https://schema.org", ...articleJsonLd }} />
 
       <Breadcrumb
         items={[
-          { label: "Légal" },
-          { label: "Conditions Générales d'Utilisation" },
+          { label: locale === "fr" ? "Legal" : "Legal" },
+          { label: locale === "fr" ? "Conditions Generales d'Utilisation" : "Terms of Use" },
         ]}
       />
 
       <header className="mb-10">
         <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100">
-          Conditions Générales d&apos;Utilisation
+          {locale === "fr" ? "Conditions Generales d'Utilisation" : "Terms of Use"}
         </h1>
         <p className="mt-3 text-lg text-gray-600 dark:text-gray-400">
-          Dernière mise à jour : {new Date().toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}
+          {locale === "fr"
+            ? `Derniere mise a jour : ${new Date().toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}`
+            : `Last updated: ${new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}`}
         </p>
       </header>
 
-      {/* Résumé */}
+      {/* Resume */}
       <section className="mb-12 bg-blue-50 border border-blue-200 rounded-lg p-6">
         <p className="text-sm font-semibold text-blue-800 uppercase tracking-wide mb-3">
-          En résumé
+          {locale === "fr" ? "En resume" : "Summary"}
         </p>
         <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-          <li>DevRadar est un service de <strong>veille technologique gratuit</strong> édité par Victor BESSON.</li>
-          <li>Les contenus agrégés proviennent de <strong>sources tierces publiques</strong>.</li>
-          <li>Les données personnelles sont traitées conformément au <strong>RGPD</strong>.</li>
-          <li>Le droit applicable est le <strong>droit français</strong>.</li>
+          <li>
+            {locale === "fr"
+              ? <>DevRadar est un service de <strong>veille technologique gratuit</strong> edite par Victor BESSON.</>
+              : <>DevRadar is a <strong>free technology watch service</strong> published by Victor BESSON.</>}
+          </li>
+          <li>
+            {locale === "fr"
+              ? <>Les contenus agreges proviennent de <strong>sources tierces publiques</strong>.</>
+              : <>Aggregated content comes from <strong>public third-party sources</strong>.</>}
+          </li>
+          <li>
+            {locale === "fr"
+              ? <>Les donnees personnelles sont traitees conformement au <strong>RGPD</strong>.</>
+              : <>Personal data is processed in accordance with the <strong>GDPR</strong>.</>}
+          </li>
+          <li>
+            {locale === "fr"
+              ? <>Le droit applicable est le <strong>droit francais</strong>.</>
+              : <>The applicable law is <strong>French law</strong>.</>}
+          </li>
         </ul>
       </section>
 
       {/* Sommaire */}
-      <nav className="mb-12 border border-gray-200 dark:border-gray-700 rounded-lg p-6" aria-label="Sommaire">
-        <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-3">Sommaire</p>
+      <nav className="mb-12 border border-gray-200 dark:border-gray-700 rounded-lg p-6" aria-label={locale === "fr" ? "Sommaire" : "Table of Contents"}>
+        <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-3">
+          {locale === "fr" ? "Sommaire" : "Table of Contents"}
+        </p>
         <ol className="space-y-1 text-sm text-blue-600">
           {sections.map((section) => (
             <li key={section.id}>
@@ -278,16 +353,20 @@ export default function CguPage() {
 
       {/* Contact */}
       <section className="bg-blue-50 rounded-lg p-8 text-center mt-12">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Une question ?</h2>
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+          {locale === "fr" ? "Une question ?" : "Have a question?"}
+        </h2>
         <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-          Pour toute question relative aux présentes CGU, vous pouvez nous contacter par email.
+          {locale === "fr"
+            ? "Pour toute question relative aux presentes CGU, vous pouvez nous contacter par email."
+            : "For any questions regarding these Terms of Use, you can contact us by email."}
         </p>
         <div className="mt-4">
           <a
             href="mailto:contact@devradar.up.railway.app"
             className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
           >
-            Nous contacter
+            {locale === "fr" ? "Nous contacter" : "Contact Us"}
           </a>
         </div>
       </section>
