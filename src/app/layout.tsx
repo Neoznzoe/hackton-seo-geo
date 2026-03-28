@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     apple: "/devradar-favicon.svg",
   },
   title: {
-    default: `${SITE_NAME} - Comparateur d'outils analytics web`,
+    default: `${SITE_NAME} — Comparateur d'outils analytics RGPD ${new Date().getFullYear()}`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: SITE_LOCALE,
     siteName: SITE_NAME,
-    title: `${SITE_NAME} - Comparateur d'outils analytics web`,
+    title: `${SITE_NAME} — Comparateur d'outils analytics RGPD`,
     description: SITE_DESCRIPTION,
   },
   robots: {

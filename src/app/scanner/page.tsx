@@ -5,16 +5,16 @@ import ScannerClient from "@/components/scanner/ScannerClient";
 import { ScannerBreadcrumb, ScannerFaq } from "@/components/scanner/ScannerPageContent";
 
 export const metadata: Metadata = {
-  title: `Scanner RGPD Analytics — Analysez la conformité de votre site | ${SITE_NAME}`,
+  title: `Scanner site en ligne gratuit — Audit RGPD & conformite | ${SITE_NAME}`,
   description:
-    "Outil gratuit pour analyser la conformité RGPD de vos outils analytics. Détectez Google Analytics, pixels de tracking, bandeau de consentement et recevez des recommandations personnalisées.",
+    "Scanner un site en ligne gratuitement : detectez trackers, pixels, cookies et pages legales. Score de conformite RGPD instantane avec recommandations. Scan site web en ligne sans inscription.",
   alternates: {
     canonical: `${BASE_URL}/scanner`,
   },
   openGraph: {
-    title: `Scanner RGPD Analytics | ${SITE_NAME}`,
+    title: `Scanner site en ligne — Audit RGPD gratuit | ${SITE_NAME}`,
     description:
-      "Analysez gratuitement la conformité RGPD de n'importe quel site web. Détection des outils analytics, pixels de tracking et recommandations.",
+      "Scannez n'importe quel site web en ligne gratuitement. Detection des outils analytics, pixels de tracking, bandeaux cookies et recommandations RGPD personnalisees.",
     url: `${BASE_URL}/scanner`,
     type: "website",
   },

@@ -22,8 +22,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!parsed) return {};
 
   const { tool1, tool2 } = parsed;
-  const title = `${tool1.name} vs ${tool2.name} - Comparatif ${CURRENT_YEAR}`;
-  const description = `Comparaison detaillee ${tool1.name} vs ${tool2.name} : fonctionnalites, tarifs, conformite RGPD, avantages et inconvenients. Quel outil analytics choisir en ${CURRENT_YEAR} ?`;
+  const title = `${tool1.name} vs ${tool2.name} ${CURRENT_YEAR} — Comparatif complet`;
+  const description = `${tool1.name} vs ${tool2.name} : comparaison detaillee des fonctionnalites, tarifs, conformite RGPD et protection des donnees. Quel outil analytics choisir en ${CURRENT_YEAR} ? Avis, avantages et inconvenients.`;
 
   return {
     title,

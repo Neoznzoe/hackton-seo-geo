@@ -10,6 +10,8 @@ import {
   trackScannerOpen,
 } from "@/lib/tracking";
 import { useTranslation } from "@/lib/i18n/LanguageProvider";
+import { getConsent } from "@/components/analytics/CookieConsent";
+import Link from "next/link";
 import ScannerHero from "./ScannerHero";
 import ScannerLoading from "./ScannerLoading";
 import PlanSelector from "./PlanSelector";
@@ -35,10 +37,16 @@ export default function ScannerClient() {
   const [result, setResult] = useState<ScanResult | null>(null);
   const [error, setError] = useState("");
   const [plan, setPlan] = useState<ScanPlan>("gratuit");
+  const [consentGiven, setConsentGiven] = useState<boolean | null>(null);
   const { t, locale } = useTranslation();
   const searchParams = useSearchParams();
   const autoScanDone = useRef(false);
   const planRef = useRef<HTMLDivElement>(null);
+
+  // Check cookie consent
+  useEffect(() => {
+    setConsentGiven(getConsent() === "accepted");
+  }, []);
 
   const isFree = result?.plan === "gratuit";
 
@@ -89,6 +97,56 @@ export default function ScannerClient() {
       setState("error");
     }
   }
+
+  function handleAcceptCookies() {
+    localStorage.setItem("devradar_consent", "accepted");
+    setConsentGiven(true);
+    window.location.reload();
+  }
+
+  // Cookie wall: require consent to use the scanner
+  if (consentGiven === false) {
+    return (
+      <div className="mx-auto max-w-2xl px-4 py-16 text-center">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 sm:p-12 shadow-sm">
+          <div className="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg className="w-7 h-7 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+            </svg>
+          </div>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">
+            Acceptez les cookies pour utiliser le scanner
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm leading-relaxed">
+            Le scanner RGPD est un outil gratuit qui necessite l&apos;acceptation des cookies
+            de mesure d&apos;audience pour fonctionner. Nous utilisons <strong>Piwik Pro</strong>,
+            heberge en Allemagne (UE) — aucune donnee personnelle n&apos;est collectee.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <button
+              onClick={handleAcceptCookies}
+              className="px-6 py-3 text-sm font-semibold text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 shadow-md hover:shadow-lg transition-all"
+            >
+              Accepter et acceder au scanner
+            </button>
+            <Link
+              href="/"
+              className="px-6 py-3 text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors"
+            >
+              Retour a l&apos;accueil
+            </Link>
+          </div>
+          <p className="mt-6 text-xs text-gray-400 dark:text-gray-500">
+            Vous pouvez modifier votre choix a tout moment depuis notre{" "}
+            <Link href="/politique-cookies" className="underline hover:text-emerald-600">politique de cookies</Link>.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render until consent check is complete
+  if (consentGiven === null) return null;
 
   return (
     <div>

@@ -31,12 +31,6 @@ export default function CookieConsent() {
   function handleRefuse() {
     localStorage.setItem(CONSENT_KEY, "refused");
     setVisible(false);
-    // Track refusal via a simple beacon (no Piwik needed since user refused)
-  }
-
-  function handleReset() {
-    localStorage.removeItem(CONSENT_KEY);
-    setVisible(true);
   }
 
   if (!visible) return null;
@@ -45,32 +39,34 @@ export default function CookieConsent() {
     <div
       role="dialog"
       aria-label="Gestion des cookies"
-      className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg p-4 sm:p-6"
+      className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-2xl p-4 sm:p-6"
     >
       <div className="mx-auto max-w-4xl flex flex-col sm:flex-row items-start sm:items-center gap-4">
         <div className="flex-1">
-          <p className="text-sm text-gray-700 dark:text-gray-300">
-            Nous utilisons Piwik Pro pour mesurer l&apos;audience de ce site.
-            Ces cookies nous permettent d&apos;ameliorer votre experience.
-            Conformement au RGPD et aux recommandations de la CNIL, vous pouvez
-            accepter ou refuser ces cookies.{" "}
-            <Link href="/politique-cookies" className="underline hover:text-emerald-700">
+          <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">
+            Mesure d&apos;audience respectueuse de votre vie privee
+          </p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Nous utilisons <strong>Piwik Pro</strong>, heberge en Union Europeenne (Allemagne).
+            Aucune donnee personnelle n&apos;est collectee, aucun transfert hors UE.
+            Vos donnees restent anonymes et nous aident simplement a ameliorer le site.{" "}
+            <Link href="/politique-cookies" className="underline hover:text-emerald-700 dark:hover:text-emerald-400">
               En savoir plus
             </Link>
           </p>
         </div>
-        <div className="flex gap-2 shrink-0">
+        <div className="flex gap-3 shrink-0">
           <button
             onClick={handleRefuse}
-            className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            className="px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
           >
             Refuser
           </button>
           <button
             onClick={handleAccept}
-            className="px-4 py-2 text-sm font-medium text-white bg-emerald-700 rounded-lg hover:bg-emerald-800 transition-colors"
+            className="px-6 py-2.5 text-sm font-semibold text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 shadow-md hover:shadow-lg transition-all"
           >
-            Accepter
+            Accepter les cookies
           </button>
         </div>
       </div>
